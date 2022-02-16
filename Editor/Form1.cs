@@ -17,8 +17,8 @@ namespace SText.Editor
         {
             InitializeComponent();
 
-#if DEBUG
-            debugToolStripMenuItem.Visible = true;
+#if !DEBUG
+            debugToolStripMenuItem.Visible = false;
 #endif
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -423,33 +423,6 @@ namespace SText.Editor
             ab.ShowDialog();
         }
 
-        private void themeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var type = (ToolStripMenuItem)sender;
-            switch (int.Parse(type.Tag.ToString()))
-            {
-                case 3:
-                    ThemeEditorDialog theme = new ThemeEditorDialog();
-                    theme.cback[0] = MainMenu.BackColor;
-                    theme.cback[1] = ContentViewer.BackColor;
-                    theme.ctext[0] = MainMenu.ForeColor;
-                    theme.ctext[1] = ContentViewer.ForeColor;
-                    theme.ctext[2] = StatusBar.ForeColor;
-                    theme.cback[2] = StatusBar.BackColor; 
-                    theme.ShowDialog();
-                    ContentViewer.BackColor = theme.pictureBox4.BackColor; 
-                    ContentViewer.ForeColor = theme.pictureBox3.BackColor;
-                    MainMenu.BackColor = theme.pictureBox2.BackColor; 
-                    MainMenu.ForeColor = theme.pictureBox1.BackColor;
-                    StatusBar.BackColor = theme.pictureBox6.BackColor; 
-                    StatusBar.ForeColor = theme.pictureBox5.BackColor; 
-                    if (theme.status == true) 
-                        StatusBar_Theme.Text = "Theme: Custom";
-                   
-                    break;
-            }
-        }
-
         private void MenuTheme_Events_Click(object sender, EventArgs e)
         {
             string name = ((ToolStripMenuItem)sender).Name;
@@ -687,5 +660,11 @@ namespace SText.Editor
         }
 
         #endregion
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            if (ContentViewer.SelectedText.Length > 0)
+                ContentViewer.DeselectAll();
+        }
     }
 }

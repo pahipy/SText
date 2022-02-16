@@ -33,7 +33,7 @@ namespace SText.Editor
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
                 string username = Environment.UserName;
-                dirpath = $"/Users/{username}/.SText";
+                dirpath = $@"C:\Users\{username}\.SText";
                 if (!Directory.Exists(dirpath))
                     Directory.CreateDirectory(dirpath);
 

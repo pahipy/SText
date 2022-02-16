@@ -63,6 +63,16 @@ namespace Editor {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap forkme_light_background {
+            get {
+                object obj = ResourceManager.GetObject("forkme_light_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap help_circle_dark {
             get {
                 object obj = ResourceManager.GetObject("help_circle_dark", resourceCulture);

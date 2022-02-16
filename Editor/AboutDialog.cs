@@ -39,7 +39,8 @@ namespace SText.Dialogs
                     {
                         this.BackColor = Color.FromArgb(52, 52, 52);
                         Content.ForeColor = Color.FromArgb(235, 235, 235);
-                        label2.ForeColor = Color.FromArgb(235, 235, 235);
+                        AdditionalContent.ForeColor = Color.FromArgb(235, 235, 235);
+                        Author.ForeColor = Color.FromArgb(235, 235, 235);
                         panel1.BackColor = Color.FromArgb(38, 35, 54);
 
                         foreach (var c in panel1.Controls)
@@ -60,6 +61,26 @@ namespace SText.Dialogs
                         return;
                     }
             }
+        }
+
+        private void AboutDialog_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+        }
+
+        private void ForkMe_Click(object sender, EventArgs e)
+        { 
+            
+            try
+            {
+                var uri = ProgramSets.GitHubLink;
+                var psi = new System.Diagnostics.ProcessStartInfo();
+                psi.UseShellExecute = true;
+                psi.FileName = uri;
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch { }
         }
     }
 }

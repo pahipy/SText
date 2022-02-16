@@ -11,5 +11,6 @@ namespace SText
         public const string SettingsPath = "stext.config.json";
         public const string UntitledFileName = "Untitled";
         public const string ProgramName = "SText";
+        public const string GitHubLink = "https://github.com/pahipy/SText";
     }
 }

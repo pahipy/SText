@@ -61,7 +61,6 @@
             this.DefaultTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BlueTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CustomTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowCMD_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -320,7 +319,7 @@
             this.ShowStatusBar_MenuItem.CheckOnClick = true;
             this.ShowStatusBar_MenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(126, 22);
+            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.ShowStatusBar_MenuItem.Text = "Status Bar";
             this.ShowStatusBar_MenuItem.Click += new System.EventHandler(this.ShowStatusBar_MenuItem_Click);
             // 
@@ -329,16 +328,15 @@
             this.темаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DefaultTheme_MenuItem,
             this.DarkTheme_MenuItem,
-            this.BlueTheme_MenuItem,
-            this.CustomTheme_MenuItem});
+            this.BlueTheme_MenuItem});
             this.темаToolStripMenuItem.Name = "темаToolStripMenuItem";
-            this.темаToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.темаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.темаToolStripMenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
             this.DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(125, 22);
+            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.DefaultTheme_MenuItem.Tag = "0";
             this.DefaultTheme_MenuItem.Text = "Default";
             this.DefaultTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -346,7 +344,7 @@
             // DarkTheme_MenuItem
             // 
             this.DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(125, 22);
+            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.DarkTheme_MenuItem.Tag = "1";
             this.DarkTheme_MenuItem.Text = "Dark";
             this.DarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -354,19 +352,10 @@
             // BlueTheme_MenuItem
             // 
             this.BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(125, 22);
+            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.BlueTheme_MenuItem.Tag = "2";
             this.BlueTheme_MenuItem.Text = "Blue";
             this.BlueTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
-            // 
-            // CustomTheme_MenuItem
-            // 
-            this.CustomTheme_MenuItem.Name = "CustomTheme_MenuItem";
-            this.CustomTheme_MenuItem.Size = new System.Drawing.Size(125, 22);
-            this.CustomTheme_MenuItem.Tag = "3";
-            this.CustomTheme_MenuItem.Text = "Custom...";
-            this.CustomTheme_MenuItem.Visible = false;
-            this.CustomTheme_MenuItem.Click += new System.EventHandler(this.themeToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -375,7 +364,6 @@
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
             this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
             this.debugToolStripMenuItem.Text = "Debug";
-            this.debugToolStripMenuItem.Visible = false;
             // 
             // ShowCMD_MenuItem
             // 
@@ -492,6 +480,7 @@
             this.Text = "SText";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.StatusBar.ResumeLayout(false);
@@ -535,7 +524,6 @@
         private System.Windows.Forms.ToolStripMenuItem DefaultTheme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem DarkTheme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem BlueTheme_MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem CustomTheme_MenuItem;
         private System.Windows.Forms.StatusStrip StatusBar;
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_Theme;
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_File;

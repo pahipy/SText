@@ -28,78 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.Content = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Author = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.AdditionalContent = new System.Windows.Forms.Label();
+            this.ForkMe = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(163)))), ((int)(((byte)(230)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(211, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 31);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Content
             // 
-            this.Content.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Content.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Content.Location = new System.Drawing.Point(14, 11);
             this.Content.Name = "Content";
             this.Content.Size = new System.Drawing.Size(279, 57);
             this.Content.TabIndex = 1;
             this.Content.Text = "Here is a content";
             // 
-            // label2
+            // Author
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(12, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "by pahipy";
+            this.Author.AutoSize = true;
+            this.Author.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Author.ForeColor = System.Drawing.Color.Black;
+            this.Author.Location = new System.Drawing.Point(12, 100);
+            this.Author.Name = "Author";
+            this.Author.Size = new System.Drawing.Size(94, 25);
+            this.Author.TabIndex = 2;
+            this.Author.Text = "by pahipy";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.AdditionalContent);
+            this.panel1.Controls.Add(this.Author);
+            this.panel1.Controls.Add(this.ForkMe);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.panel1.Location = new System.Drawing.Point(0, 79);
+            this.panel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.panel1.Location = new System.Drawing.Point(0, 76);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(297, 51);
+            this.panel1.Size = new System.Drawing.Size(398, 132);
             this.panel1.TabIndex = 3;
+            // 
+            // AdditionalContent
+            // 
+            this.AdditionalContent.Location = new System.Drawing.Point(14, 14);
+            this.AdditionalContent.Name = "AdditionalContent";
+            this.AdditionalContent.Size = new System.Drawing.Size(242, 86);
+            this.AdditionalContent.TabIndex = 5;
+            this.AdditionalContent.Text = "This app was created to be created. If you do not know how to close this window, " +
+    "press escape.";
+            // 
+            // ForkMe
+            // 
+            this.ForkMe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ForkMe.BackColor = System.Drawing.Color.Transparent;
+            this.ForkMe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ForkMe.Image = global::Editor.Resource.forkme_light_background;
+            this.ForkMe.Location = new System.Drawing.Point(263, 1);
+            this.ForkMe.Name = "ForkMe";
+            this.ForkMe.Size = new System.Drawing.Size(136, 132);
+            this.ForkMe.TabIndex = 4;
+            this.ForkMe.Click += new System.EventHandler(this.ForkMe_Click);
             // 
             // AboutDialog
             // 
-            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(297, 130);
+            this.ClientSize = new System.Drawing.Size(398, 208);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Content);
-            this.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutDialog";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AboutDialog";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AboutDialog_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -107,10 +117,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label Content;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Author;
         private System.Windows.Forms.Panel panel1;
+        private Label ForkMe;
+        private Label AdditionalContent;
     }
 }
