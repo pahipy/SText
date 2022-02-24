@@ -17,7 +17,8 @@ namespace SText.Dialogs
             InitializeComponent();
             this.Text = $"About {ProgramSets.ProgramName}";
             Content.Text = $"{ProgramSets.ProgramName} is a simple text editor.";
-            ApplyTheme();
+            VersionLabel.Text = ProductVersion;
+            ApplyTheme(); 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,6 +50,7 @@ namespace SText.Dialogs
                     {
                         this.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
                         Content.ForeColor = Color.FromArgb(235, 235, 235);
+                        VersionLabel.ForeColor = Color.FromArgb(235, 235, 235);
                         AdditionalContent.ForeColor = Color.FromArgb(235, 235, 235);
                         Author.ForeColor = Color.FromArgb(235, 235, 235);
                         panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;

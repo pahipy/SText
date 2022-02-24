@@ -31,6 +31,7 @@
             this.Content = new System.Windows.Forms.Label();
             this.Author = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.VersionLabel = new System.Windows.Forms.Label();
             this.AdditionalContent = new System.Windows.Forms.Label();
             this.ForkMe = new System.Windows.Forms.Label();
             this.Picture = new System.Windows.Forms.PictureBox();
@@ -52,7 +53,7 @@
             this.Author.AutoSize = true;
             this.Author.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Author.ForeColor = System.Drawing.Color.Black;
-            this.Author.Location = new System.Drawing.Point(12, 100);
+            this.Author.Location = new System.Drawing.Point(14, 100);
             this.Author.Name = "Author";
             this.Author.Size = new System.Drawing.Size(94, 25);
             this.Author.TabIndex = 2;
@@ -61,6 +62,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
+            this.panel1.Controls.Add(this.VersionLabel);
             this.panel1.Controls.Add(this.AdditionalContent);
             this.panel1.Controls.Add(this.Author);
             this.panel1.Controls.Add(this.ForkMe);
@@ -70,6 +72,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(398, 132);
             this.panel1.TabIndex = 3;
+            // 
+            // VersionLabel
+            // 
+            this.VersionLabel.AutoSize = true;
+            this.VersionLabel.Location = new System.Drawing.Point(344, 108);
+            this.VersionLabel.Name = "VersionLabel";
+            this.VersionLabel.Size = new System.Drawing.Size(51, 17);
+            this.VersionLabel.TabIndex = 6;
+            this.VersionLabel.Text = "Version";
             // 
             // AdditionalContent
             // 
@@ -95,9 +106,9 @@
             // Picture
             // 
             this.Picture.Image = global::Editor.Resource.STextIcon_Big;
-            this.Picture.Location = new System.Drawing.Point(12, 11);
+            this.Picture.Location = new System.Drawing.Point(12, 6);
             this.Picture.Name = "Picture";
-            this.Picture.Size = new System.Drawing.Size(76, 57);
+            this.Picture.Size = new System.Drawing.Size(64, 64);
             this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Picture.TabIndex = 4;
             this.Picture.TabStop = false;
@@ -137,5 +148,6 @@
         private Label ForkMe;
         private Label AdditionalContent;
         private PictureBox Picture;
+        private Label VersionLabel;
     }
 }

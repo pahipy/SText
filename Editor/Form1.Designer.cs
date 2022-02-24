@@ -319,7 +319,7 @@
             this.ShowStatusBar_MenuItem.CheckOnClick = true;
             this.ShowStatusBar_MenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(126, 22);
             this.ShowStatusBar_MenuItem.Text = "Status Bar";
             this.ShowStatusBar_MenuItem.Click += new System.EventHandler(this.ShowStatusBar_MenuItem_Click);
             // 
@@ -330,13 +330,13 @@
             this.DarkTheme_MenuItem,
             this.BlueTheme_MenuItem});
             this.Theme_MenuItem.Name = "Theme_MenuItem";
-            this.Theme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.Theme_MenuItem.Size = new System.Drawing.Size(126, 22);
             this.Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
             this.DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(112, 22);
             this.DefaultTheme_MenuItem.Tag = "0";
             this.DefaultTheme_MenuItem.Text = "Default";
             this.DefaultTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -344,7 +344,7 @@
             // DarkTheme_MenuItem
             // 
             this.DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(112, 22);
             this.DarkTheme_MenuItem.Tag = "1";
             this.DarkTheme_MenuItem.Text = "Dark";
             this.DarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -352,7 +352,7 @@
             // BlueTheme_MenuItem
             // 
             this.BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(112, 22);
             this.BlueTheme_MenuItem.Tag = "2";
             this.BlueTheme_MenuItem.Text = "Blue";
             this.BlueTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -478,6 +478,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MinimumSize = new System.Drawing.Size(200, 100);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "SText";
