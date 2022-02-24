@@ -15,28 +15,12 @@ namespace SText.Editor
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
         {
-
-            //e.ToolStrip.ForeColor = ThemeSelector.CurrentTheme == Theme.Default ? Color.Black : Color.White;
             e.TextColor = ThemeSelector.CurrentTheme == Theme.Default ? Color.Black : Color.White;
             if (e.Item.Selected || e.ToolStrip.Focused)
                 e.TextColor = Color.White;
 
             base.OnRenderItemText(e);
         }
-
-        /* protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
-         {
-             //e.Graphics.Clear(Color.FromArgb(52, 52, 52));
-             //e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(52, 52, 52)), e.Item.ContentRectangle);
-
-             base.OnRenderMenuItemBackground(e);
-         }
-
-         protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
-         {
-             e.Graphics.Clear(Color.FromArgb(52, 52, 52));
-             base.OnRenderToolStripBackground(e);
-         }*/
     }
 
     public class ColorsForMenu : ProfessionalColorTable
@@ -67,17 +51,7 @@ namespace SText.Editor
 
         public override Color ToolStripDropDownBackground
         {
-            get
-            {
-                Color req = Color.White;
-                switch (ThemeSelector.CurrentTheme)
-                {
-                    case Theme.Default: req = Color.FromArgb(240, 240, 240); break;
-                    case Theme.Dark: req = Color.FromArgb(52, 52, 52); break;
-                    case Theme.Blue: req = Color.FromArgb(35, 139, 255); break;
-                }
-                return req;
-            }
+            get => ThemeSelector.CurrentColorSchema.ControlColor;
         }
 
         public override Color MenuItemPressedGradientBegin
@@ -92,47 +66,17 @@ namespace SText.Editor
 
         public override Color ImageMarginGradientBegin
         {
-            get
-            {
-                Color req = Color.White;
-                switch (ThemeSelector.CurrentTheme)
-                {
-                    case Theme.Default: req = Color.FromArgb(240, 240, 240); break;
-                    case Theme.Dark: req = Color.FromArgb(52, 52, 52); break;
-                    case Theme.Blue: req = Color.FromArgb(35, 139, 255); break;
-                }
-                return req;
-            }
+            get => ThemeSelector.CurrentColorSchema.ControlColor;
         }
 
         public override Color ImageMarginGradientMiddle
         {
-            get
-            {
-                Color req = Color.White;
-                switch (ThemeSelector.CurrentTheme)
-                {
-                    case Theme.Default: req = Color.FromArgb(240, 240, 240); break;
-                    case Theme.Dark: req = Color.FromArgb(52, 52, 52); break;
-                    case Theme.Blue: req = Color.FromArgb(35, 139, 255); break;
-                }
-                return req;
-            }
+            get => ThemeSelector.CurrentColorSchema.ControlColor;
         }
 
         public override Color ImageMarginGradientEnd
         {
-            get
-            {
-                Color req = Color.White;
-                switch (ThemeSelector.CurrentTheme)
-                {
-                    case Theme.Default: req = Color.FromArgb(240, 240, 240); break;
-                    case Theme.Dark: req = Color.FromArgb(52, 52, 52); break;
-                    case Theme.Blue: req = Color.FromArgb(35, 139, 255); break;
-                }
-                return req;
-            }
+            get => ThemeSelector.CurrentColorSchema.ControlColor;
         }
 
     }

@@ -18,7 +18,7 @@ namespace SText.Dialogs
             InitializeComponent();
             this.Text = ProgramSets.ProgramName;
 
-            label1.Text += " " + (File.Exists(fname) ? new FileInfo(fname).Name : fname) + "?";
+            Message.Text += " " + (File.Exists(fname) ? new FileInfo(fname).Name : fname) + "?";
             inputFileName = fname;
             ApplyTheme();
         }
@@ -75,35 +75,39 @@ namespace SText.Dialogs
 
         private void ApplyTheme()
         {
+            this.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
+            panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;
+
+            foreach (Button b in panel1.Controls)
+            {
+                b.BackColor = ThemeSelector.CurrentColorSchema.ButtonColor;
+                b.ForeColor = ThemeSelector.CurrentColorSchema.ButtonFontColor;
+            }
+
             switch (ThemeSelector.CurrentTheme)
             {
                 case Theme.Default:
                     {
-
+                        this.BackColor = Color.White;
+                        Message.ForeColor = Color.FromArgb(0, 59, 209);
                         return;
                     }
 
                 case Theme.Dark:
                     {
-                        this.BackColor = Color.FromArgb(52, 52, 52);
-                        label1.ForeColor = Color.FromArgb(235, 235, 235);
-                        panel1.BackColor = Color.FromArgb(38, 35, 54);
+                        Message.ForeColor = Color.FromArgb(235, 235, 235);
                         ContentIcon.Image = global::Editor.Resource.help_circle_white;
-
-                        foreach (Button b in panel1.Controls)
-                        {
-                            b.BackColor = Color.FromArgb(44, 67, 156);
-                            b.ForeColor = Color.White;
-                        }
                         return;
                     }
 
                 case Theme.Blue:
                     {
-
+                        this.BackColor = Color.White;
+                        Message.ForeColor = Color.FromArgb(0, 59, 209);
                         return;
                     }
             }
+
         }
 
     }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.Message = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.DontSaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
@@ -37,17 +37,17 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // Message
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(59)))), ((int)(((byte)(209)))));
-            this.label1.Location = new System.Drawing.Point(93, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(409, 70);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Do you want to save changes to";
+            this.Message.BackColor = System.Drawing.Color.Transparent;
+            this.Message.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(59)))), ((int)(((byte)(209)))));
+            this.Message.Location = new System.Drawing.Point(93, 9);
+            this.Message.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Message.Name = "Message";
+            this.Message.Size = new System.Drawing.Size(409, 70);
+            this.Message.TabIndex = 0;
+            this.Message.Text = "Do you want to save changes to";
             // 
             // SaveButton
             // 
@@ -135,7 +135,7 @@
             this.ClientSize = new System.Drawing.Size(515, 157);
             this.Controls.Add(this.ContentIcon);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Message);
             this.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -155,7 +155,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Message;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button DontSaveButton;
         private System.Windows.Forms.Button CancelButton;

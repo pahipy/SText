@@ -57,7 +57,7 @@
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowStatusBar_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.темаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Theme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DefaultTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BlueTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +73,7 @@
             this.StatusBar_File = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar_Encoding = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PrintDoc = new System.Drawing.Printing.PrintDocument();
             this.MainMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -141,7 +142,6 @@
             // 
             // Print_MenuItem
             // 
-            this.Print_MenuItem.Enabled = false;
             this.Print_MenuItem.Name = "Print_MenuItem";
             this.Print_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.Print_MenuItem.Size = new System.Drawing.Size(155, 22);
@@ -308,7 +308,7 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowStatusBar_MenuItem,
-            this.темаToolStripMenuItem});
+            this.Theme_MenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.viewToolStripMenuItem.Text = "View";
@@ -323,15 +323,15 @@
             this.ShowStatusBar_MenuItem.Text = "Status Bar";
             this.ShowStatusBar_MenuItem.Click += new System.EventHandler(this.ShowStatusBar_MenuItem_Click);
             // 
-            // темаToolStripMenuItem
+            // Theme_MenuItem
             // 
-            this.темаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Theme_MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DefaultTheme_MenuItem,
             this.DarkTheme_MenuItem,
             this.BlueTheme_MenuItem});
-            this.темаToolStripMenuItem.Name = "темаToolStripMenuItem";
-            this.темаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.темаToolStripMenuItem.Text = "Theme";
+            this.Theme_MenuItem.Name = "Theme_MenuItem";
+            this.Theme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
@@ -403,7 +403,6 @@
             this.ContentViewer.TabIndex = 2;
             this.ContentViewer.WordWrap = false;
             this.ContentViewer.TextChanged += new System.EventHandler(this.ContentViewer_TextChanged);
-            this.ContentViewer.VisibleChanged += new System.EventHandler(this.textBox1_VisibleChanged);
             // 
             // openFileDialog1
             // 
@@ -464,6 +463,10 @@
             this.panel1.Size = new System.Drawing.Size(1115, 516);
             this.panel1.TabIndex = 4;
             // 
+            // PrintDoc
+            // 
+            this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -518,7 +521,7 @@
         private System.Windows.Forms.TextBox ContentViewer;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.ToolStripMenuItem темаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Theme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem About_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem DefaultTheme_MenuItem;
@@ -538,6 +541,7 @@
         private System.Windows.Forms.ToolStripMenuItem ANSICyrillic_MenuItem;
         private ToolStripMenuItem debugToolStripMenuItem;
         private ToolStripMenuItem ShowCMD_MenuItem;
+        private System.Drawing.Printing.PrintDocument PrintDoc;
     }
 }
 

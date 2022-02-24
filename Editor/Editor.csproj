@@ -8,17 +8,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Copyright>© 2022 pahipy</Copyright>
     <Company>pahipy</Company>
-    <Version>1.0.2</Version>
+    <Version>1.1.0</Version>
     <ProductName>SText</ProductName>
     <AssemblyName>SText</AssemblyName>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <PublishSingleFile>true</PublishSingleFile>
     <Platforms>x64</Platforms>
-    <ApplicationIcon>IconsImages\text-editor_4245.ico</ApplicationIcon>
+    <ApplicationIcon>Media\STextIcon_Big.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="IconsImages\text-editor_4245.ico" />
+    <Content Include="Media\STextIcon_Big.ico" />
   </ItemGroup>
 
   <ItemGroup>

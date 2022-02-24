@@ -27,6 +27,16 @@ namespace SText.Dialogs
 
         private void ApplyTheme()
         {
+            foreach (var c in panel1.Controls)
+            {
+                if (c is Button)
+                {
+                    Button b = (Button)c;
+                    b.BackColor = ThemeSelector.CurrentColorSchema.ButtonColor;
+                    b.ForeColor = ThemeSelector.CurrentColorSchema.ButtonFontColor;
+                }
+            }
+
             switch (ThemeSelector.CurrentTheme)
             {
                 case Theme.Default:
@@ -37,21 +47,13 @@ namespace SText.Dialogs
 
                 case Theme.Dark:
                     {
-                        this.BackColor = Color.FromArgb(52, 52, 52);
+                        this.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
                         Content.ForeColor = Color.FromArgb(235, 235, 235);
                         AdditionalContent.ForeColor = Color.FromArgb(235, 235, 235);
                         Author.ForeColor = Color.FromArgb(235, 235, 235);
-                        panel1.BackColor = Color.FromArgb(38, 35, 54);
+                        panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;
 
-                        foreach (var c in panel1.Controls)
-                        {
-                            if (c is Button)
-                            {
-                                Button b = (Button)c;
-                                b.BackColor = Color.FromArgb(44, 67, 156);
-                                b.ForeColor = Color.White;
-                            }
-                        }
+                        
                         return;
                     }
 

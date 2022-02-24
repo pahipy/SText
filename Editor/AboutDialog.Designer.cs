@@ -33,15 +33,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.AdditionalContent = new System.Windows.Forms.Label();
             this.ForkMe = new System.Windows.Forms.Label();
+            this.Picture = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
             this.SuspendLayout();
             // 
             // Content
             // 
             this.Content.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Content.Location = new System.Drawing.Point(14, 11);
+            this.Content.Location = new System.Drawing.Point(94, 11);
             this.Content.Name = "Content";
-            this.Content.Size = new System.Drawing.Size(279, 57);
+            this.Content.Size = new System.Drawing.Size(292, 57);
             this.Content.TabIndex = 1;
             this.Content.Text = "Here is a content";
             // 
@@ -90,12 +92,23 @@
             this.ForkMe.TabIndex = 4;
             this.ForkMe.Click += new System.EventHandler(this.ForkMe_Click);
             // 
+            // Picture
+            // 
+            this.Picture.Image = global::Editor.Resource.STextIcon_Big;
+            this.Picture.Location = new System.Drawing.Point(12, 11);
+            this.Picture.Name = "Picture";
+            this.Picture.Size = new System.Drawing.Size(76, 57);
+            this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture.TabIndex = 4;
+            this.Picture.TabStop = false;
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(398, 208);
+            this.Controls.Add(this.Picture);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Content);
             this.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -112,6 +125,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AboutDialog_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -122,5 +136,6 @@
         private System.Windows.Forms.Panel panel1;
         private Label ForkMe;
         private Label AdditionalContent;
+        private PictureBox Picture;
     }
 }

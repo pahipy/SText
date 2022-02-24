@@ -91,12 +91,12 @@ namespace Editor {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Icon text_editor_4245 {
+        public static System.Drawing.Bitmap STextIcon_Big {
             get {
-                object obj = ResourceManager.GetObject("text_editor_4245", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("STextIcon_Big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

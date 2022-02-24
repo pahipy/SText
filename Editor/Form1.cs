@@ -19,6 +19,7 @@ namespace SText.Editor
 
 #if !DEBUG
             debugToolStripMenuItem.Visible = false;
+            isDebug = false;
 #endif
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -52,11 +53,11 @@ namespace SText.Editor
             
             LoadSettingsToStruct();
 
-            SettingsManager = new GlobalSettingsManager(ProgramSets.SettingsPath, Settings);
+            SettingsManager = new GlobalSettingsManager(ProgramSets.ConfigFileName, Settings);
 
             ApplySettings();
 
-            ContentViewer.MouseWheel += (sender, e) =>
+            ContentViewer.MouseWheel += (s, e) =>
             {
                 float newsize = e.Delta / 100 + ContentViewer.Font.Size;
                 if ( newsize > 5 && newsize < 75 && FontSizeChangeByMouseWheelAct)
@@ -85,6 +86,7 @@ namespace SText.Editor
         private SettingsTemplate Settings;
         private GlobalSettingsManager SettingsManager;
         private bool FontSizeChangeByMouseWheelAct = false;
+        private bool isDebug = true;
         
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -173,15 +175,22 @@ namespace SText.Editor
 
         private void LoadSettingsToStruct()
         {
-            Settings = new SettingsTemplate();
             Settings.CurrentTheme = ThemeSelector.CurrentTheme;
             Settings.ShowStatusBar = ShowStatusBar;
             Settings.WordWrap = WordWrap;
             Settings.FontSize = ContentViewer.Font.Size;
             Settings.FontFamily = ContentViewer.Font.FontFamily.Name;
-            Settings.WindowState = (int)this.WindowState;
-            Settings.WindowPosition = new Point(Left, Top);
-            Settings.WindowSize = this.Size;
+            Settings.FontStyle = (int)ContentViewer.Font.Style;
+            
+            if (WindowState != FormWindowState.Minimized)
+                Settings.WindowState = (int)this.WindowState;
+
+            if (WindowState != FormWindowState.Maximized && WindowState != FormWindowState.Minimized)
+            {
+                Settings.WindowPosition = new Point(Left, Top);
+                Settings.WindowSize = this.Size;
+            }
+                
         }
 
         private void ApplySettings()
@@ -190,13 +199,10 @@ namespace SText.Editor
             ThemeSelector.CurrentTheme = Settings.CurrentTheme;
             ShowStatusBar = Settings.ShowStatusBar;
             WordWrap = Settings.WordWrap;
-            ContentViewer.Font = new Font(Settings.FontFamily, Settings.FontSize);
+            ContentViewer.Font = new Font(Settings.FontFamily, Settings.FontSize, (FontStyle)Settings.FontStyle);
             this.WindowState = (FormWindowState)Settings.WindowState;
-            if (WindowState != FormWindowState.Maximized)
-            {
-                this.Location = new Point(Settings.WindowPosition.X, Settings.WindowPosition.Y);
-                this.Size = Settings.WindowSize;
-            }
+            this.Location = new Point(Settings.WindowPosition.X, Settings.WindowPosition.Y);
+            this.Size = Settings.WindowSize;
             ApplyTheme();
         }
 
@@ -269,13 +275,15 @@ namespace SText.Editor
 
                 case "Print_MenuItem":
                     {
-                        /* PrintDialog pd = new PrintDialog();
-                        if(pd.ShowDialog()==DialogResult.OK)
+                        PrintDialog pd = new PrintDialog();
+                        if (pd.ShowDialog() == DialogResult.OK)
                         {
-                            PrintControllerWithStatusDialog pr;
-                            System.Drawing.Printing.PrintDocument printDocument = new System.Drawing.Printing.PrintDocument();
-                            //pr.OnStartPrint(textBox1.Text,pd);
-                        */
+                            PrintDoc.PrinterSettings = pd.PrinterSettings;
+
+                            PrintDoc.DocumentName = File.Exists(FileName) ? new FileInfo(FileName).Name : ProgramSets.UntitledFileName;
+
+                            PrintDoc.Print();
+                        }
                         return;
                     }
 
@@ -348,7 +356,8 @@ namespace SText.Editor
                 case "DateAndTime_MenuItem":
                     {
                         DateTime dt = DateTime.Now;
-                        ContentViewer.Text += dt.ToShortTimeString() + " " + dt.ToShortDateString();
+                        Content = Content.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
+                            + dt.ToShortDateString());
                         return;
                     }
             }
@@ -462,44 +471,29 @@ namespace SText.Editor
             {
                 case Theme.Default:
                     {
-                        ContentViewer.BackColor = Color.FromArgb(255, 255, 255);
-                        ContentViewer.ForeColor = Color.FromArgb(0, 0, 0);
-                        MainMenu.BackColor = Color.FromArgb(240, 240, 240);
-                        MainMenu.ForeColor = Color.FromArgb(0, 0, 0);
-                        StatusBar.BackColor = Color.FromArgb(240, 240, 240);
-                        StatusBar.ForeColor = Color.FromArgb(0, 0, 0);
                         StatusBar_Theme.Text = "Theme: Default";
-                        return;
+                        break;
                     }
 
                 case Theme.Dark:
                     {
-                        ContentViewer.BackColor = Color.FromArgb(66, 66, 66);
-                        ContentViewer.ForeColor = Color.FromArgb(213, 213, 213);
-                        MainMenu.BackColor = Color.FromArgb(52, 52, 52);
-                        MainMenu.ForeColor = Color.White;
-                        StatusBar.BackColor = Color.FromArgb(25, 60, 149);
-                        StatusBar.ForeColor = Color.FromArgb(255, 255, 255);
                         StatusBar_Theme.Text = "Theme: Dark";
-                        return;
+                        break;
                     }
 
                 case Theme.Blue:
                     {
-                        ContentViewer.BackColor = Color.FromArgb(231, 236, 255);
-                        ContentViewer.ForeColor = Color.FromArgb(25, 69, 180);
-                        MainMenu.BackColor = Color.FromArgb(35, 139, 255);
-                        MainMenu.ForeColor = Color.White;
-                        StatusBar.BackColor = Color.FromArgb(179, 208, 255);
-                        StatusBar.ForeColor = Color.FromArgb(0, 0, 0);
                         StatusBar_Theme.Text = "Theme: Blue";
-                        return;
+                        break;
                     }
             }
-        }
 
-        private void textBox1_VisibleChanged(object sender, EventArgs e)
-        {
+            ContentViewer.BackColor = ThemeSelector.CurrentColorSchema.TextFieldColor;
+            ContentViewer.ForeColor = ThemeSelector.CurrentColorSchema.TextFieldFontColor;
+            MainMenu.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
+            MainMenu.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
+            StatusBar.BackColor = ThemeSelector.CurrentColorSchema.StatusBarColor;
+            StatusBar.ForeColor = ThemeSelector.CurrentColorSchema.StatusBarFontColor;
 
         }
 
@@ -543,36 +537,50 @@ namespace SText.Editor
 
         private void OpenFileAndReadContent(string path)
         {
-            if (path != null && File.Exists(path))
+            try
             {
-                //FileEncoding = EncodingHelper.GetFileEncoding(path);
-                tr = new StreamReader(path, FileEncoding);
-                //string buff = tr.ReadToEnd();
-                Content = tr.ReadToEnd();
-                contentHash = Content.GetHashCode();
-                tr.Close();
-                FileName = path;
+                if (path != null && File.Exists(path))
+                {
+                    tr = new StreamReader(path, FileEncoding);
+                    Content = tr.ReadToEnd();
+                    contentHash = Content.GetHashCode();
+                    tr.Close();
+                    FileName = path;
+                }
             }
+            catch (Exception ex)
+            {
+                DialogManager.ShowWarningDialogWithText(ex.Message);
+            }
+
         }
 
         private void SaveFileAndUpdateHash(string path)
         {
-            if (path != null)
+
+            try
             {
-                //tw = File.Exists(path) ? new StreamWriter(path) : new StreamWriter(File.Create(path));
-                if (File.Exists(path))
+                if (path != null)
                 {
-                    tw = new StreamWriter(new FileStream(path, FileMode.Open, FileAccess.ReadWrite), FileEncoding);
+                    if (File.Exists(path))
+                    {
+                        tw = new StreamWriter(path, false, FileEncoding);
+                    }
+                    else
+                    {
+                        tw = new StreamWriter(File.Create(path), FileEncoding);
+                    }
+                    tw.Write(Content);
+                    tw.Close();
+                    contentHash = Content.GetHashCode();
+                    FileName = path;
                 }
-                else
-                {
-                    tw = new StreamWriter(File.Create(path), FileEncoding);
-                }
-                tw.Write(Content);
-                tw.Close();
-                contentHash = Content.GetHashCode();
-                FileName = path;
             }
+            catch (Exception ex)
+            {
+                DialogManager.ShowWarningDialogWithText(ex.Message);
+            }
+            
 
         }
 
@@ -590,49 +598,66 @@ namespace SText.Editor
         private void EncodingMenu_Events_Click(object sender, EventArgs e)
         {
             var item = (ToolStripMenuItem)sender;
+            Encoding enc = FileEncoding;
 
             switch (item.Name)
             {
                 case "UTF8_MenuItem":
                     {
-                        FileEncoding = Encoding.UTF8;
+                        enc = Encoding.UTF8;
                         break;
                     }
 
                 case "UTF16_MenuItem":
                     {
-                        FileEncoding = Encoding.Unicode;
+                        enc = Encoding.Unicode;
                         break;
                     }
 
                 case "ASCII_MenuItem":
                     {
-                        FileEncoding = Encoding.ASCII;
+                        enc = Encoding.ASCII;
                         break;
                     }
 
                 case "UTF32_MenuItem":
                     {
-                        FileEncoding = Encoding.UTF32;
+                        enc = Encoding.UTF32;
                         break;
                     }
 
                 case "ANSIEuro_MenuItem":
                     {
-                        FileEncoding = Encoding.GetEncoding("Windows-1252");
+                        enc = Encoding.GetEncoding("Windows-1252");
                         break;
                     }
 
                 case "ANSICyrillic_MenuItem":
                     {
-                        FileEncoding = Encoding.GetEncoding("Windows-1251");
+                        enc = Encoding.GetEncoding("Windows-1251");
                         break;
                     }
             }
 
-            if (FileName != null && File.Exists(FileName))
-                OpenFileAndReadContent(FileName);
 
+            if (FileName != null && File.Exists(FileName))
+            {
+                if (contentHash != Content.GetHashCode())
+                {
+                    SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog1);
+
+                    switch (saveDialog.ShowDialog())
+                    {
+                        case DialogResult.OK: SaveFile(); break;
+                        case DialogResult.Cancel: return;
+                    }
+
+                }
+                FileEncoding = enc;
+                OpenFileAndReadContent(FileName);
+                
+            }
+            FileEncoding = enc;
         }
 
         private void ContentViewer_TextChanged(object sender, EventArgs e)
@@ -665,6 +690,23 @@ namespace SText.Editor
         {
             if (ContentViewer.SelectedText.Length > 0)
                 ContentViewer.DeselectAll();
+        }
+
+        private void PrintDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            int charactersOnPage = 0;
+            int linesPerPage = 0;
+            string strToPrint = Content;
+
+            e.Graphics.MeasureString(strToPrint, ContentViewer.Font, e.MarginBounds.Size, StringFormat.GenericTypographic,
+                out charactersOnPage, out linesPerPage);
+
+            e.Graphics.DrawString(strToPrint, ContentViewer.Font, new SolidBrush(Color.Black), e.MarginBounds,
+                StringFormat.GenericTypographic);
+
+            strToPrint = strToPrint.Substring(charactersOnPage);
+
+            e.HasMorePages = (strToPrint.Length > 0);
         }
     }
 }
