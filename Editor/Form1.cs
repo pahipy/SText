@@ -95,7 +95,7 @@ namespace SText.Editor
             set
             {
                 fileEncoding = value;
-                StatusBar_Encoding.Text = $"Encoding: {fileEncoding.EncodingName}";
+                EncodingMenuButton.Text = $"Encoding: {fileEncoding.EncodingName}";
             }
         }
 
