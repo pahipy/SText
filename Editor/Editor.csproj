@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Copyright>© 2022 pahipy</Copyright>
     <Company>pahipy</Company>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <ProductName>SText</ProductName>
     <AssemblyName>SText</AssemblyName>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>

@@ -350,13 +350,12 @@
             // openFileDialog1
             // 
             this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Text Documents|*.txt|All Files|*.*";
+            this.openFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.stxt|All Files|*.*";
             this.openFileDialog1.RestoreDirectory = true;
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "Text Documents|*.txt|All Files|*.*";
+            this.saveFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.stxt|All Files|*.*";
             this.saveFileDialog1.RestoreDirectory = true;
             // 
             // StatusBar
@@ -398,8 +397,9 @@
             this.ANSIEuro_MenuItem,
             this.ANSICyrillic_MenuItem});
             this.EncodingMenuButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EncodingMenuButton.Margin = new System.Windows.Forms.Padding(0);
             this.EncodingMenuButton.Name = "EncodingMenuButton";
-            this.EncodingMenuButton.Size = new System.Drawing.Size(70, 27);
+            this.EncodingMenuButton.Size = new System.Drawing.Size(70, 29);
             this.EncodingMenuButton.Text = "Encoding";
             this.EncodingMenuButton.ToolTipText = "Encoding";
             // 

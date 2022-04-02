@@ -87,7 +87,8 @@ namespace SText.Editor
         private GlobalSettingsManager SettingsManager;
         private bool FontSizeChangeByMouseWheelAct = false;
         private bool isDebug = true;
-        
+        private STXTFormat stxtFile;
+
         private Encoding fileEncoding;
         private Encoding FileEncoding
         {
@@ -95,7 +96,7 @@ namespace SText.Editor
             set
             {
                 fileEncoding = value;
-                EncodingMenuButton.Text = $"Encoding: {fileEncoding.EncodingName}";
+                EncodingMenuButton.Text = fileEncoding.EncodingName;
             }
         }
 
@@ -400,6 +401,10 @@ namespace SText.Editor
                 openFileDialog1.FileName = null;
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
+                    if (STXTFormat.IsStxtFile(openFileDialog1.FileName))
+                    {
+
+                    }
                     OpenFileAndReadContent(openFileDialog1.FileName);
                 }
             } 
