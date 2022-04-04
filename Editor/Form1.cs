@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using SText.Dialogs;
 using SText.Conf;
+using SText.Formats;
 
 namespace SText.Editor
 {

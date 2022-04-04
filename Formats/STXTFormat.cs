@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace SText.Editor
+namespace SText.Formats
 {
-    public class STXTFormat
+    public class STXTFormat : IFormat
     {
         #region FileStruct
 
@@ -19,15 +19,7 @@ namespace SText.Editor
 
         #endregion
 
-        private string path;
-        private string key;
-        private int code = 0; //0 - success, 1 hash sum is not equivalent, 2 - bad header, 3 file not exists
-        public int Code
-        {
-            get => code;
-        }
-
-        private FileStream fileStream;
+        
 
         public STXTFormat(string path, string key)
         {
@@ -39,6 +31,23 @@ namespace SText.Editor
 
             this.key = key;
         }
+
+        private string key;
+
+        private int code = 0; //0 - success, 1 hash sum is not equivalent, 2 - bad header, 3 file not exists
+        public int Code
+        {
+            get => code;
+        }
+
+        private string path;
+        public string Path
+        {
+            get => path;
+        }
+
+        private FileStream fileStream;
+
 
         public void WriteFile(string text)
         {

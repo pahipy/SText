@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Conf\Conf.csproj" />
     <ProjectReference Include="..\Dialogs\Dialogs.csproj" />
+    <ProjectReference Include="..\Formats\Formats.csproj" />
   </ItemGroup>
 
 </Project>
