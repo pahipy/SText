@@ -68,7 +68,8 @@ namespace SText.Formats
                 bw.Write(data);
             }
 
-            fileStream.Position = 0;
+            ReopenStream();
+
             code = 0;
         }
 
@@ -106,6 +107,7 @@ namespace SText.Formats
             }
                 
             code = 0;
+            ReopenStream();
             return text;
         }
 
@@ -119,7 +121,7 @@ namespace SText.Formats
         {
             if (File.Exists(path))
             {
-                fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+                ReopenStream();
                 return 0;
             }
 
@@ -139,6 +141,11 @@ namespace SText.Formats
 
             return head == HEAD;
 
+        }
+
+        private void ReopenStream()
+        {
+            fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
 
     }

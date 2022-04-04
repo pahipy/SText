@@ -60,7 +60,9 @@ namespace SText.Formats
             {
                 content = tr.ReadToEnd();
             }
-            
+
+            ReopenStream();
+
             return content;
         }
 
@@ -68,10 +70,19 @@ namespace SText.Formats
         {
             fs.Position = 0;
 
-            using (TextWriter tw = new StreamWriter(fs, fileEncoding))
+            fs.SetLength(0);
+
+            using (BinaryWriter bw = new BinaryWriter(fs))
             {
-                tw.WriteLine(content);
+                bw.Write(fileEncoding.GetBytes(content));
             }
+
+            ReopenStream();
+        }
+
+        private void ReopenStream()
+        {
+            fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
 
     }
