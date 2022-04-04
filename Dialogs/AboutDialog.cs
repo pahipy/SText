@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SText.Editor;
+using SText.Conf;
 
 namespace SText.Dialogs
 {

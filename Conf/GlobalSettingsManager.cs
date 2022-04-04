@@ -11,7 +11,7 @@ using Newtonsoft;
 
 namespace SText.Conf
 {
-    class GlobalSettingsManager
+    public class GlobalSettingsManager
     {
 
         public GlobalSettingsManager(string settingspath, SettingsTemplate settings)

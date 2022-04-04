@@ -119,7 +119,7 @@
             // 
             this.ContentIcon.BackColor = System.Drawing.Color.Transparent;
             this.ContentIcon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ContentIcon.Image = global::Editor.Resource.help_circle_dark;
+            this.ContentIcon.Image = global::Dialogs.Resource.help_circle_dark;
             this.ContentIcon.Location = new System.Drawing.Point(29, 9);
             this.ContentIcon.Margin = new System.Windows.Forms.Padding(0);
             this.ContentIcon.Name = "ContentIcon";

@@ -7,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor", "Editor\Editor.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AAA73753-C606-441A-8C68-A81EA1A6DC81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dialogs", "Dialogs\Dialogs.csproj", "{7ACB07FF-EB6A-4EA7-9C36-8759815D8480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dialogs", "Dialogs\Dialogs.csproj", "{7ACB07FF-EB6A-4EA7-9C36-8759815D8480}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conf", "Conf\Conf.csproj", "{32AAAF11-0711-422D-BF41-6F1FDD5D997D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Media", "Media", "{2FAA1BAF-6B69-4C2A-8D4B-74116860B763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conf", "Conf\Conf.csproj", "{32AAAF11-0711-422D-BF41-6F1FDD5D997D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

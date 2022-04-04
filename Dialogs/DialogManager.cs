@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SText.Editor;
+using SText.Conf;
 
 namespace SText.Dialogs
 {
-    class DialogManager
+    public class DialogManager
     {
         public static void ItCantDoItShow()
         {

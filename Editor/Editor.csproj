@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Copyright>© 2022 pahipy</Copyright>
     <Company>pahipy</Company>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <ProductName>SText</ProductName>
     <AssemblyName>SText</AssemblyName>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
@@ -22,18 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Conf\Conf.csproj" />
+    <ProjectReference Include="..\Dialogs\Dialogs.csproj" />
   </ItemGroup>
 
 </Project>

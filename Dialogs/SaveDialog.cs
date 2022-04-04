@@ -96,7 +96,7 @@ namespace SText.Dialogs
                 case Theme.Dark:
                     {
                         Message.ForeColor = Color.FromArgb(235, 235, 235);
-                        //ContentIcon.Image = global::Editor.Resource.help_circle_white;
+                        ContentIcon.Image = global::Dialogs.Resource.help_circle_white;
                         return;
                     }
 

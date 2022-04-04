@@ -105,7 +105,7 @@
             // 
             // Picture
             // 
-            this.Picture.Image = global::Editor.Resource.STextIcon_Big;
+            this.Picture.Image = global::Dialogs.Resource.STextIcon_Big;
             this.Picture.Location = new System.Drawing.Point(12, 6);
             this.Picture.Name = "Picture";
             this.Picture.Size = new System.Drawing.Size(64, 64);
