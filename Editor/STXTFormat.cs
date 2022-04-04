@@ -34,6 +34,8 @@ namespace SText.Editor
             this.path = path;
             if (File.Exists(path))
                 fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            else
+                fileStream = File.Create(path);
 
             this.key = key;
         }
@@ -61,13 +63,15 @@ namespace SText.Editor
             code = 0;
         }
 
-        public string ReadFile(string key)
+        public string ReadFile()
         {
             if (!File.Exists(path))
             {
                 code = 3;
                 return null;
             }
+
+            fileStream.Position = 0;
 
             using (BinaryReader br = new BinaryReader(fileStream))
             {

@@ -9,15 +9,19 @@ namespace SText.Editor
 {
     static class Crypt
     {
-        
+
+        private static readonly byte[] Salt = new byte[] { 0x8b, 0x3c, 0x52, 0xa6, 0x32, 0xc2, 0xbe, 0xf3 };
+        private static readonly int Iterations = 300;
+        private static readonly int KeyBytes = 32;
+
         public static byte[] EncryptStringToBytes(string enc, string key)
         {
             Aes aes = Aes.Create();
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
-            aes.Key = keyBytes;
-            aes.IV = GetIV(keyBytes);
+            Rfc2898DeriveBytes keyGen = new Rfc2898DeriveBytes(key, Salt, Iterations);
+            aes.Key = keyGen.GetBytes(KeyBytes);
+            aes.IV = GetIV(aes.Key);
             byte[] encrypted;
-
+            
             ICryptoTransform encryptor = aes.CreateEncryptor();
 
             using (MemoryStream ms = new MemoryStream())
@@ -38,12 +42,12 @@ namespace SText.Editor
         public static string DecryptStringFromBytes(byte[] dec, string key)
         {
             string text = null;
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
 
             using (Aes aes = Aes.Create())
             {
-                aes.Key = keyBytes;
-                aes.IV = GetIV(keyBytes);
+                Rfc2898DeriveBytes keyGen = new Rfc2898DeriveBytes(key, Salt, Iterations);
+                aes.Key = keyGen.GetBytes(KeyBytes);
+                aes.IV = GetIV(aes.Key);
 
                 ICryptoTransform decryptor = aes.CreateDecryptor();
 
@@ -64,8 +68,8 @@ namespace SText.Editor
 
         private static byte[] GetIV(byte[] key)
         {
-            byte[] iv = new byte[key.Length];
-            for (int i = 0; i < key.Length; i++)
+            byte[] iv = new byte[key.Length / 2];
+            for (int i = 0; i < key.Length / 2; i++)
                 iv[i] = (byte)key[i].GetHashCode();
             return iv;
         }

@@ -1,37 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Copyright>© 2022 pahipy</Copyright>
-    <Company>pahipy</Company>
-    <Version>1.1.2</Version>
-    <ProductName>SText</ProductName>
-    <AssemblyName>SText</AssemblyName>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-    <PublishSingleFile>true</PublishSingleFile>
-    <Platforms>x64</Platforms>
-    <ApplicationIcon>Media\STextIcon_Big.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <ProjectReference Include="..\Conf\Conf.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PasswordDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="SaveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Resource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

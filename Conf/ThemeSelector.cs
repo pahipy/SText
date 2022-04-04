@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace SText.Editor
+namespace SText.Conf
 {
-    static class ThemeSelector
+    public static class ThemeSelector
     {
         public static Theme CurrentTheme = Theme.Default;
         private static ColorSchema[] colors = new ColorSchema[]

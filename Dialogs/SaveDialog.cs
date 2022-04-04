@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using SText.Editor;
+using SText.Conf;
 
 namespace SText.Dialogs
 {
@@ -96,7 +96,7 @@ namespace SText.Dialogs
                 case Theme.Dark:
                     {
                         Message.ForeColor = Color.FromArgb(235, 235, 235);
-                        ContentIcon.Image = global::Editor.Resource.help_circle_white;
+                        //ContentIcon.Image = global::Editor.Resource.help_circle_white;
                         return;
                     }
 

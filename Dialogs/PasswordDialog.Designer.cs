@@ -1,4 +1,4 @@
-﻿namespace Editor
+﻿namespace SText.Editor
 {
     partial class PasswordDialog
     {
@@ -100,6 +100,7 @@
             this.OK.TabIndex = 2;
             this.OK.Text = "OK";
             this.OK.UseVisualStyleBackColor = true;
+            this.OK.Click += new System.EventHandler(this.Buttons_Click);
             // 
             // Cancel
             // 
@@ -109,6 +110,7 @@
             this.Cancel.TabIndex = 3;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Buttons_Click);
             // 
             // PasswordDialog
             // 

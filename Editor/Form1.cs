@@ -88,6 +88,7 @@ namespace SText.Editor
         private bool FontSizeChangeByMouseWheelAct = false;
         private bool isDebug = true;
         private STXTFormat stxtFile;
+        private PasswordDialog passwordDialog = new PasswordDialog();
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -401,10 +402,6 @@ namespace SText.Editor
                 openFileDialog1.FileName = null;
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    if (STXTFormat.IsStxtFile(openFileDialog1.FileName))
-                    {
-
-                    }
                     OpenFileAndReadContent(openFileDialog1.FileName);
                 }
             } 
@@ -546,11 +543,38 @@ namespace SText.Editor
             {
                 if (path != null && File.Exists(path))
                 {
-                    tr = new StreamReader(path, FileEncoding);
-                    Content = tr.ReadToEnd();
-                    contentHash = Content.GetHashCode();
-                    tr.Close();
-                    FileName = path;
+                    if (STXTFormat.IsStxtFile(path))
+                    {
+                        if (passwordDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            stxtFile = new STXTFormat(path, passwordDialog.Password);
+                            string cont = stxtFile.ReadFile();
+
+                            if (stxtFile.Code == 0)
+                            {
+                                Content = cont;
+                            }
+
+                            if (stxtFile.Code == 1)
+                                DialogManager.ShowWarningDialogWithText("Password is incorrect!");
+
+                            FileName = path;
+                        }
+                    }
+                    else
+                    {
+                        if (stxtFile is not null)
+                        {
+                            stxtFile.CloseFile();
+                            stxtFile = null;
+                        }
+                        tr = new StreamReader(path, FileEncoding);
+                        Content = tr.ReadToEnd();
+                        contentHash = Content.GetHashCode();
+                        tr.Close();
+                        FileName = path;
+                    }
+   
                 }
             }
             catch (Exception ex)
@@ -561,30 +585,53 @@ namespace SText.Editor
         }
 
         private void SaveFileAndUpdateHash(string path)
-        {
-
-            try
-            {
+        {   
+            //try
+            //{
+                bool isStxt = false;
                 if (path != null)
                 {
                     if (File.Exists(path))
                     {
-                        tw = new StreamWriter(path, false, FileEncoding);
+                        if (stxtFile is not null)
+                        {
+                            stxtFile.WriteFile(Content);
+                            isStxt = true;
+                        }
+                        else
+                            tw = new StreamWriter(path, false, FileEncoding);
                     }
                     else
                     {
-                        tw = new StreamWriter(File.Create(path), FileEncoding);
+                        if (new FileInfo(path).Extension.ToLower() == ".stxt".ToLower())
+                        {
+                            if (passwordDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                stxtFile = new STXTFormat(path, passwordDialog.Password);
+                                stxtFile.WriteFile(Content);
+                                isStxt = true;
+                            }
+                            else
+                                return;
+                        }
+                        else
+                            tw = new StreamWriter(File.Create(path), FileEncoding);
                     }
-                    tw.Write(Content);
-                    tw.Close();
+
+                    if (!isStxt)
+                    {
+                        tw.Write(Content);
+                        tw.Close();
+                    }
+                    
                     contentHash = Content.GetHashCode();
                     FileName = path;
                 }
-            }
+            /*}
             catch (Exception ex)
             {
                 DialogManager.ShowWarningDialogWithText(ex.Message);
-            }
+            }*/
             
 
         }

@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
-using System.Windows.Forms;
 using System.Drawing;
 using Newtonsoft.Json.Linq;
 using Newtonsoft;
 
-namespace SText.Editor
+namespace SText.Conf
 {
     class GlobalSettingsManager
     {
@@ -47,7 +46,7 @@ namespace SText.Editor
             }
             catch (Exception ex)
             {
-                Dialogs.DialogManager.ShowWarningDialogWithText(ex.Message);
+                //Dialogs.DialogManager.ShowWarningDialogWithText(ex.Message);
             }
 
         }
@@ -75,7 +74,7 @@ namespace SText.Editor
                 }
                 catch (Exception ex)
                 {
-                    Dialogs.DialogManager.ShowWarningDialogWithText(ex.Message);
+                    //Dialogs.DialogManager.ShowWarningDialogWithText(ex.Message);
                 }
                 
 

@@ -96,7 +96,7 @@
             this.ForkMe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ForkMe.BackColor = System.Drawing.Color.Transparent;
             this.ForkMe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ForkMe.Image = global::Editor.Resource.forkme_light_background;
+            this.ForkMe.Image = global::Dialogs.Resource.forkme_light_background;
             this.ForkMe.Location = new System.Drawing.Point(263, 1);
             this.ForkMe.Name = "ForkMe";
             this.ForkMe.Size = new System.Drawing.Size(136, 132);
