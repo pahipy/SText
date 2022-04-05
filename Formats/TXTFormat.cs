@@ -80,6 +80,14 @@ namespace SText.Formats
             ReopenStream();
         }
 
+        public void CloseFile()
+        {
+            if (fs is not null)
+                fs.Close();
+
+            fs = null;
+        }
+
         private void ReopenStream()
         {
             fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);

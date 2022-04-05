@@ -723,6 +723,7 @@ namespace SText.Editor
                     }
 
                 }
+                txtFile.CloseFile();
                 FileEncoding = enc;
                 OpenFileAndReadContent(FileName);
                 

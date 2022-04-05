@@ -7,6 +7,7 @@
 
         public string ReadFile();
         public void WriteFile(string content);
+        public void CloseFile();
 
     }
 }
