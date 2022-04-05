@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором форм Windows
+        #region The code was created by WinForms constructor
 
         /// <summary>
         /// Требуемый метод для поддержки конструктора — не изменяйте 
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,7 +36,9 @@
             this.Open_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Save_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAs_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Print_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Undo_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,16 +68,18 @@
             this.StatusBar_Theme = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar_File = new System.Windows.Forms.ToolStripStatusLabel();
             this.EncodingMenuButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DropDownEncodingMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.PrintDoc = new System.Drawing.Printing.PrintDocument();
             this.UTF8_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UTF16_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UTF32_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ASCII_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ANSIEuro_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ANSICyrillic_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.PrintDoc = new System.Drawing.Printing.PrintDocument();
             this.MainMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
+            this.DropDownEncodingMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,7 +107,9 @@
             this.Open_MenuItem,
             this.Save_MenuItem,
             this.SaveAs_MenuItem,
+            this.toolStripSeparator1,
             this.Print_MenuItem,
+            this.toolStripSeparator2,
             this.Exit_MenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 24);
@@ -112,7 +119,7 @@
             // 
             this.New_MenuItem.Name = "New_MenuItem";
             this.New_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.New_MenuItem.Size = new System.Drawing.Size(155, 22);
+            this.New_MenuItem.Size = new System.Drawing.Size(195, 22);
             this.New_MenuItem.Text = "New";
             this.New_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
             // 
@@ -120,7 +127,7 @@
             // 
             this.Open_MenuItem.Name = "Open_MenuItem";
             this.Open_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Open_MenuItem.Size = new System.Drawing.Size(155, 22);
+            this.Open_MenuItem.Size = new System.Drawing.Size(195, 22);
             this.Open_MenuItem.Text = "Open...";
             this.Open_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
             // 
@@ -128,29 +135,41 @@
             // 
             this.Save_MenuItem.Name = "Save_MenuItem";
             this.Save_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Save_MenuItem.Size = new System.Drawing.Size(155, 22);
+            this.Save_MenuItem.Size = new System.Drawing.Size(195, 22);
             this.Save_MenuItem.Text = "Save";
             this.Save_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
             // 
             // SaveAs_MenuItem
             // 
             this.SaveAs_MenuItem.Name = "SaveAs_MenuItem";
-            this.SaveAs_MenuItem.Size = new System.Drawing.Size(155, 22);
+            this.SaveAs_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.SaveAs_MenuItem.Size = new System.Drawing.Size(195, 22);
             this.SaveAs_MenuItem.Text = "Save As...";
             this.SaveAs_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
             // 
             // Print_MenuItem
             // 
             this.Print_MenuItem.Name = "Print_MenuItem";
             this.Print_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.Print_MenuItem.Size = new System.Drawing.Size(155, 22);
+            this.Print_MenuItem.Size = new System.Drawing.Size(195, 22);
             this.Print_MenuItem.Text = "Print";
             this.Print_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(192, 6);
             // 
             // Exit_MenuItem
             // 
             this.Exit_MenuItem.Name = "Exit_MenuItem";
-            this.Exit_MenuItem.Size = new System.Drawing.Size(155, 22);
+            this.Exit_MenuItem.Size = new System.Drawing.Size(195, 22);
             this.Exit_MenuItem.Text = "Exit";
             this.Exit_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
             // 
@@ -389,19 +408,40 @@
             // EncodingMenuButton
             // 
             this.EncodingMenuButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.EncodingMenuButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.UTF8_MenuItem,
-            this.UTF16_MenuItem,
-            this.UTF32_MenuItem,
-            this.ASCII_MenuItem,
-            this.ANSIEuro_MenuItem,
-            this.ANSICyrillic_MenuItem});
+            this.EncodingMenuButton.DropDown = this.DropDownEncodingMenu;
             this.EncodingMenuButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.EncodingMenuButton.Margin = new System.Windows.Forms.Padding(0);
             this.EncodingMenuButton.Name = "EncodingMenuButton";
             this.EncodingMenuButton.Size = new System.Drawing.Size(70, 29);
             this.EncodingMenuButton.Text = "Encoding";
             this.EncodingMenuButton.ToolTipText = "Encoding";
+            // 
+            // DropDownEncodingMenu
+            // 
+            this.DropDownEncodingMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UTF8_MenuItem,
+            this.UTF16_MenuItem,
+            this.UTF32_MenuItem,
+            this.ASCII_MenuItem,
+            this.ANSIEuro_MenuItem,
+            this.ANSICyrillic_MenuItem});
+            this.DropDownEncodingMenu.Name = "DropDownEncodingMenu";
+            this.DropDownEncodingMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.DropDownEncodingMenu.Size = new System.Drawing.Size(181, 158);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.ContentViewer);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1115, 516);
+            this.panel1.TabIndex = 4;
+            // 
+            // PrintDoc
+            // 
+            this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
             // 
             // UTF8_MenuItem
             // 
@@ -445,20 +485,6 @@
             this.ANSICyrillic_MenuItem.Text = "ANSI (Cyrillic)";
             this.ANSICyrillic_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.ContentViewer);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1115, 516);
-            this.panel1.TabIndex = 4;
-            // 
-            // PrintDoc
-            // 
-            this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -481,6 +507,7 @@
             this.MainMenu.PerformLayout();
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
+            this.DropDownEncodingMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -528,6 +555,9 @@
         private ToolStripMenuItem ShowCMD_MenuItem;
         private System.Drawing.Printing.PrintDocument PrintDoc;
         private ToolStripDropDownButton EncodingMenuButton;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripSeparator toolStripSeparator2;
+        private ContextMenuStrip DropDownEncodingMenu;
         private ToolStripMenuItem UTF8_MenuItem;
         private ToolStripMenuItem UTF16_MenuItem;
         private ToolStripMenuItem UTF32_MenuItem;

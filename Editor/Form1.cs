@@ -29,6 +29,8 @@ namespace SText.Editor
             About_MenuItem.Text = $"About {ProgramSets.ProgramName}";
 
             MainMenu.Renderer = new CustomRender();
+            DropDownEncodingMenu.Renderer = new CustomRender();
+
             
             FileEncoding = Encoding.UTF8;
             ShowStatusBar = true;
