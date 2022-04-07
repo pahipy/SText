@@ -13,13 +13,15 @@ namespace SText.Formats
 
         private const string HEAD = "STXT";
 
-        private int hash;
-        private int size;
+        private byte[] hash;
+        private int dataSize;
         private byte[] data;
 
         #endregion
 
-        
+
+
+        private const int HASH_SIZE = 32; //sha256
 
         public STXTFormat(string path, string key)
         {
@@ -57,14 +59,14 @@ namespace SText.Formats
             fileStream.Position = 0;
 
             data = Crypt.EncryptStringToBytes(text, key);
-            hash = text.GetHashCode();
-            size = data.Length;
+            hash = Crypt.GetSHA256Hash(text);
+            dataSize = data.Length;
 
             using (BinaryWriter bw = new BinaryWriter(fileStream))
             {
                 bw.Write(HEAD);
                 bw.Write(hash);
-                bw.Write(size);
+                bw.Write(dataSize);
                 bw.Write(data);
             }
 
@@ -93,14 +95,13 @@ namespace SText.Formats
                     return null;
                 }
                     
-                hash = br.ReadInt32();
-                size = br.ReadInt32();
-                data = br.ReadBytes(size);
+                hash = br.ReadBytes(HASH_SIZE);
+                dataSize = br.ReadInt32();
+                data = br.ReadBytes(dataSize);
             }
 
             string text = Crypt.DecryptStringFromBytes(data, key);
-
-            if (text.GetHashCode() != hash)
+            if (!hash.SequenceEqual(Crypt.GetSHA256Hash(text)))
             {
                 code = 1;
                 return null;
@@ -133,13 +134,21 @@ namespace SText.Formats
             if (!File.Exists(path))
                 return false;
 
-            BinaryReader br = new BinaryReader(File.OpenRead(path));
+            try
+            {
+                string head = "";
 
-            string head = br.ReadString();
+                using (BinaryReader br = new BinaryReader(File.OpenRead(path)))
+                {
+                    head = br.ReadString();
+                }
 
-            br.Close();
-
-            return head == HEAD;
+                return head == HEAD;
+            }
+            catch
+            {
+                return false;
+            }
 
         }
 

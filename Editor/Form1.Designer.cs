@@ -64,19 +64,19 @@
             this.ContentViewer = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.StatusBar = new System.Windows.Forms.StatusStrip();
+            this.StatusBar = new System.Windows.Forms.ToolStrip();
             this.StatusBar_Theme = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar_File = new System.Windows.Forms.ToolStripStatusLabel();
             this.EncodingMenuButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.DropDownEncodingMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.PrintDoc = new System.Drawing.Printing.PrintDocument();
             this.UTF8_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UTF16_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UTF32_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ASCII_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ANSIEuro_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ANSICyrillic_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.PrintDoc = new System.Drawing.Printing.PrintDocument();
             this.MainMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.DropDownEncodingMenu.SuspendLayout();
@@ -351,6 +351,7 @@
             // 
             // ContentViewer
             // 
+            this.ContentViewer.AcceptsTab = true;
             this.ContentViewer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ContentViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ContentViewer.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -380,14 +381,19 @@
             // StatusBar
             // 
             this.StatusBar.AutoSize = false;
+            this.StatusBar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.StatusBar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.StatusBar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.StatusBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusBar_Theme,
             this.StatusBar_File,
             this.EncodingMenuButton});
+            this.StatusBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.StatusBar.Location = new System.Drawing.Point(0, 540);
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.StatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.StatusBar.Size = new System.Drawing.Size(1115, 29);
             this.StatusBar.TabIndex = 3;
             // 
@@ -407,6 +413,7 @@
             // 
             // EncodingMenuButton
             // 
+            this.EncodingMenuButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.EncodingMenuButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.EncodingMenuButton.DropDown = this.DropDownEncodingMenu;
             this.EncodingMenuButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -426,8 +433,51 @@
             this.ANSIEuro_MenuItem,
             this.ANSICyrillic_MenuItem});
             this.DropDownEncodingMenu.Name = "DropDownEncodingMenu";
+            this.DropDownEncodingMenu.OwnerItem = this.EncodingMenuButton;
             this.DropDownEncodingMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.DropDownEncodingMenu.Size = new System.Drawing.Size(181, 158);
+            this.DropDownEncodingMenu.Size = new System.Drawing.Size(162, 136);
+            // 
+            // UTF8_MenuItem
+            // 
+            this.UTF8_MenuItem.Name = "UTF8_MenuItem";
+            this.UTF8_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.UTF8_MenuItem.Text = "UTF-8";
+            this.UTF8_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            // 
+            // UTF16_MenuItem
+            // 
+            this.UTF16_MenuItem.Name = "UTF16_MenuItem";
+            this.UTF16_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.UTF16_MenuItem.Text = "UTF-16";
+            this.UTF16_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            // 
+            // UTF32_MenuItem
+            // 
+            this.UTF32_MenuItem.Name = "UTF32_MenuItem";
+            this.UTF32_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.UTF32_MenuItem.Text = "UTF-32";
+            this.UTF32_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            // 
+            // ASCII_MenuItem
+            // 
+            this.ASCII_MenuItem.Name = "ASCII_MenuItem";
+            this.ASCII_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.ASCII_MenuItem.Text = "ASCII";
+            this.ASCII_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            // 
+            // ANSIEuro_MenuItem
+            // 
+            this.ANSIEuro_MenuItem.Name = "ANSIEuro_MenuItem";
+            this.ANSIEuro_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.ANSIEuro_MenuItem.Text = "ANSI (European)";
+            this.ANSIEuro_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            // 
+            // ANSICyrillic_MenuItem
+            // 
+            this.ANSICyrillic_MenuItem.Name = "ANSICyrillic_MenuItem";
+            this.ANSICyrillic_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.ANSICyrillic_MenuItem.Text = "ANSI (Cyrillic)";
+            this.ANSICyrillic_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
             // 
             // panel1
             // 
@@ -442,48 +492,6 @@
             // PrintDoc
             // 
             this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
-            // 
-            // UTF8_MenuItem
-            // 
-            this.UTF8_MenuItem.Name = "UTF8_MenuItem";
-            this.UTF8_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.UTF8_MenuItem.Text = "UTF-8";
-            this.UTF8_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
-            // 
-            // UTF16_MenuItem
-            // 
-            this.UTF16_MenuItem.Name = "UTF16_MenuItem";
-            this.UTF16_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.UTF16_MenuItem.Text = "UTF-16";
-            this.UTF16_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
-            // 
-            // UTF32_MenuItem
-            // 
-            this.UTF32_MenuItem.Name = "UTF32_MenuItem";
-            this.UTF32_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.UTF32_MenuItem.Text = "UTF-32";
-            this.UTF32_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
-            // 
-            // ASCII_MenuItem
-            // 
-            this.ASCII_MenuItem.Name = "ASCII_MenuItem";
-            this.ASCII_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ASCII_MenuItem.Text = "ASCII";
-            this.ASCII_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
-            // 
-            // ANSIEuro_MenuItem
-            // 
-            this.ANSIEuro_MenuItem.Name = "ANSIEuro_MenuItem";
-            this.ANSIEuro_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ANSIEuro_MenuItem.Text = "ANSI (European)";
-            this.ANSIEuro_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
-            // 
-            // ANSICyrillic_MenuItem
-            // 
-            this.ANSICyrillic_MenuItem.Name = "ANSICyrillic_MenuItem";
-            this.ANSICyrillic_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ANSICyrillic_MenuItem.Text = "ANSI (Cyrillic)";
-            this.ANSICyrillic_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
             // 
             // Form1
             // 
@@ -547,7 +555,7 @@
         private System.Windows.Forms.ToolStripMenuItem DefaultTheme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem DarkTheme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem BlueTheme_MenuItem;
-        private System.Windows.Forms.StatusStrip StatusBar;
+        private System.Windows.Forms.ToolStrip StatusBar;
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_Theme;
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_File;
         private System.Windows.Forms.Panel panel1;

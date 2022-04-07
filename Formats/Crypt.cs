@@ -28,10 +28,9 @@ namespace SText.Formats
             {
                 using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                 {
-                    using (StreamWriter sw = new StreamWriter(cs))
+                    using (BinaryWriter bw = new BinaryWriter(cs))
                     {
-                        sw.Write(enc);
-                        sw.Close();
+                        bw.Write(Encoding.UTF8.GetBytes(enc));
                     }
                 }
                 encrypted = ms.ToArray();
@@ -41,7 +40,7 @@ namespace SText.Formats
 
         public static string DecryptStringFromBytes(byte[] dec, string key)
         {
-            string text = null;
+            string text = "";
 
             using (Aes aes = Aes.Create())
             {
@@ -51,16 +50,25 @@ namespace SText.Formats
 
                 ICryptoTransform decryptor = aes.CreateDecryptor();
 
-                using (MemoryStream ms = new MemoryStream())
+                try
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                    using (MemoryStream ms = new MemoryStream(dec))
                     {
-                        using (StreamReader sr = new StreamReader(cs))
+                        using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                         {
-                            text = sr.ReadToEnd();
+                            using (BinaryReader br = new BinaryReader(cs))
+                            {
+                                byte[] allData = ReadAllBytesFromBinaryReader(br);
+                                text = Encoding.UTF8.GetString(allData);
+                            }
                         }
                     }
                 }
+                catch
+                {
+                    text = "";
+                }
+
             }
 
             return text;
@@ -72,6 +80,26 @@ namespace SText.Formats
             for (int i = 0; i < key.Length / 2; i++)
                 iv[i] = (byte)key[i].GetHashCode();
             return iv;
+        }
+
+        private static byte[] ReadAllBytesFromBinaryReader(BinaryReader br)
+        {
+            const int bufferSize = 4096;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                byte[] buff = new byte[bufferSize];
+                int count;
+                while ((count = br.Read(buff, 0, bufferSize)) != 0)
+                    ms.Write(buff, 0, count);
+
+                return ms.ToArray();
+            }
+        }
+
+        public static byte[] GetSHA256Hash(string str)
+        {
+            SHA256 sha256 = SHA256.Create();
+            return sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
         }
 
     }

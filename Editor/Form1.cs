@@ -92,6 +92,7 @@ namespace SText.Editor
         private STXTFormat stxtFile;
         private TXTFormat txtFile;
         private PasswordDialog passwordDialog = new PasswordDialog();
+        private int currentFileType = 0; //0 - TXTFormat, 1 - STXTFormat
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -374,6 +375,14 @@ namespace SText.Editor
             {
                 ContentViewer.Text = "";
                 contentHash = Content.GetHashCode();
+                if (txtFile is not null)
+                    txtFile.CloseFile();
+
+                if (stxtFile is not null)
+                    stxtFile.CloseFile();
+
+                txtFile = null;
+                stxtFile = null;
                 FileName = null;
             }
             else
@@ -585,10 +594,40 @@ namespace SText.Editor
                  DialogManager.ShowWarningDialogWithText(ex.Message);
              }*/
 
-            txtFile = new TXTFormat(path, fileEncoding);
-            Content = txtFile.ReadFile();
-            contentHash = Content.GetHashCode();
-            FileName = path;
+            if (path is not null && File.Exists(path))
+            {
+                string cont = "";
+
+                if (STXTFormat.IsStxtFile(path))
+                {
+                    if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        stxtFile = new STXTFormat(path, passwordDialog.Password);
+                        cont = stxtFile.ReadFile();
+
+                        if (stxtFile.Code == 1)
+                        {
+                            DialogManager.ShowWarningDialogWithText("Password is incorrect!");
+                            stxtFile.CloseFile();
+                            stxtFile = null;
+                            return;
+                        }
+                        currentFileType = 1;
+                    }
+                }
+                else
+                {
+                    txtFile = new TXTFormat(path, fileEncoding);
+                    cont = txtFile.ReadFile();
+                    currentFileType = 0;
+                }
+                
+                Content = cont;
+                contentHash = Content.GetHashCode();
+                FileName = path;
+            }
+
+            
         }
 
         private void SaveFileAndUpdateHash(string path)
@@ -640,18 +679,35 @@ namespace SText.Editor
                 DialogManager.ShowWarningDialogWithText(ex.Message);
             }*/
             
-            if (txtFile is not null && File.Exists(txtFile.Path))
+            if (path is not null)
             {
-                txtFile.WriteFile(Content);
-            }
-            else
-            {
-                txtFile = new TXTFormat(path, fileEncoding);
-                txtFile.WriteFile(Content);
+                if (!File.Exists(path))
+                    File.Create(path).Close();
+
+                if (new FileInfo(path).Extension.ToLower() == ".stxt".ToLower())
+                {
+                    if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        if (stxtFile is null)
+                            stxtFile = new STXTFormat(path, passwordDialog.Password);
+
+                        stxtFile.WriteFile(Content);
+                    }
+                    else
+                        return;
+                }
+                else
+                {
+                    if (txtFile is null)
+                        txtFile = new TXTFormat(path, fileEncoding);
+
+                    txtFile.WriteFile(Content);
+                }
+
+                contentHash = Content.GetHashCode();
+                FileName = path;
             }
 
-            contentHash = Content.GetHashCode();
-            FileName = path;
         }
 
         private void WordWrap_MenuItem_Click(object sender, EventArgs e)
