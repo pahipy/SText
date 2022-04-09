@@ -89,10 +89,9 @@ namespace SText.Editor
         private GlobalSettingsManager SettingsManager;
         private bool FontSizeChangeByMouseWheelAct = false;
         private bool isDebug = true;
-        private STXTFormat stxtFile;
+        private TXTSFormat txtsFile;
         private TXTFormat txtFile;
         private PasswordDialog passwordDialog = new PasswordDialog();
-        private int currentFileType = 0; //0 - TXTFormat, 1 - STXTFormat
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -378,11 +377,11 @@ namespace SText.Editor
                 if (txtFile is not null)
                     txtFile.CloseFile();
 
-                if (stxtFile is not null)
-                    stxtFile.CloseFile();
+                if (txtsFile is not null)
+                    txtsFile.CloseFile();
 
                 txtFile = null;
-                stxtFile = null;
+                txtsFile = null;
                 FileName = null;
             }
             else
@@ -551,75 +550,43 @@ namespace SText.Editor
 
         private void OpenFileAndReadContent(string path)
         {
-            /* try
-             {
-                 if (path != null && File.Exists(path))
-                 {
-                     if (STXTFormat.IsStxtFile(path))
-                     {
-                         if (passwordDialog.ShowDialog() == DialogResult.OK)
-                         {
-                             stxtFile = new STXTFormat(path, passwordDialog.Password);
-                             string cont = stxtFile.ReadFile();
-
-                             if (stxtFile.Code == 0)
-                             {
-                                 Content = cont;
-                             }
-
-                             if (stxtFile.Code == 1)
-                                 DialogManager.ShowWarningDialogWithText("Password is incorrect!");
-
-                             FileName = path;
-                         }
-                     }
-                     else
-                     {
-                         if (stxtFile is not null)
-                         {
-                             stxtFile.CloseFile();
-                             stxtFile = null;
-                         }
-                         tr = new StreamReader(path, FileEncoding);
-                         Content = tr.ReadToEnd();
-                         contentHash = Content.GetHashCode();
-                         tr.Close();
-                         FileName = path;
-                     }
-
-                 }
-             }
-             catch (Exception ex)
-             {
-                 DialogManager.ShowWarningDialogWithText(ex.Message);
-             }*/
 
             if (path is not null && File.Exists(path))
             {
                 string cont = "";
 
-                if (STXTFormat.IsStxtFile(path))
+                if (txtsFile is not null || TXTSFormat.IsStxtFile(path))
                 {
-                    if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    if (txtsFile is not null)
                     {
-                        stxtFile = new STXTFormat(path, passwordDialog.Password);
-                        cont = stxtFile.ReadFile();
+                        if (txtsFile.Password is not null)
+                        {
+                            cont = txtsFile.ReadFile();
+                        }
+                        else
+                            return;
+                    }
+                    else if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        txtsFile = new TXTSFormat(path, passwordDialog.Password);
+                        cont = txtsFile.ReadFile();
 
-                        if (stxtFile.Code == 1)
+                        if (txtsFile.Code == 1)
                         {
                             DialogManager.ShowWarningDialogWithText("Password is incorrect!");
-                            stxtFile.CloseFile();
-                            stxtFile = null;
+                            txtsFile.CloseFile();
+                            txtsFile = null;
                             return;
                         }
-                        currentFileType = 1;
+                        
                     }
+
+                    FileEncoding = txtsFile.Encoding;
                 }
                 else
                 {
                     txtFile = new TXTFormat(path, fileEncoding);
                     cont = txtFile.ReadFile();
-                    currentFileType = 0;
                 }
                 
                 Content = cont;
@@ -632,66 +599,23 @@ namespace SText.Editor
 
         private void SaveFileAndUpdateHash(string path)
         {   
-            /*try
-            {
-                bool isStxt = false;
-                if (path != null)
-                {
-                    if (File.Exists(path))
-                    {
-                        if (stxtFile is not null)
-                        {
-                            stxtFile.WriteFile(Content);
-                            isStxt = true;
-                        }
-                        else
-                            tw = new StreamWriter(path, false, FileEncoding);
-                    }
-                    else
-                    {
-                        if (new FileInfo(path).Extension.ToLower() == ".stxt".ToLower())
-                        {
-                            if (passwordDialog.ShowDialog() == DialogResult.OK)
-                            {
-                                stxtFile = new STXTFormat(path, passwordDialog.Password);
-                                stxtFile.WriteFile(Content);
-                                isStxt = true;
-                            }
-                            else
-                                return;
-                        }
-                        else
-                            tw = new StreamWriter(File.Create(path), FileEncoding);
-                    }
-
-                    if (!isStxt)
-                    {
-                        tw.Write(Content);
-                        tw.Close();
-                    }
-                    
-                    contentHash = Content.GetHashCode();
-                    FileName = path;
-                }
-            }
-            catch (Exception ex)
-            {
-                DialogManager.ShowWarningDialogWithText(ex.Message);
-            }*/
-            
+           
             if (path is not null)
             {
                 if (!File.Exists(path))
                     File.Create(path).Close();
 
-                if (new FileInfo(path).Extension.ToLower() == ".stxt".ToLower())
+                if (txtsFile is not null || new FileInfo(path).Extension.ToLower() == ".txts".ToLower())
                 {
-                    if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    if (txtsFile is not null)
                     {
-                        if (stxtFile is null)
-                            stxtFile = new STXTFormat(path, passwordDialog.Password);
+                        txtsFile.WriteFile(Content);
+                    }
+                    else if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        txtsFile = new TXTSFormat(path, passwordDialog.Password, FileEncoding);
 
-                        stxtFile.WriteFile(Content);
+                        txtsFile.WriteFile(Content);
                     }
                     else
                         return;
@@ -763,6 +687,12 @@ namespace SText.Editor
                         enc = Encoding.GetEncoding("Windows-1251");
                         break;
                     }
+
+                case "KOI8R_MenuItem":
+                    {
+                        enc = Encoding.GetEncoding("koi8-r");
+                        break;
+                    }
             }
 
 
@@ -779,7 +709,8 @@ namespace SText.Editor
                     }
 
                 }
-                txtFile.CloseFile();
+                if (txtFile is not null)
+                    txtFile.CloseFile();
                 FileEncoding = enc;
                 OpenFileAndReadContent(FileName);
                 

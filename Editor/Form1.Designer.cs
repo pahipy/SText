@@ -75,6 +75,7 @@
             this.ASCII_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ANSIEuro_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ANSICyrillic_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KOI8R_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PrintDoc = new System.Drawing.Printing.PrintDocument();
             this.MainMenu.SuspendLayout();
@@ -370,12 +371,12 @@
             // openFileDialog1
             // 
             this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.stxt|All Files|*.*";
+            this.openFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
             this.openFileDialog1.RestoreDirectory = true;
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.stxt|All Files|*.*";
+            this.saveFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
             this.saveFileDialog1.RestoreDirectory = true;
             // 
             // StatusBar
@@ -431,11 +432,12 @@
             this.UTF32_MenuItem,
             this.ASCII_MenuItem,
             this.ANSIEuro_MenuItem,
-            this.ANSICyrillic_MenuItem});
+            this.ANSICyrillic_MenuItem,
+            this.KOI8R_MenuItem});
             this.DropDownEncodingMenu.Name = "DropDownEncodingMenu";
             this.DropDownEncodingMenu.OwnerItem = this.EncodingMenuButton;
             this.DropDownEncodingMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.DropDownEncodingMenu.Size = new System.Drawing.Size(162, 136);
+            this.DropDownEncodingMenu.Size = new System.Drawing.Size(162, 158);
             // 
             // UTF8_MenuItem
             // 
@@ -478,6 +480,13 @@
             this.ANSICyrillic_MenuItem.Size = new System.Drawing.Size(161, 22);
             this.ANSICyrillic_MenuItem.Text = "ANSI (Cyrillic)";
             this.ANSICyrillic_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            // 
+            // KOI8R_MenuItem
+            // 
+            this.KOI8R_MenuItem.Name = "KOI8R_MenuItem";
+            this.KOI8R_MenuItem.Size = new System.Drawing.Size(161, 22);
+            this.KOI8R_MenuItem.Text = "KOI8 R";
+            this.KOI8R_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
             // 
             // panel1
             // 
@@ -572,6 +581,7 @@
         private ToolStripMenuItem ASCII_MenuItem;
         private ToolStripMenuItem ANSIEuro_MenuItem;
         private ToolStripMenuItem ANSICyrillic_MenuItem;
+        private ToolStripMenuItem KOI8R_MenuItem;
     }
 }
 

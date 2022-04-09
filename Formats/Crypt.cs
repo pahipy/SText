@@ -14,7 +14,7 @@ namespace SText.Formats
         private static readonly int Iterations = 300;
         private static readonly int KeyBytes = 32;
 
-        public static byte[] EncryptStringToBytes(string enc, string key)
+        public static byte[] EncryptStringToBytes(string enc, string key, Encoding encoding)
         {
             Aes aes = Aes.Create();
             Rfc2898DeriveBytes keyGen = new Rfc2898DeriveBytes(key, Salt, Iterations);
@@ -30,7 +30,7 @@ namespace SText.Formats
                 {
                     using (BinaryWriter bw = new BinaryWriter(cs))
                     {
-                        bw.Write(Encoding.UTF8.GetBytes(enc));
+                        bw.Write(encoding.GetBytes(enc));
                     }
                 }
                 encrypted = ms.ToArray();
@@ -38,7 +38,7 @@ namespace SText.Formats
             return encrypted;
         }
 
-        public static string DecryptStringFromBytes(byte[] dec, string key)
+        public static string DecryptStringFromBytes(byte[] dec, string key, Encoding encoding)
         {
             string text = "";
 
@@ -59,7 +59,7 @@ namespace SText.Formats
                             using (BinaryReader br = new BinaryReader(cs))
                             {
                                 byte[] allData = ReadAllBytesFromBinaryReader(br);
-                                text = Encoding.UTF8.GetString(allData);
+                                text = encoding.GetString(allData);
                             }
                         }
                     }

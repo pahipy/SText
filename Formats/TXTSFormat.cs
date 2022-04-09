@@ -7,13 +7,14 @@ using System.IO;
 
 namespace SText.Formats
 {
-    public class STXTFormat : IFormat
+    public class TXTSFormat : IFormat
     {
         #region FileStruct
 
-        private const string HEAD = "STXT";
+        private const string HEAD = "TXTS";
 
         private byte[] hash;
+        private int encodingCode; //std codepage number
         private int dataSize;
         private byte[] data;
 
@@ -23,7 +24,7 @@ namespace SText.Formats
 
         private const int HASH_SIZE = 32; //sha256
 
-        public STXTFormat(string path, string key)
+        public TXTSFormat(string path, string key)
         {
             this.path = path;
             if (File.Exists(path))
@@ -32,14 +33,39 @@ namespace SText.Formats
                 fileStream = File.Create(path);
 
             this.key = key;
+
+            this.Encoding = Encoding.UTF8;
+        }
+
+        public TXTSFormat(string path, string key, Encoding encoding) : this(path, key)
+        {
+            this.Encoding = encoding;
         }
 
         private string key;
+        private Encoding enc;
+        public Encoding Encoding
+        {
+            get => enc;
+            set
+            {
+                if (value is not null)
+                {
+                    enc = value;
+                    encodingCode = value.CodePage;
+                }
+            }
+        }
 
         private int code = 0; //0 - success, 1 hash sum is not equivalent, 2 - bad header, 3 file not exists
         public int Code
         {
             get => code;
+        }
+
+        public string Password
+        {
+            get => key;
         }
 
         private string path;
@@ -58,7 +84,7 @@ namespace SText.Formats
 
             fileStream.Position = 0;
 
-            data = Crypt.EncryptStringToBytes(text, key);
+            data = Crypt.EncryptStringToBytes(text, key, Encoding);
             hash = Crypt.GetSHA256Hash(text);
             dataSize = data.Length;
 
@@ -66,6 +92,7 @@ namespace SText.Formats
             {
                 bw.Write(HEAD);
                 bw.Write(hash);
+                bw.Write(encodingCode);
                 bw.Write(dataSize);
                 bw.Write(data);
             }
@@ -96,11 +123,12 @@ namespace SText.Formats
                 }
                     
                 hash = br.ReadBytes(HASH_SIZE);
+                this.Encoding = Encoding.GetEncoding(br.ReadInt32());
                 dataSize = br.ReadInt32();
                 data = br.ReadBytes(dataSize);
             }
 
-            string text = Crypt.DecryptStringFromBytes(data, key);
+            string text = Crypt.DecryptStringFromBytes(data, key, this.Encoding);
             if (!hash.SequenceEqual(Crypt.GetSHA256Hash(text)))
             {
                 code = 1;
