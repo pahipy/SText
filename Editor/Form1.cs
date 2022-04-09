@@ -30,6 +30,7 @@ namespace SText.Editor
 
             MainMenu.Renderer = new CustomRender();
             DropDownEncodingMenu.Renderer = new CustomRender();
+            StatusBar.Renderer = new CustomRender();
 
             
             FileEncoding = Encoding.UTF8;
@@ -68,18 +69,17 @@ namespace SText.Editor
                 {
                     ContentViewer.Font = new Font(ContentViewer.Font.FontFamily, newsize);
                 }
+                FontSizeChangeByMouseWheelAct = false;
             };
 
             ContentViewer.KeyDown += (s, e) =>
             {
-                if (e.Control)
-                    FontSizeChangeByMouseWheelAct = true;
+                FontSizeChangeByMouseWheelAct = e.Control;
             };
 
             ContentViewer.KeyUp += (s, e) =>
             {
-                if (e.KeyData == Keys.ControlKey)
-                    FontSizeChangeByMouseWheelAct = false;
+                FontSizeChangeByMouseWheelAct = e.Control;
             };
 
         }
@@ -557,28 +557,53 @@ namespace SText.Editor
 
                 if (txtsFile is not null || TXTSFormat.IsStxtFile(path))
                 {
+                    Func<int> openTxts = () =>
+                    {
+                        if (passwordDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            txtsFile = new TXTSFormat(path, passwordDialog.Password);
+                            cont = txtsFile.ReadFile();
+
+                            if (txtsFile.Code == 1)
+                            {
+                                DialogManager.ShowWarningDialogWithText("Password is incorrect!");
+                                txtsFile.CloseFile();
+                                txtsFile = null;
+                                return 1;
+                            }
+                        }
+                        else
+                            return 1;
+
+                        return 0;
+                    };
+
                     if (txtsFile is not null)
                     {
-                        if (txtsFile.Password is not null)
+                        if (txtsFile.Path != path)
+                        {
+                            if (!TXTSFormat.IsStxtFile(path))
+                            {
+                                txtsFile.CloseFile();
+                                txtsFile = null;
+                                OpenFileAndReadContent(path);
+                                return;
+                            }
+
+                            if (openTxts() == 1)
+                                return;
+                        }
+                        else if (txtsFile.Password is not null)
                         {
                             cont = txtsFile.ReadFile();
                         }
                         else
                             return;
                     }
-                    else if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    else
                     {
-                        txtsFile = new TXTSFormat(path, passwordDialog.Password);
-                        cont = txtsFile.ReadFile();
-
-                        if (txtsFile.Code == 1)
-                        {
-                            DialogManager.ShowWarningDialogWithText("Password is incorrect!");
-                            txtsFile.CloseFile();
-                            txtsFile = null;
+                        if (openTxts() == 1)
                             return;
-                        }
-                        
                     }
 
                     FileEncoding = txtsFile.Encoding;
@@ -711,6 +736,12 @@ namespace SText.Editor
                 }
                 if (txtFile is not null)
                     txtFile.CloseFile();
+
+                if (txtsFile is not null && txtsFile.Path == FileName)
+                {
+                    txtsFile.Encoding = enc;
+                }
+
                 FileEncoding = enc;
                 OpenFileAndReadContent(FileName);
                 
