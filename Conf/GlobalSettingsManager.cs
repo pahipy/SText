@@ -141,9 +141,14 @@ namespace SText.Conf
 
             string json = obj.ToString();
 
-            StreamWriter sw  = new StreamWriter(currentSettingPath);
-            sw.Write(json);
-            sw.Close();
+            try
+            {
+                StreamWriter sw = new StreamWriter(currentSettingPath);
+                sw.Write(json);
+                sw.Close();
+            }
+            catch { }
+            
 
         }
 

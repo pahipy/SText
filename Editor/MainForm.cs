@@ -37,6 +37,12 @@ namespace SText.Editor
             ShowStatusBar = true;
             ThemeSelector.CurrentTheme = Theme.Default;
 
+            LoadSettingsToStruct();
+
+            SettingsManager = new GlobalSettingsManager(ProgramSets.ConfigFileName, Settings);
+
+            ApplySettings();
+
             try {
                 if (Environment.GetCommandLineArgs().Length > 1)
                 {
@@ -56,11 +62,6 @@ namespace SText.Editor
             }
             catch { }
             
-            LoadSettingsToStruct();
-
-            SettingsManager = new GlobalSettingsManager(ProgramSets.ConfigFileName, Settings);
-
-            ApplySettings();
 
             ContentViewer.MouseWheel += (s, e) =>
             {
