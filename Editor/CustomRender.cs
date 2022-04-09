@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 using SText.Conf;
 
 namespace SText.Editor
@@ -12,32 +13,36 @@ namespace SText.Editor
     class CustomRender : System.Windows.Forms.ToolStripProfessionalRenderer
     {
 
-        public CustomRender() : base(new ColorsForMenu()) { }
+        public CustomRender() : base(new ColorsForMenu())
+        {
+            this.RoundedEdges = false;
+        }
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
         {
             e.TextColor = ThemeSelector.CurrentTheme == Theme.Default ? Color.Black : Color.White;
             if (e.Item.Selected || e.ToolStrip.Focused)
-                e.TextColor = Color.White;
+                e.TextColor = ThemeSelector.CurrentColorSchema.MenuItemSelectedFontColor;
 
             base.OnRenderItemText(e);
         }
+        
     }
 
     public class ColorsForMenu : ProfessionalColorTable
     {
         public override Color MenuItemSelected
         {
-            get => Color.FromArgb(25, 59, 181);
+            get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
         }
 
         public override Color MenuItemSelectedGradientBegin
         {
-            get => Color.FromArgb(25, 59, 181);
+            get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
         }
         public override Color MenuItemSelectedGradientEnd
         {
-            get => Color.FromArgb(25, 59, 181);
+            get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
         }
 
         public override Color MenuItemBorder
@@ -52,32 +57,52 @@ namespace SText.Editor
 
         public override Color ToolStripDropDownBackground
         {
-            get => ThemeSelector.CurrentColorSchema.ControlColor;
+            get => ThemeSelector.CurrentColorSchema.MenuColor;
+        }
+
+        public override Color ToolStripGradientBegin
+        {
+            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
+        }
+        
+        public override Color ToolStripGradientMiddle
+        {
+            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
+        }
+        
+        public override Color ToolStripGradientEnd
+        {
+            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
+        }
+
+        public override Color ToolStripBorder
+        {
+            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
         }
 
         public override Color MenuItemPressedGradientBegin
         {
-            get => Color.FromArgb(25, 59, 181);
+            get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
         }
 
         public override Color MenuItemPressedGradientEnd
         {
-            get => Color.FromArgb(25, 59, 181);
+            get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
         }
 
         public override Color ImageMarginGradientBegin
         {
-            get => ThemeSelector.CurrentColorSchema.ControlColor;
+            get => ThemeSelector.CurrentColorSchema.MenuColor;
         }
 
         public override Color ImageMarginGradientMiddle
         {
-            get => ThemeSelector.CurrentColorSchema.ControlColor;
+            get => ThemeSelector.CurrentColorSchema.MenuColor;
         }
 
         public override Color ImageMarginGradientEnd
         {
-            get => ThemeSelector.CurrentColorSchema.ControlColor;
+            get => ThemeSelector.CurrentColorSchema.MenuColor;
         }
 
     }

@@ -16,8 +16,12 @@ namespace SText.Conf
             {   //Default theme
                 StatusBarColor = Color.FromArgb(240, 240, 240),
                 StatusBarFontColor = Color.FromArgb(0, 0, 0),
-                ControlColor = Color.FromArgb(240, 240, 240),
+                ControlColor = Color.FromArgb(255, 255, 255),
                 ControlFontColor = Color.Black,
+                MenuColor = Color.FromArgb(240, 240, 240),
+                MenuFontColor = Color.Black,
+                MenuItemSelectedColor = Color.FromArgb(145, 201, 247),
+                MenuItemSelectedFontColor = Color.Black,
                 ToolPanelColor = Color.FromArgb(228, 244, 255),
                 ToolPanelFontColor = Color.Black,
                 ButtonColor = Color.FromArgb(118, 163, 230),
@@ -30,7 +34,11 @@ namespace SText.Conf
                 StatusBarColor = Color.FromArgb(25, 60, 149),
                 StatusBarFontColor = Color.FromArgb(255, 255, 255),
                 ControlColor = Color.FromArgb(52, 52, 52),
-                ControlFontColor = Color.White,
+                ControlFontColor = Color.FromArgb(235, 235, 235),
+                MenuColor = Color.FromArgb(52, 52, 52),
+                MenuFontColor= Color.White,
+                MenuItemSelectedColor = Color.FromArgb(25, 59, 181),
+                MenuItemSelectedFontColor = Color.White,
                 ToolPanelColor = Color.FromArgb(38, 35, 54),
                 ToolPanelFontColor = Color.FromArgb(235, 235, 235),
                 ButtonColor = Color.FromArgb(44, 67, 156),
@@ -42,8 +50,12 @@ namespace SText.Conf
             {   //Blue theme
                 StatusBarColor = Color.FromArgb(179, 208, 255),
                 StatusBarFontColor = Color.FromArgb(0, 0, 0),
-                ControlColor = Color.FromArgb(35, 139, 255),
-                ControlFontColor = Color.White,
+                ControlColor = Color.FromArgb(255, 255, 255),
+                ControlFontColor = Color.Black,
+                MenuColor =  Color.FromArgb(35, 139, 255),
+                MenuFontColor = Color.White,
+                MenuItemSelectedColor = Color.FromArgb(25, 59, 181),
+                MenuItemSelectedFontColor = Color.White,
                 ToolPanelColor = Color.FromArgb(228, 244, 255),
                 ToolPanelFontColor = Color.Black,
                 ButtonColor = Color.FromArgb(118, 163, 230),
@@ -63,6 +75,10 @@ namespace SText.Conf
         public Color StatusBarFontColor;
         public Color ControlColor;
         public Color ControlFontColor;
+        public Color MenuColor;
+        public Color MenuFontColor;
+        public Color MenuItemSelectedColor;
+        public Color MenuItemSelectedFontColor;
         public Color ToolPanelColor;
         public Color ToolPanelFontColor;
         public Color ButtonColor;

@@ -13,9 +13,9 @@ using SText.Formats;
 
 namespace SText.Editor
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -91,7 +91,8 @@ namespace SText.Editor
         private bool isDebug = true;
         private TXTSFormat txtsFile;
         private TXTFormat txtFile;
-        private PasswordDialog passwordDialog = new PasswordDialog();
+        private PasswordDialog setPasswordDialog = new PasswordDialog();
+        private PasswordDialog openPasswordDialog = new PasswordDialog(false);
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -237,12 +238,12 @@ namespace SText.Editor
         {
             try
             {
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    SaveFileAndUpdateHash(saveFileDialog1.FileName);
+                    SaveFileAndUpdateHash(saveFileDialog.FileName);
                 }
                 
-                saveFileDialog1.FileName = null;
+                saveFileDialog.FileName = null;
             }
             catch{ }
         }
@@ -386,7 +387,7 @@ namespace SText.Editor
             }
             else
             {
-                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog1);
+                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
                 switch (saveDialog.ShowDialog())
                 {
@@ -410,15 +411,15 @@ namespace SText.Editor
         {
             if (Content.GetHashCode() == contentHash || dontSaveFile)
             {
-                openFileDialog1.FileName = null;
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                openFileDialog.FileName = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    OpenFileAndReadContent(openFileDialog1.FileName);
+                    OpenFileAndReadContent(openFileDialog.FileName);
                 }
             } 
             else
             {
-                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog1);
+                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
                 switch (saveDialog.ShowDialog())
                 {
@@ -503,10 +504,8 @@ namespace SText.Editor
 
             ContentViewer.BackColor = ThemeSelector.CurrentColorSchema.TextFieldColor;
             ContentViewer.ForeColor = ThemeSelector.CurrentColorSchema.TextFieldFontColor;
-            MainMenu.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
-            MainMenu.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
-            StatusBar.BackColor = ThemeSelector.CurrentColorSchema.StatusBarColor;
-            StatusBar.ForeColor = ThemeSelector.CurrentColorSchema.StatusBarFontColor;
+            MainMenu.BackColor = ThemeSelector.CurrentColorSchema.MenuColor;
+            MainMenu.ForeColor = ThemeSelector.CurrentColorSchema.MenuFontColor;
 
         }
 
@@ -516,7 +515,7 @@ namespace SText.Editor
             SettingsManager.Settings = Settings;
             SettingsManager.SaveConfig();
 
-            SaveDialog s = new SaveDialog(FileName, saveFileDialog1);
+            SaveDialog s = new SaveDialog(FileName, saveFileDialog);
 
             if (contentHash != Content.GetHashCode())
             {
@@ -559,9 +558,9 @@ namespace SText.Editor
                 {
                     Func<int> openTxts = () =>
                     {
-                        if (passwordDialog.ShowDialog() == DialogResult.OK)
+                        if (openPasswordDialog.ShowDialog() == DialogResult.OK)
                         {
-                            txtsFile = new TXTSFormat(path, passwordDialog.Password);
+                            txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
                             cont = txtsFile.ReadFile();
 
                             if (txtsFile.Code == 1)
@@ -636,9 +635,9 @@ namespace SText.Editor
                     {
                         txtsFile.WriteFile(Content);
                     }
-                    else if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
                     {
-                        txtsFile = new TXTSFormat(path, passwordDialog.Password, FileEncoding);
+                        txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
 
                         txtsFile.WriteFile(Content);
                     }
@@ -725,7 +724,7 @@ namespace SText.Editor
             {
                 if (contentHash != Content.GetHashCode())
                 {
-                    SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog1);
+                    SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
                     switch (saveDialog.ShowDialog())
                     {
@@ -762,12 +761,23 @@ namespace SText.Editor
 
             switch(item.Name)
             {
-                case "ShowCMD_MenuItem":
+                case "ShowCMD_DebugMenuItem":
                     {
                         string cmd = "";
                         foreach (string s in Environment.GetCommandLineArgs())
                             cmd += $"{s} ";
                         Content = cmd;
+                        return;
+                    }
+                case "ShowSetPasswordDialog_DebugMenuItem":
+                    {
+                        setPasswordDialog.ShowDialog();
+                        return;
+                    }
+
+                case "ShowOpenPasswordDialog_DebugMenuItem":
+                    {
+                        openPasswordDialog.ShowDialog();
                         return;
                     }
             }

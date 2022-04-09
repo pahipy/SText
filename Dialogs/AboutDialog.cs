@@ -38,33 +38,13 @@ namespace SText.Dialogs
                 }
             }
 
-            switch (ThemeSelector.CurrentTheme)
-            {
-                case Theme.Default:
-                    {
+            this.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
+            Content.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
+            VersionLabel.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
+            AdditionalContent.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
+            Author.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
+            panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;
 
-                        return;
-                    }
-
-                case Theme.Dark:
-                    {
-                        this.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
-                        Content.ForeColor = Color.FromArgb(235, 235, 235);
-                        VersionLabel.ForeColor = Color.FromArgb(235, 235, 235);
-                        AdditionalContent.ForeColor = Color.FromArgb(235, 235, 235);
-                        Author.ForeColor = Color.FromArgb(235, 235, 235);
-                        panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;
-
-                        
-                        return;
-                    }
-
-                case Theme.Blue:
-                    {
-
-                        return;
-                    }
-            }
         }
 
         private void AboutDialog_KeyDown(object sender, KeyEventArgs e)

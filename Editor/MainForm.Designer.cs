@@ -1,6 +1,6 @@
 ﻿namespace SText.Editor
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.New_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,12 +58,14 @@
             this.DarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BlueTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowCMD_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowCMD_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowSetPasswordDialog_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowOpenPasswordDialog_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.About_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentViewer = new System.Windows.Forms.TextBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.StatusBar = new System.Windows.Forms.ToolStrip();
             this.StatusBar_Theme = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar_File = new System.Windows.Forms.ToolStripStatusLabel();
@@ -323,17 +325,33 @@
             // debugToolStripMenuItem
             // 
             this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowCMD_MenuItem});
+            this.ShowCMD_DebugMenuItem,
+            this.ShowSetPasswordDialog_DebugMenuItem,
+            this.ShowOpenPasswordDialog_DebugMenuItem});
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
             this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
             this.debugToolStripMenuItem.Text = "Debug";
             // 
-            // ShowCMD_MenuItem
+            // ShowCMD_DebugMenuItem
             // 
-            this.ShowCMD_MenuItem.Name = "ShowCMD_MenuItem";
-            this.ShowCMD_MenuItem.Size = new System.Drawing.Size(250, 22);
-            this.ShowCMD_MenuItem.Text = "Show Command Line Arguments";
-            this.ShowCMD_MenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
+            this.ShowCMD_DebugMenuItem.Name = "ShowCMD_DebugMenuItem";
+            this.ShowCMD_DebugMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.ShowCMD_DebugMenuItem.Text = "Show Command Line Arguments";
+            this.ShowCMD_DebugMenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
+            // 
+            // ShowSetPasswordDialog_DebugMenuItem
+            // 
+            this.ShowSetPasswordDialog_DebugMenuItem.Name = "ShowSetPasswordDialog_DebugMenuItem";
+            this.ShowSetPasswordDialog_DebugMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.ShowSetPasswordDialog_DebugMenuItem.Text = "Show SetPasswordDialog";
+            this.ShowSetPasswordDialog_DebugMenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
+            // 
+            // ShowOpenPasswordDialog_DebugMenuItem
+            // 
+            this.ShowOpenPasswordDialog_DebugMenuItem.Name = "ShowOpenPasswordDialog_DebugMenuItem";
+            this.ShowOpenPasswordDialog_DebugMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.ShowOpenPasswordDialog_DebugMenuItem.Text = "Show OpenPasswordDialog";
+            this.ShowOpenPasswordDialog_DebugMenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
             // 
             // helpToolStripMenuItem1
             // 
@@ -368,16 +386,16 @@
             this.ContentViewer.WordWrap = false;
             this.ContentViewer.TextChanged += new System.EventHandler(this.ContentViewer_TextChanged);
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
-            this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
-            this.openFileDialog1.RestoreDirectory = true;
+            this.openFileDialog.CheckFileExists = false;
+            this.openFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
+            this.openFileDialog.RestoreDirectory = true;
             // 
-            // saveFileDialog1
+            // saveFileDialog
             // 
-            this.saveFileDialog1.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
-            this.saveFileDialog1.RestoreDirectory = true;
+            this.saveFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
+            this.saveFileDialog.RestoreDirectory = true;
             // 
             // StatusBar
             // 
@@ -415,6 +433,7 @@
             // EncodingMenuButton
             // 
             this.EncodingMenuButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.EncodingMenuButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.EncodingMenuButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.EncodingMenuButton.DropDown = this.DropDownEncodingMenu;
             this.EncodingMenuButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -502,7 +521,7 @@
             // 
             this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -514,7 +533,7 @@
             this.MainMenuStrip = this.MainMenu;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MinimumSize = new System.Drawing.Size(200, 100);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "SText";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -556,8 +575,8 @@
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowStatusBar_MenuItem;
         private System.Windows.Forms.TextBox ContentViewer;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem Theme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem About_MenuItem;
@@ -569,7 +588,7 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_File;
         private System.Windows.Forms.Panel panel1;
         private ToolStripMenuItem debugToolStripMenuItem;
-        private ToolStripMenuItem ShowCMD_MenuItem;
+        private ToolStripMenuItem ShowCMD_DebugMenuItem;
         private System.Drawing.Printing.PrintDocument PrintDoc;
         private ToolStripDropDownButton EncodingMenuButton;
         private ToolStripSeparator toolStripSeparator1;
@@ -582,6 +601,8 @@
         private ToolStripMenuItem ANSIEuro_MenuItem;
         private ToolStripMenuItem ANSICyrillic_MenuItem;
         private ToolStripMenuItem KOI8R_MenuItem;
+        private ToolStripMenuItem ShowSetPasswordDialog_DebugMenuItem;
+        private ToolStripMenuItem ShowOpenPasswordDialog_DebugMenuItem;
     }
 }
 
