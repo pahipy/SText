@@ -28,9 +28,9 @@ namespace SText.Editor
 
             About_MenuItem.Text = $"About {ProgramSets.ProgramName}";
 
-            MainMenu.Renderer = new CustomRender();
-            DropDownEncodingMenu.Renderer = new CustomRender();
-            StatusBar.Renderer = new CustomRender();
+            MainMenu.Renderer = new CustomRenderForMenu();
+            DropDownEncodingMenu.Renderer = new CustomRenderForMenu();
+            StatusBar.Renderer = new CustomRenderForStatusBar();
 
             
             FileEncoding = Encoding.UTF8;
@@ -503,7 +503,7 @@ namespace SText.Editor
             ContentViewer.ForeColor = ThemeSelector.CurrentColorSchema.TextFieldFontColor;
             MainMenu.BackColor = ThemeSelector.CurrentColorSchema.MenuColor;
             MainMenu.ForeColor = ThemeSelector.CurrentColorSchema.MenuFontColor;
-
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

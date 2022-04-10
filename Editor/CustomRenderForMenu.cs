@@ -10,10 +10,10 @@ using SText.Conf;
 
 namespace SText.Editor
 {
-    class CustomRender : System.Windows.Forms.ToolStripProfessionalRenderer
+    class CustomRenderForMenu : System.Windows.Forms.ToolStripProfessionalRenderer
     {
 
-        public CustomRender() : base(new ColorsForMenu())
+        public CustomRenderForMenu() : base(new ColorsForMenu())
         {
             this.RoundedEdges = false;
         }
@@ -55,31 +55,6 @@ namespace SText.Editor
             get => Color.FromArgb(0, 0, 0, 0);
         }
 
-        public override Color ToolStripDropDownBackground
-        {
-            get => ThemeSelector.CurrentColorSchema.MenuColor;
-        }
-
-        public override Color ToolStripGradientBegin
-        {
-            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
-        }
-        
-        public override Color ToolStripGradientMiddle
-        {
-            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
-        }
-        
-        public override Color ToolStripGradientEnd
-        {
-            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
-        }
-
-        public override Color ToolStripBorder
-        {
-            get => ThemeSelector.CurrentColorSchema.StatusBarColor;
-        }
-
         public override Color MenuItemPressedGradientBegin
         {
             get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
@@ -88,6 +63,11 @@ namespace SText.Editor
         public override Color MenuItemPressedGradientEnd
         {
             get => ThemeSelector.CurrentColorSchema.MenuItemSelectedColor;
+        }
+
+        public override Color ToolStripDropDownBackground
+        {
+            get => ThemeSelector.CurrentColorSchema.MenuColor;
         }
 
         public override Color ImageMarginGradientBegin
@@ -104,6 +84,7 @@ namespace SText.Editor
         {
             get => ThemeSelector.CurrentColorSchema.MenuColor;
         }
+
 
     }
 }
