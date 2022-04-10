@@ -76,6 +76,7 @@ namespace SText.Dialogs
         private void ApplyTheme()
         {
             this.BackColor = ThemeSelector.CurrentColorSchema.ControlColor;
+            Message.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
             panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;
 
             foreach (Button b in panel1.Controls)
@@ -84,31 +85,27 @@ namespace SText.Dialogs
                 b.ForeColor = ThemeSelector.CurrentColorSchema.ButtonFontColor;
             }
 
-            switch (ThemeSelector.CurrentTheme)
+            Theme theme = ThemeSelector.CurrentTheme;
+
+            if (theme == Theme.Default || theme == Theme.Blue)
             {
-                case Theme.Default:
-                    {
-                        this.BackColor = Color.White;
-                        Message.ForeColor = Color.FromArgb(0, 59, 209);
-                        return;
-                    }
+                Message.ForeColor = Color.FromArgb(0, 59, 209);
+            }
 
-                case Theme.Dark:
-                    {
-                        Message.ForeColor = Color.FromArgb(235, 235, 235);
-                        ContentIcon.Image = global::Dialogs.Resource.help_circle_white;
-                        return;
-                    }
-
-                case Theme.Blue:
-                    {
-                        this.BackColor = Color.White;
-                        Message.ForeColor = Color.FromArgb(0, 59, 209);
-                        return;
-                    }
+            if (theme == Theme.Dark)
+            {
+                ContentIcon.Image = global::Dialogs.Resource.help_circle_white;
             }
 
         }
 
+        private void SaveDialog_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                Close();
+            }
+        }
     }
 }

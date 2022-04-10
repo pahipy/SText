@@ -65,6 +65,7 @@
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = false;
             this.SaveButton.Click += new System.EventHandler(this.Button_Click);
+            this.SaveButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SaveDialog_KeyDown);
             // 
             // DontSaveButton
             // 
@@ -82,6 +83,7 @@
             this.DontSaveButton.Text = "Don\'t save";
             this.DontSaveButton.UseVisualStyleBackColor = false;
             this.DontSaveButton.Click += new System.EventHandler(this.Button_Click);
+            this.DontSaveButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SaveDialog_KeyDown);
             // 
             // CancelButton
             // 
@@ -100,6 +102,7 @@
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = false;
             this.CancelButton.Click += new System.EventHandler(this.Button_Click);
+            this.CancelButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SaveDialog_KeyDown);
             // 
             // panel1
             // 
@@ -147,6 +150,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SaveDialog";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SaveDialog_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

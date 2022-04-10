@@ -59,6 +59,7 @@
             this.Passwd.Size = new System.Drawing.Size(249, 27);
             this.Passwd.TabIndex = 0;
             this.Passwd.UseSystemPasswordChar = true;
+            this.Passwd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PasswordDialog_KeyDown);
             // 
             // retypePasswordPanel
             // 
@@ -78,6 +79,7 @@
             this.RetyperPasswd.Size = new System.Drawing.Size(249, 27);
             this.RetyperPasswd.TabIndex = 1;
             this.RetyperPasswd.UseSystemPasswordChar = true;
+            this.RetyperPasswd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PasswordDialog_KeyDown);
             // 
             // OK
             // 

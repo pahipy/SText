@@ -94,6 +94,7 @@ namespace SText.Editor
         private TXTFormat txtFile;
         private PasswordDialog setPasswordDialog = new PasswordDialog();
         private PasswordDialog openPasswordDialog = new PasswordDialog(false);
+        private bool appWindowIsShown = false;
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -559,6 +560,12 @@ namespace SText.Editor
                 {
                     Func<int> openTxts = () =>
                     {
+
+                        if (!appWindowIsShown)
+                            openPasswordDialog.StartPosition = FormStartPosition.CenterScreen;
+                        else
+                            openPasswordDialog.StartPosition = FormStartPosition.CenterParent;
+
                         if (openPasswordDialog.ShowDialog() == DialogResult.OK)
                         {
                             txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
@@ -790,6 +797,8 @@ namespace SText.Editor
         {
             if (ContentViewer.SelectedText.Length > 0)
                 ContentViewer.DeselectAll();
+
+            appWindowIsShown = true;
         }
 
         private void PrintDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
