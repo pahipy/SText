@@ -76,9 +76,14 @@ namespace SText.Formats
 
         private static byte[] GetIV(byte[] key)
         {
-            byte[] iv = new byte[key.Length / 2];
-            for (int i = 0; i < key.Length / 2; i++)
-                iv[i] = (byte)key[i].GetHashCode();
+            byte[] iv = new byte[KeyBytes / 2];
+
+            SHA256 sha256 = SHA256.Create();
+            byte[] hash = sha256.ComputeHash(key);
+
+            for (int i = 0; i < iv.Length; i++)
+                iv[i] = hash[i];
+
             return iv;
         }
 
