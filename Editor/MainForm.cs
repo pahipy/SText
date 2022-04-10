@@ -471,11 +471,6 @@ namespace SText.Editor
                         ThemeSelector.CurrentTheme = Theme.Blue;
                         break;
                     }
-
-                case "CustomTheme_MenuItem":
-                    {
-                        break;
-                    }
             }
 
             ApplyTheme();
@@ -573,7 +568,7 @@ namespace SText.Editor
 
                             if (txtsFile.Code == 1)
                             {
-                                DialogManager.ShowWarningDialogWithText("Password is incorrect!");
+                                DialogManager.ShowWarningDialogWithText("Wrong password!");
                                 txtsFile.CloseFile();
                                 txtsFile = null;
                                 return 1;
@@ -641,7 +636,16 @@ namespace SText.Editor
                 {
                     if (txtsFile is not null)
                     {
+                        if (txtsFile.Path != path)
+                        {
+                            txtsFile.CloseFile();
+                            txtsFile = null;
+                            SaveFileAndUpdateHash(path);
+                            return;
+                        }
+
                         txtsFile.WriteFile(Content);
+
                     }
                     else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
                     {
