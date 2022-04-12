@@ -54,8 +54,7 @@ namespace SText.Editor
 
                     if (File.Exists(filename))
                     {
-                        FileName = filename;
-                        OpenFileAndReadContent(FileName);
+                        OpenFileAndReadContent(filename);
                     }
  
                 }
