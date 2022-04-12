@@ -108,6 +108,8 @@ namespace SText.Dialogs
                     b.ForeColor = Conf.ThemeSelector.CurrentColorSchema.ButtonFontColor;
                 }
             }
+
+            Passwd.Focus();
         }
 
         private void PasswordDialog_KeyDown(object sender, KeyEventArgs e)

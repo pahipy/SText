@@ -547,127 +547,153 @@ namespace SText.Editor
         private void OpenFileAndReadContent(string path)
         {
 
-            if (path is not null && File.Exists(path))
+            try
             {
-                string cont = "";
-
-                if (txtsFile is not null || TXTSFormat.IsStxtFile(path))
+                if (path is not null && File.Exists(path))
                 {
-                    Func<int> openTxts = () =>
+                    string cont = "";
+
+                    if (txtsFile is not null || TXTSFormat.IsStxtFile(path))
                     {
-
-                        if (!appWindowIsShown)
-                            openPasswordDialog.StartPosition = FormStartPosition.CenterScreen;
-                        else
-                            openPasswordDialog.StartPosition = FormStartPosition.CenterParent;
-
-                        if (openPasswordDialog.ShowDialog() == DialogResult.OK)
+                        Func<int> openTxts = () =>
                         {
-                            txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
-                            cont = txtsFile.ReadFile();
 
-                            if (txtsFile.Code == 1)
+                            if (!appWindowIsShown)
+                                openPasswordDialog.StartPosition = FormStartPosition.CenterScreen;
+                            else
+                                openPasswordDialog.StartPosition = FormStartPosition.CenterParent;
+
+                            if (openPasswordDialog.ShowDialog() == DialogResult.OK)
                             {
-                                DialogManager.ShowWarningDialogWithText("Wrong password!");
+                                txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
+                                cont = txtsFile.ReadFile();
+
+                                if (txtsFile.Code == 1)
+                                {
+                                    DialogManager.ShowWarningDialogWithText("Wrong password!");
+                                    txtsFile.CloseFile();
+                                    txtsFile = null;
+                                    return 1;
+                                }
+                            }
+                            else
+                                return 1;
+
+                            return 0;
+                        };
+
+                        if (txtsFile is not null)
+                        {
+                            if (txtsFile.Path != path)
+                            {
                                 txtsFile.CloseFile();
                                 txtsFile = null;
-                                return 1;
+
+                                if (!TXTSFormat.IsStxtFile(path))
+                                {
+                                    OpenFileAndReadContent(path);
+                                    return;
+                                }
+
+                                if (openTxts() == 1)
+                                    return;
                             }
+                            else if (txtsFile.Password is not null)
+                            {
+                                cont = txtsFile.ReadFile();
+                            }
+                            else
+                                return;
                         }
                         else
-                            return 1;
-
-                        return 0;
-                    };
-
-                    if (txtsFile is not null)
-                    {
-                        if (txtsFile.Path != path)
                         {
-                            if (!TXTSFormat.IsStxtFile(path))
-                            {
-                                txtsFile.CloseFile();
-                                txtsFile = null;
-                                OpenFileAndReadContent(path);
-                                return;
-                            }
-
                             if (openTxts() == 1)
                                 return;
                         }
-                        else if (txtsFile.Password is not null)
-                        {
-                            cont = txtsFile.ReadFile();
-                        }
-                        else
-                            return;
+
+                        FileEncoding = txtsFile.Encoding;
                     }
                     else
                     {
-                        if (openTxts() == 1)
-                            return;
+                        if (txtFile is not null)
+                        {
+                            txtFile.CloseFile();
+                            txtFile = null;
+                        }
+
+                        txtFile = new TXTFormat(path, fileEncoding);
+                        cont = txtFile.ReadFile();
                     }
 
-                    FileEncoding = txtsFile.Encoding;
+                    Content = cont;
+                    contentHash = Content.GetHashCode();
+                    FileName = path;
                 }
-                else
-                {
-                    txtFile = new TXTFormat(path, fileEncoding);
-                    cont = txtFile.ReadFile();
-                }
-                
-                Content = cont;
-                contentHash = Content.GetHashCode();
-                FileName = path;
             }
-
+            catch (Exception ex)
+            {
+                DialogManager.ShowWarningDialogWithText(ex.Message);
+            }
             
         }
 
         private void SaveFileAndUpdateHash(string path)
         {   
-           
-            if (path is not null)
+
+            try
             {
-                if (!File.Exists(path))
-                    File.Create(path).Close();
-
-                if (txtsFile is not null || new FileInfo(path).Extension.ToLower() == ".txts".ToLower())
+                if (path is not null)
                 {
-                    if (txtsFile is not null)
+                    if (!File.Exists(path))
+                        File.Create(path).Close();
+
+                    if (txtsFile is not null || new FileInfo(path).Extension.ToLower() == ".txts".ToLower())
                     {
-                        if (txtsFile.Path != path)
+                        if (txtsFile is not null)
                         {
-                            txtsFile.CloseFile();
-                            txtsFile = null;
-                            SaveFileAndUpdateHash(path);
-                            return;
+                            if (txtsFile.Path != path)
+                            {
+                                txtsFile.CloseFile();
+                                txtsFile = null;
+                                SaveFileAndUpdateHash(path);
+                                return;
+                            }
+
+                            txtsFile.WriteFile(Content);
+
                         }
+                        else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
 
-                        txtsFile.WriteFile(Content);
-
-                    }
-                    else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
-
-                        txtsFile.WriteFile(Content);
+                            txtsFile.WriteFile(Content);
+                        }
+                        else
+                            return;
                     }
                     else
-                        return;
-                }
-                else
-                {
-                    if (txtFile is null)
-                        txtFile = new TXTFormat(path, fileEncoding);
+                    {
+                        if (txtFile is null)
+                            txtFile = new TXTFormat(path, fileEncoding);
 
-                    txtFile.WriteFile(Content);
-                }
+                        if (txtFile is not null && txtFile.Path != path)
+                        {
+                            txtFile.CloseFile();
+                            txtFile = new TXTFormat(path, fileEncoding);
+                        }
 
-                contentHash = Content.GetHashCode();
-                FileName = path;
+                        txtFile.WriteFile(Content);
+                    }
+
+                    contentHash = Content.GetHashCode();
+                    FileName = path;
+                }
             }
-
+            catch (ArgumentException ex)
+            {
+                DialogManager.ShowWarningDialogWithText(ex.Message);
+            }
+           
         }
 
         private void WordWrap_MenuItem_Click(object sender, EventArgs e)

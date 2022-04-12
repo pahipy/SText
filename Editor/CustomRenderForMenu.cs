@@ -85,6 +85,5 @@ namespace SText.Editor
             get => ThemeSelector.CurrentColorSchema.MenuColor;
         }
 
-
     }
 }
