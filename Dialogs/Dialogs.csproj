@@ -5,7 +5,10 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.1.4</Version>
+    <Copyright>© 2022 pahipy</Copyright>
+    <Company>pahipy</Company>
+    <Version>1.2.0</Version>
+    <ProductName>SText</ProductName>
   </PropertyGroup>
 
   <ItemGroup>

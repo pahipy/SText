@@ -10,7 +10,7 @@ namespace SText.Conf
     {
         public const string ConfigFileName = "stext.config.json";
         public const string UntitledFileName = "Untitled";
-        public const string ProgramName = "SText Dev";
+        public const string ProgramName = "SText";
         public const string DirectoryConfName = ".SText";
         public const string TemporaryFileName = "temp";
         public const string GitHubLink = "https://github.com/pahipy/SText";

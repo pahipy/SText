@@ -4,6 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Copyright>© 2022 pahipy</Copyright>
+    <Company>pahipy</Company>
+    <Version>1.2.0</Version>
+    <ProductName>SText</ProductName>
   </PropertyGroup>
 
   <ItemGroup>
