@@ -80,10 +80,19 @@
             this.KOI8R_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PrintDoc = new System.Drawing.Printing.PrintDocument();
+            this.ContentViewer_ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContentViewer_ContextMenu_Undo = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Separator0 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContentViewer_ContextMenu_Cut = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Paste = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Separator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContentViewer_ContextMenu_SelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.DropDownEncodingMenu.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.ContentViewer_ContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -195,6 +204,7 @@
             this.Undo_MenuItem.Name = "Undo_MenuItem";
             this.Undo_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.Undo_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.Undo_MenuItem.Tag = "undo";
             this.Undo_MenuItem.Text = "Undo";
             this.Undo_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -203,6 +213,7 @@
             this.Cut_MenuItem.Name = "Cut_MenuItem";
             this.Cut_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.Cut_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.Cut_MenuItem.Tag = "cut";
             this.Cut_MenuItem.Text = "Cut";
             this.Cut_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -211,6 +222,7 @@
             this.Copy_MenuItem.Name = "Copy_MenuItem";
             this.Copy_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.Copy_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.Copy_MenuItem.Tag = "copy";
             this.Copy_MenuItem.Text = "Copy";
             this.Copy_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -219,6 +231,7 @@
             this.Paste_MenuItem.Name = "Paste_MenuItem";
             this.Paste_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.Paste_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.Paste_MenuItem.Tag = "paste";
             this.Paste_MenuItem.Text = "Paste";
             this.Paste_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -226,6 +239,7 @@
             // 
             this.Delete_MenuItem.Name = "Delete_MenuItem";
             this.Delete_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.Delete_MenuItem.Tag = "delete";
             this.Delete_MenuItem.Text = "Delete";
             this.Delete_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -234,6 +248,7 @@
             this.SelectAll_MenuItem.Name = "SelectAll_MenuItem";
             this.SelectAll_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.SelectAll_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.SelectAll_MenuItem.Tag = "selectAll";
             this.SelectAll_MenuItem.Text = "Select All";
             this.SelectAll_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -242,6 +257,7 @@
             this.DateAndTime_MenuItem.Name = "DateAndTime_MenuItem";
             this.DateAndTime_MenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.DateAndTime_MenuItem.Size = new System.Drawing.Size(164, 22);
+            this.DateAndTime_MenuItem.Tag = "dateAndTime";
             this.DateAndTime_MenuItem.Text = "Date/Time";
             this.DateAndTime_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
@@ -372,6 +388,7 @@
             // 
             this.ContentViewer.AcceptsTab = true;
             this.ContentViewer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ContentViewer.ContextMenuStrip = this.ContentViewer_ContextMenu;
             this.ContentViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ContentViewer.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ContentViewer.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -521,6 +538,70 @@
             // 
             this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
             // 
+            // ContentViewer_ContextMenu
+            // 
+            this.ContentViewer_ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContentViewer_ContextMenu_Undo,
+            this.ContentViewer_ContextMenu_Separator0,
+            this.ContentViewer_ContextMenu_Cut,
+            this.ContentViewer_ContextMenu_Copy,
+            this.ContentViewer_ContextMenu_Paste,
+            this.ContentViewer_ContextMenu_Separator1,
+            this.ContentViewer_ContextMenu_SelectAll});
+            this.ContentViewer_ContextMenu.Name = "ContentViewer_ContextMenu";
+            this.ContentViewer_ContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.ContentViewer_ContextMenu.Size = new System.Drawing.Size(123, 126);
+            // 
+            // ContentViewer_ContextMenu_Undo
+            // 
+            this.ContentViewer_ContextMenu_Undo.Name = "ContentViewer_ContextMenu_Undo";
+            this.ContentViewer_ContextMenu_Undo.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Undo.Tag = "undo";
+            this.ContentViewer_ContextMenu_Undo.Text = "Undo";
+            this.ContentViewer_ContextMenu_Undo.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Separator0
+            // 
+            this.ContentViewer_ContextMenu_Separator0.Name = "ContentViewer_ContextMenu_Separator0";
+            this.ContentViewer_ContextMenu_Separator0.Size = new System.Drawing.Size(119, 6);
+            // 
+            // ContentViewer_ContextMenu_Cut
+            // 
+            this.ContentViewer_ContextMenu_Cut.Name = "ContentViewer_ContextMenu_Cut";
+            this.ContentViewer_ContextMenu_Cut.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Cut.Tag = "cut";
+            this.ContentViewer_ContextMenu_Cut.Text = "Cut";
+            this.ContentViewer_ContextMenu_Cut.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Copy
+            // 
+            this.ContentViewer_ContextMenu_Copy.Name = "ContentViewer_ContextMenu_Copy";
+            this.ContentViewer_ContextMenu_Copy.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Copy.Tag = "copy";
+            this.ContentViewer_ContextMenu_Copy.Text = "Copy";
+            this.ContentViewer_ContextMenu_Copy.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Paste
+            // 
+            this.ContentViewer_ContextMenu_Paste.Name = "ContentViewer_ContextMenu_Paste";
+            this.ContentViewer_ContextMenu_Paste.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Paste.Tag = "paste";
+            this.ContentViewer_ContextMenu_Paste.Text = "Paste";
+            this.ContentViewer_ContextMenu_Paste.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Separator1
+            // 
+            this.ContentViewer_ContextMenu_Separator1.Name = "ContentViewer_ContextMenu_Separator1";
+            this.ContentViewer_ContextMenu_Separator1.Size = new System.Drawing.Size(119, 6);
+            // 
+            // ContentViewer_ContextMenu_SelectAll
+            // 
+            this.ContentViewer_ContextMenu_SelectAll.Name = "ContentViewer_ContextMenu_SelectAll";
+            this.ContentViewer_ContextMenu_SelectAll.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_SelectAll.Tag = "selectAll";
+            this.ContentViewer_ContextMenu_SelectAll.Text = "Select All";
+            this.ContentViewer_ContextMenu_SelectAll.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -546,6 +627,7 @@
             this.DropDownEncodingMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.ContentViewer_ContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -603,6 +685,14 @@
         private ToolStripMenuItem KOI8R_MenuItem;
         private ToolStripMenuItem ShowSetPasswordDialog_DebugMenuItem;
         private ToolStripMenuItem ShowOpenPasswordDialog_DebugMenuItem;
+        private ContextMenuStrip ContentViewer_ContextMenu;
+        private ToolStripMenuItem ContentViewer_ContextMenu_Undo;
+        private ToolStripSeparator ContentViewer_ContextMenu_Separator0;
+        private ToolStripMenuItem ContentViewer_ContextMenu_Cut;
+        private ToolStripMenuItem ContentViewer_ContextMenu_Copy;
+        private ToolStripMenuItem ContentViewer_ContextMenu_Paste;
+        private ToolStripSeparator ContentViewer_ContextMenu_Separator1;
+        private ToolStripMenuItem ContentViewer_ContextMenu_SelectAll;
     }
 }
 

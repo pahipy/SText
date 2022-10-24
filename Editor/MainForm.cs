@@ -30,6 +30,7 @@ namespace SText.Editor
 
             MainMenu.Renderer = new CustomRenderForMenu();
             DropDownEncodingMenu.Renderer = new CustomRenderForMenu();
+            ContentViewer_ContextMenu.Renderer = new CustomRenderForMenu();
             StatusBar.Renderer = new CustomRenderForStatusBar();
 
             
@@ -307,35 +308,35 @@ namespace SText.Editor
 
         private void MenuEdit_Events_Click(object sender, EventArgs e)
         {
-            string name = ((ToolStripMenuItem)sender).Name;
+            string tag = ((ToolStripMenuItem)sender).Tag.ToString();
 
-            switch (name)
+            switch (tag)
             {
-                case "Undo_MenuItem":
+                case "undo":
                     {
                         ContentViewer.Undo();
                         return;
                     }
 
-                case "Cut_MenuItem":
+                case "cut":
                     {
                         ContentViewer.Cut();
                         return;
                     }
 
-                case "Copy_MenuItem":
+                case "copy":
                     {
                         ContentViewer.Copy();
                         return;
                     }
 
-                case "Paste_MenuItem":
+                case "paste":
                     {
                         ContentViewer.Paste();
                         return;
                     }
 
-                case "Delete_MenuItem":
+                case "delete":
                     {
                         /*int begin = ContentViewer.SelectionStart,
                             end = ContentViewer.SelectionLength + ContentViewer.SelectionStart;
@@ -357,13 +358,13 @@ namespace SText.Editor
                         return;
                     }
 
-                case "SelectAll_MenuItem":
+                case "selectAll":
                     {
                         ContentViewer.SelectAll();
                         return;
                     }
 
-                case "DateAndTime_MenuItem":
+                case "dateAndTime":
                     {
                         DateTime dt = DateTime.Now;
                         Content = Content.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
