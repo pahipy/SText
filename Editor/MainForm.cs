@@ -94,6 +94,7 @@ namespace SText.Editor
         private PasswordDialog setPasswordDialog = new PasswordDialog();
         private PasswordDialog openPasswordDialog = new PasswordDialog(false);
         private bool appWindowIsShown = false;
+        private bool isReadOnly = false;
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -132,8 +133,10 @@ namespace SText.Editor
             get
             {
                 string title = "";
+                string readonlystring = isReadOnly ? "[READ ONLY]" : "";
+
                 if (FileName != null && File.Exists(FileName))
-                    title = $"{new FileInfo(FileName).Name} - {ProgramSets.ProgramName}";
+                    title = $"{new FileInfo(FileName).Name} - {ProgramSets.ProgramName} {readonlystring}";
                 else
                     title = $"{FileName} - {ProgramSets.ProgramName}";
 
@@ -228,7 +231,7 @@ namespace SText.Editor
 
         private void SaveFile()
         {
-            if (File.Exists(FileName))
+            if (File.Exists(FileName) && !isReadOnly)
             {
                 SaveFileAndUpdateHash(FileName);
             }
@@ -600,6 +603,7 @@ namespace SText.Editor
                             else if (txtsFile.Password is not null)
                             {
                                 cont = txtsFile.ReadFile();
+                                isReadOnly = txtsFile.IsReadOnly;
                             }
                             else
                                 return;
@@ -622,6 +626,7 @@ namespace SText.Editor
 
                         txtFile = new TXTFormat(path, fileEncoding);
                         cont = txtFile.ReadFile();
+                        isReadOnly = txtFile.IsReadOnly;
                     }
 
                     Content = cont;
@@ -659,13 +664,14 @@ namespace SText.Editor
                             }
 
                             txtsFile.WriteFile(Content);
-
+                            isReadOnly = txtsFile.IsReadOnly;
                         }
                         else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
                         {
                             txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
 
                             txtsFile.WriteFile(Content);
+                            isReadOnly = txtsFile.IsReadOnly;
                         }
                         else
                             return;
@@ -682,6 +688,7 @@ namespace SText.Editor
                         }
 
                         txtFile.WriteFile(Content);
+                        isReadOnly = txtFile.IsReadOnly;
                     }
 
                     contentHash = Content.GetHashCode();

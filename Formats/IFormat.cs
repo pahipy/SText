@@ -4,6 +4,7 @@
     {
 
         public string Path { get; }
+        public bool IsReadOnly { get; }
 
         public string ReadFile();
         public void WriteFile(string content);

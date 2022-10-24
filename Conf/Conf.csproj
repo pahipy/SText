@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Copyright>© 2022 pahipy</Copyright>
     <Company>pahipy</Company>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <ProductName>SText</ProductName>
   </PropertyGroup>
 

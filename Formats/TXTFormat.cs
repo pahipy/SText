@@ -11,17 +11,20 @@ namespace SText.Formats
     {
         public TXTFormat(string path)
         {
+            this.path = path;
+
             if (path is not null)
             {
                 if (File.Exists(path))
                 {
-                    fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+                    ReopenStream();
                 }
                 else
                 {
                     fs = File.Create(path);
+                    isReadOnly = false;
                 }
-                this.path = path;
+                
                 fileEncoding = Encoding.UTF8;
             }
             else
@@ -50,6 +53,12 @@ namespace SText.Formats
             get => path;
         }
 
+        private bool isReadOnly;
+        public bool IsReadOnly
+        {
+            get => isReadOnly;
+        }
+
         public string ReadFile()
         {
             fs.Position = 0;
@@ -68,6 +77,9 @@ namespace SText.Formats
 
         public void WriteFile(string content)
         {
+            if (isReadOnly)
+                return;
+
             fs.Position = 0;
 
             fs.SetLength(0);
@@ -90,7 +102,16 @@ namespace SText.Formats
 
         private void ReopenStream()
         {
-            fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            try
+            {
+                fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+                isReadOnly = false;
+            }
+            catch
+            {
+                fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                isReadOnly = true;
+            }
         }
 
     }

@@ -27,10 +27,16 @@ namespace SText.Formats
         public TXTSFormat(string path, string key)
         {
             this.path = path;
+
             if (File.Exists(path))
-                fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            {
+                ReopenStream();
+            }
             else
+            {
                 fileStream = File.Create(path);
+                isReadOnly = false;
+            }
 
             this.key = key;
 
@@ -72,6 +78,12 @@ namespace SText.Formats
         public string Path
         {
             get => path;
+        }
+
+        private bool isReadOnly;
+        public bool IsReadOnly
+        {
+            get => isReadOnly;
         }
 
         private FileStream fileStream;
@@ -182,7 +194,16 @@ namespace SText.Formats
 
         private void ReopenStream()
         {
-            fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            try
+            {
+                fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+                isReadOnly = false;
+            }
+            catch
+            {
+                fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                isReadOnly = true;
+            }
         }
 
     }
