@@ -64,6 +64,14 @@
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.About_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentViewer = new System.Windows.Forms.TextBox();
+            this.ContentViewer_ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContentViewer_ContextMenu_Undo = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Separator0 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContentViewer_ContextMenu_Cut = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Paste = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContentViewer_ContextMenu_Separator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContentViewer_ContextMenu_SelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.StatusBar = new System.Windows.Forms.ToolStrip();
@@ -80,19 +88,11 @@
             this.KOI8R_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PrintDoc = new System.Drawing.Printing.PrintDocument();
-            this.ContentViewer_ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ContentViewer_ContextMenu_Undo = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContentViewer_ContextMenu_Separator0 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContentViewer_ContextMenu_Cut = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContentViewer_ContextMenu_Copy = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContentViewer_ContextMenu_Paste = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContentViewer_ContextMenu_Separator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContentViewer_ContextMenu_SelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
+            this.ContentViewer_ContextMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.DropDownEncodingMenu.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.ContentViewer_ContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -387,6 +387,7 @@
             // ContentViewer
             // 
             this.ContentViewer.AcceptsTab = true;
+            this.ContentViewer.AllowDrop = true;
             this.ContentViewer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ContentViewer.ContextMenuStrip = this.ContentViewer_ContextMenu;
             this.ContentViewer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -402,6 +403,72 @@
             this.ContentViewer.TabIndex = 2;
             this.ContentViewer.WordWrap = false;
             this.ContentViewer.TextChanged += new System.EventHandler(this.ContentViewer_TextChanged);
+            this.ContentViewer.DragDrop += new System.Windows.Forms.DragEventHandler(this.ContentViewer_DragDrop);
+            this.ContentViewer.DragEnter += new System.Windows.Forms.DragEventHandler(this.ContentViewer_DragEnter);
+            // 
+            // ContentViewer_ContextMenu
+            // 
+            this.ContentViewer_ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContentViewer_ContextMenu_Undo,
+            this.ContentViewer_ContextMenu_Separator0,
+            this.ContentViewer_ContextMenu_Cut,
+            this.ContentViewer_ContextMenu_Copy,
+            this.ContentViewer_ContextMenu_Paste,
+            this.ContentViewer_ContextMenu_Separator1,
+            this.ContentViewer_ContextMenu_SelectAll});
+            this.ContentViewer_ContextMenu.Name = "ContentViewer_ContextMenu";
+            this.ContentViewer_ContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.ContentViewer_ContextMenu.Size = new System.Drawing.Size(123, 126);
+            // 
+            // ContentViewer_ContextMenu_Undo
+            // 
+            this.ContentViewer_ContextMenu_Undo.Name = "ContentViewer_ContextMenu_Undo";
+            this.ContentViewer_ContextMenu_Undo.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Undo.Tag = "undo";
+            this.ContentViewer_ContextMenu_Undo.Text = "Undo";
+            this.ContentViewer_ContextMenu_Undo.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Separator0
+            // 
+            this.ContentViewer_ContextMenu_Separator0.Name = "ContentViewer_ContextMenu_Separator0";
+            this.ContentViewer_ContextMenu_Separator0.Size = new System.Drawing.Size(119, 6);
+            // 
+            // ContentViewer_ContextMenu_Cut
+            // 
+            this.ContentViewer_ContextMenu_Cut.Name = "ContentViewer_ContextMenu_Cut";
+            this.ContentViewer_ContextMenu_Cut.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Cut.Tag = "cut";
+            this.ContentViewer_ContextMenu_Cut.Text = "Cut";
+            this.ContentViewer_ContextMenu_Cut.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Copy
+            // 
+            this.ContentViewer_ContextMenu_Copy.Name = "ContentViewer_ContextMenu_Copy";
+            this.ContentViewer_ContextMenu_Copy.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Copy.Tag = "copy";
+            this.ContentViewer_ContextMenu_Copy.Text = "Copy";
+            this.ContentViewer_ContextMenu_Copy.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Paste
+            // 
+            this.ContentViewer_ContextMenu_Paste.Name = "ContentViewer_ContextMenu_Paste";
+            this.ContentViewer_ContextMenu_Paste.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_Paste.Tag = "paste";
+            this.ContentViewer_ContextMenu_Paste.Text = "Paste";
+            this.ContentViewer_ContextMenu_Paste.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            // 
+            // ContentViewer_ContextMenu_Separator1
+            // 
+            this.ContentViewer_ContextMenu_Separator1.Name = "ContentViewer_ContextMenu_Separator1";
+            this.ContentViewer_ContextMenu_Separator1.Size = new System.Drawing.Size(119, 6);
+            // 
+            // ContentViewer_ContextMenu_SelectAll
+            // 
+            this.ContentViewer_ContextMenu_SelectAll.Name = "ContentViewer_ContextMenu_SelectAll";
+            this.ContentViewer_ContextMenu_SelectAll.Size = new System.Drawing.Size(122, 22);
+            this.ContentViewer_ContextMenu_SelectAll.Tag = "selectAll";
+            this.ContentViewer_ContextMenu_SelectAll.Text = "Select All";
+            this.ContentViewer_ContextMenu_SelectAll.Click += new System.EventHandler(this.MenuEdit_Events_Click);
             // 
             // openFileDialog
             // 
@@ -538,78 +605,15 @@
             // 
             this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
             // 
-            // ContentViewer_ContextMenu
-            // 
-            this.ContentViewer_ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ContentViewer_ContextMenu_Undo,
-            this.ContentViewer_ContextMenu_Separator0,
-            this.ContentViewer_ContextMenu_Cut,
-            this.ContentViewer_ContextMenu_Copy,
-            this.ContentViewer_ContextMenu_Paste,
-            this.ContentViewer_ContextMenu_Separator1,
-            this.ContentViewer_ContextMenu_SelectAll});
-            this.ContentViewer_ContextMenu.Name = "ContentViewer_ContextMenu";
-            this.ContentViewer_ContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.ContentViewer_ContextMenu.Size = new System.Drawing.Size(123, 126);
-            // 
-            // ContentViewer_ContextMenu_Undo
-            // 
-            this.ContentViewer_ContextMenu_Undo.Name = "ContentViewer_ContextMenu_Undo";
-            this.ContentViewer_ContextMenu_Undo.Size = new System.Drawing.Size(122, 22);
-            this.ContentViewer_ContextMenu_Undo.Tag = "undo";
-            this.ContentViewer_ContextMenu_Undo.Text = "Undo";
-            this.ContentViewer_ContextMenu_Undo.Click += new System.EventHandler(this.MenuEdit_Events_Click);
-            // 
-            // ContentViewer_ContextMenu_Separator0
-            // 
-            this.ContentViewer_ContextMenu_Separator0.Name = "ContentViewer_ContextMenu_Separator0";
-            this.ContentViewer_ContextMenu_Separator0.Size = new System.Drawing.Size(119, 6);
-            // 
-            // ContentViewer_ContextMenu_Cut
-            // 
-            this.ContentViewer_ContextMenu_Cut.Name = "ContentViewer_ContextMenu_Cut";
-            this.ContentViewer_ContextMenu_Cut.Size = new System.Drawing.Size(122, 22);
-            this.ContentViewer_ContextMenu_Cut.Tag = "cut";
-            this.ContentViewer_ContextMenu_Cut.Text = "Cut";
-            this.ContentViewer_ContextMenu_Cut.Click += new System.EventHandler(this.MenuEdit_Events_Click);
-            // 
-            // ContentViewer_ContextMenu_Copy
-            // 
-            this.ContentViewer_ContextMenu_Copy.Name = "ContentViewer_ContextMenu_Copy";
-            this.ContentViewer_ContextMenu_Copy.Size = new System.Drawing.Size(122, 22);
-            this.ContentViewer_ContextMenu_Copy.Tag = "copy";
-            this.ContentViewer_ContextMenu_Copy.Text = "Copy";
-            this.ContentViewer_ContextMenu_Copy.Click += new System.EventHandler(this.MenuEdit_Events_Click);
-            // 
-            // ContentViewer_ContextMenu_Paste
-            // 
-            this.ContentViewer_ContextMenu_Paste.Name = "ContentViewer_ContextMenu_Paste";
-            this.ContentViewer_ContextMenu_Paste.Size = new System.Drawing.Size(122, 22);
-            this.ContentViewer_ContextMenu_Paste.Tag = "paste";
-            this.ContentViewer_ContextMenu_Paste.Text = "Paste";
-            this.ContentViewer_ContextMenu_Paste.Click += new System.EventHandler(this.MenuEdit_Events_Click);
-            // 
-            // ContentViewer_ContextMenu_Separator1
-            // 
-            this.ContentViewer_ContextMenu_Separator1.Name = "ContentViewer_ContextMenu_Separator1";
-            this.ContentViewer_ContextMenu_Separator1.Size = new System.Drawing.Size(119, 6);
-            // 
-            // ContentViewer_ContextMenu_SelectAll
-            // 
-            this.ContentViewer_ContextMenu_SelectAll.Name = "ContentViewer_ContextMenu_SelectAll";
-            this.ContentViewer_ContextMenu_SelectAll.Size = new System.Drawing.Size(122, 22);
-            this.ContentViewer_ContextMenu_SelectAll.Tag = "selectAll";
-            this.ContentViewer_ContextMenu_SelectAll.Text = "Select All";
-            this.ContentViewer_ContextMenu_SelectAll.Click += new System.EventHandler(this.MenuEdit_Events_Click);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1115, 569);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.StatusBar);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -622,12 +626,12 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
+            this.ContentViewer_ContextMenu.ResumeLayout(false);
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
             this.DropDownEncodingMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.ContentViewer_ContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

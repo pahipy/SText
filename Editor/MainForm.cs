@@ -412,12 +412,18 @@ namespace SText.Editor
             }
         }
 
-        private void OpenFile(bool dontSaveFile = false)
+        private void OpenFile(bool dontSaveFile = false, string path = null)
         {
+
             if (Content.GetHashCode() == contentHash || dontSaveFile)
             {
                 openFileDialog.FileName = null;
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+
+                if (path is not null && File.Exists(path))
+                {
+                    OpenFileAndReadContent(path);
+                }
+                else if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     OpenFileAndReadContent(openFileDialog.FileName);
                 }
@@ -435,11 +441,11 @@ namespace SText.Editor
 
                             SaveFile();
 
-                            OpenFile();
+                            OpenFile(false, path);
                             break; 
                         }
                     case DialogResult.Cancel: return;
-                    case DialogResult.Abort: OpenFile(true); return;
+                    case DialogResult.Abort: OpenFile(true, path); return;
                 }
                 
             }
@@ -556,7 +562,7 @@ namespace SText.Editor
                 {
                     string cont = "";
 
-                    if (txtsFile is not null || TXTSFormat.IsStxtFile(path))
+                    if (txtsFile is not null || TXTSFormat.IsTXTSFile(path))
                     {
                         Func<int> openTxts = () =>
                         {
@@ -592,7 +598,7 @@ namespace SText.Editor
                                 txtsFile.CloseFile();
                                 txtsFile = null;
 
-                                if (!TXTSFormat.IsStxtFile(path))
+                                if (!TXTSFormat.IsTXTSFile(path))
                                 {
                                     OpenFileAndReadContent(path);
                                     return;
@@ -853,6 +859,25 @@ namespace SText.Editor
             strToPrint = strToPrint.Substring(charactersOnPage);
 
             e.HasMorePages = (strToPrint.Length > 0);
+        }
+
+        private void ContentViewer_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data is null)
+                return;
+
+            string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+            OpenFile(false, path);
+            
+        }
+
+        private void ContentViewer_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data is null)
+                return;
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
         }
     }
 }

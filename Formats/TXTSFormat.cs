@@ -169,7 +169,7 @@ namespace SText.Formats
             return 1;
         }
 
-        public static bool IsStxtFile(string path)
+        public static bool IsTXTSFile(string path)
         {
             if (!File.Exists(path))
                 return false;
