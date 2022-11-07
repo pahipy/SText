@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+	  <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
+	  <Copyright>© 2022 pahipy</Copyright>
+	  <Company>pahipy</Company>
+	  <Version>1.0.0</Version>
+  </PropertyGroup>
+
+</Project>

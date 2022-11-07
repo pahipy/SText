@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Text;
+using System.Windows.Forms.Integration;
 using System.IO;
 using SText.Dialogs;
 using SText.Conf;
 using SText.Formats;
+using WPFControls;
+using System.Windows.Media;
 
 namespace SText.Editor
 {
@@ -23,6 +19,9 @@ namespace SText.Editor
             debugToolStripMenuItem.Visible = false;
             isDebug = false;
 #endif
+            host.Child = ContentViewer;
+            ContentPanel.Controls.Add(host);
+            host.Dock = DockStyle.Fill;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -30,7 +29,6 @@ namespace SText.Editor
 
             MainMenu.Renderer = new CustomRenderForMenu();
             DropDownEncodingMenu.Renderer = new CustomRenderForMenu();
-            ContentViewer_ContextMenu.Renderer = new CustomRenderForMenu();
             StatusBar.Renderer = new CustomRenderForStatusBar();
 
             
@@ -63,25 +61,39 @@ namespace SText.Editor
             catch { }
             
 
-            ContentViewer.MouseWheel += (s, e) =>
+            ContentViewer.Inner.MouseWheel += (s, e) =>
             {
-                float newsize = e.Delta / 100 + ContentViewer.Font.Size;
-                if ( newsize > 5 && newsize < 75 && FontSizeChangeByMouseWheelAct)
+                double newsize = e.Delta / 100d + ContentViewer.Inner.FontSize;
+                if (newsize > 5 && newsize < 75 && FontSizeChangeByMouseWheelAct)
                 {
-                    ContentViewer.Font = new Font(ContentViewer.Font.FontFamily, newsize);
+                    ContentViewer.Inner.FontSize = newsize;
                 }
                 FontSizeChangeByMouseWheelAct = false;
             };
 
-            ContentViewer.KeyDown += (s, e) =>
+            ContentViewer.Inner.KeyDown += (s, e) =>
             {
-                FontSizeChangeByMouseWheelAct = e.Control;
+                FontSizeChangeByMouseWheelAct = e.Key == System.Windows.Input.Key.LeftCtrl;
             };
 
-            ContentViewer.KeyUp += (s, e) =>
+            ContentViewer.Inner.KeyUp += (s, e) =>
             {
-                FontSizeChangeByMouseWheelAct = e.Control;
+                FontSizeChangeByMouseWheelAct = false;
             };
+
+            ContentViewer.Inner.PreviewDragOver += (s, e) => e.Handled = true;
+
+            ContentViewer.Inner.Drop += (s, e) =>
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                    if (File.Exists(path))
+                        OpenFile(false, path);
+                }
+            };
+
+            ContentViewer.Inner.TextChanged += ContentViewer_TextChanged;
 
         }
 
@@ -96,6 +108,8 @@ namespace SText.Editor
         private PasswordDialog openPasswordDialog = new PasswordDialog(false);
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
+        private Textarea ContentViewer = new Textarea();
+        private ElementHost host = new ElementHost();
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -352,8 +366,8 @@ namespace SText.Editor
                         begin = begin < 0 ? -begin : begin;
 
                         Content = Content.Remove(begin, end - 1);*/
-                        if (ContentViewer.SelectedText.Length > 0)
-                            Content = Content.Replace(ContentViewer.SelectedText, "");
+                        if (ContentViewer.Inner.SelectedText.Length > 0)
+                            Content = Content.Replace(ContentViewer.Inner.SelectedText, "");
 
                         return;
                     }
@@ -508,8 +522,14 @@ namespace SText.Editor
                     }
             }
 
-            ContentViewer.BackColor = ThemeSelector.CurrentColorSchema.TextFieldColor;
-            ContentViewer.ForeColor = ThemeSelector.CurrentColorSchema.TextFieldFontColor;
+            System.Windows.Media.Color bcolor = System.Windows.Media.Color.FromRgb(ThemeSelector.CurrentColorSchema.TextFieldColor.R,
+                ThemeSelector.CurrentColorSchema.TextFieldColor.G, ThemeSelector.CurrentColorSchema.TextFieldColor.B);
+
+            System.Windows.Media.Color tcolor = System.Windows.Media.Color.FromRgb(ThemeSelector.CurrentColorSchema.TextFieldFontColor.R,
+                ThemeSelector.CurrentColorSchema.TextFieldFontColor.G, ThemeSelector.CurrentColorSchema.TextFieldFontColor.B);
+
+            ContentViewer.Backcolor = new SolidColorBrush(bcolor);
+            ContentViewer.Textcolor = new SolidColorBrush(tcolor);
             MainMenu.BackColor = ThemeSelector.CurrentColorSchema.MenuColor;
             MainMenu.ForeColor = ThemeSelector.CurrentColorSchema.MenuFontColor;
             
@@ -838,8 +858,8 @@ namespace SText.Editor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (ContentViewer.SelectedText.Length > 0)
-                ContentViewer.DeselectAll();
+            /*if (ContentViewer.SelectedText.Length > 0)
+                ContentViewer.DeselectAll();*/
 
             appWindowIsShown = true;
         }
@@ -853,7 +873,7 @@ namespace SText.Editor
             e.Graphics.MeasureString(strToPrint, ContentViewer.Font, e.MarginBounds.Size, StringFormat.GenericTypographic,
                 out charactersOnPage, out linesPerPage);
 
-            e.Graphics.DrawString(strToPrint, ContentViewer.Font, new SolidBrush(Color.Black), e.MarginBounds,
+            e.Graphics.DrawString(strToPrint, ContentViewer.Font, new SolidBrush(System.Drawing.Color.Black), e.MarginBounds,
                 StringFormat.GenericTypographic);
 
             strToPrint = strToPrint.Substring(charactersOnPage);
@@ -861,23 +881,5 @@ namespace SText.Editor
             e.HasMorePages = (strToPrint.Length > 0);
         }
 
-        private void ContentViewer_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data is null)
-                return;
-
-            string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-            OpenFile(false, path);
-            
-        }
-
-        private void ContentViewer_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data is null)
-                return;
-
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-        }
     }
 }

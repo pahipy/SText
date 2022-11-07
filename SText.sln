@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor", "Editor\Editor.csproj", "{DBDC7C67-B699-4F2A-938A-C4084A481BDB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08} = {62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AAA73753-C606-441A-8C68-A81EA1A6DC81}"
 EndProject
@@ -11,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dialogs", "Dialogs\Dialogs.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conf", "Conf\Conf.csproj", "{32AAAF11-0711-422D-BF41-6F1FDD5D997D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formats", "Formats\Formats.csproj", "{CAD37CE1-3A3C-49B7-B20C-C9B9F1350174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formats", "Formats\Formats.csproj", "{CAD37CE1-3A3C-49B7-B20C-C9B9F1350174}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFControls", "WPFControls\WPFControls.csproj", "{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +58,14 @@ Global
 		{CAD37CE1-3A3C-49B7-B20C-C9B9F1350174}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAD37CE1-3A3C-49B7-B20C-C9B9F1350174}.Release|x64.ActiveCfg = Release|Any CPU
 		{CAD37CE1-3A3C-49B7-B20C-C9B9F1350174}.Release|x64.Build.0 = Release|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Debug|x64.Build.0 = Debug|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Release|x64.ActiveCfg = Release|Any CPU
+		{62507FE7-6D14-43C4-AC4B-BC91AD8D4B08}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
