@@ -605,6 +605,8 @@ namespace SText.Editor
                             {
                                 txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
                                 cont = txtsFile.ReadFile();
+                                isReadOnly = txtsFile.IsReadOnly;
+                                FileEncoding = txtsFile.Encoding;
 
                                 if (txtsFile.Code == 1)
                                 {
@@ -640,6 +642,7 @@ namespace SText.Editor
                             {
                                 cont = txtsFile.ReadFile();
                                 isReadOnly = txtsFile.IsReadOnly;
+                                FileEncoding = txtsFile.Encoding;
                             }
                             else
                                 return;
