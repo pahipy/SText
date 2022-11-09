@@ -57,6 +57,7 @@
             this.DefaultTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BlueTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClassicalDarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowCMD_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowSetPasswordDialog_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,10 +80,8 @@
             this.KOI8R_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.PrintDoc = new System.Drawing.Printing.PrintDocument();
-            this.ClassicalDarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
-            this.DropDownEncodingMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -290,7 +289,7 @@
             this.ShowStatusBar_MenuItem.CheckOnClick = true;
             this.ShowStatusBar_MenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(126, 22);
             this.ShowStatusBar_MenuItem.Text = "Status Bar";
             this.ShowStatusBar_MenuItem.Click += new System.EventHandler(this.ShowStatusBar_MenuItem_Click);
             // 
@@ -302,13 +301,13 @@
             this.BlueTheme_MenuItem,
             this.ClassicalDarkTheme_MenuItem});
             this.Theme_MenuItem.Name = "Theme_MenuItem";
-            this.Theme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.Theme_MenuItem.Size = new System.Drawing.Size(126, 22);
             this.Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
             this.DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
             this.DefaultTheme_MenuItem.Tag = "0";
             this.DefaultTheme_MenuItem.Text = "Default";
             this.DefaultTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -316,7 +315,7 @@
             // DarkTheme_MenuItem
             // 
             this.DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
             this.DarkTheme_MenuItem.Tag = "1";
             this.DarkTheme_MenuItem.Text = "Dark";
             this.DarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -324,10 +323,17 @@
             // BlueTheme_MenuItem
             // 
             this.BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
             this.BlueTheme_MenuItem.Tag = "2";
             this.BlueTheme_MenuItem.Text = "Blue";
             this.BlueTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
+            // 
+            // ClassicalDarkTheme_MenuItem
+            // 
+            this.ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
+            this.ClassicalDarkTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
+            this.ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
+            this.ClassicalDarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -434,67 +440,47 @@
             // 
             // DropDownEncodingMenu
             // 
-            this.DropDownEncodingMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.UTF8_MenuItem,
-            this.UTF16_MenuItem,
-            this.UTF32_MenuItem,
-            this.ASCII_MenuItem,
-            this.ANSIEuro_MenuItem,
-            this.ANSICyrillic_MenuItem,
-            this.KOI8R_MenuItem});
+            this.DropDownEncodingMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.DropDownEncodingMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.DropDownEncodingMenu.Name = "DropDownEncodingMenu";
-            this.DropDownEncodingMenu.OwnerItem = this.EncodingMenuButton;
             this.DropDownEncodingMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.DropDownEncodingMenu.Size = new System.Drawing.Size(162, 158);
+            this.DropDownEncodingMenu.ShowItemToolTips = false;
+            this.DropDownEncodingMenu.Size = new System.Drawing.Size(181, 26);
             // 
             // UTF8_MenuItem
             // 
             this.UTF8_MenuItem.Name = "UTF8_MenuItem";
-            this.UTF8_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.UTF8_MenuItem.Text = "UTF-8";
-            this.UTF8_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.UTF8_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // UTF16_MenuItem
             // 
             this.UTF16_MenuItem.Name = "UTF16_MenuItem";
-            this.UTF16_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.UTF16_MenuItem.Text = "UTF-16";
-            this.UTF16_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.UTF16_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // UTF32_MenuItem
             // 
             this.UTF32_MenuItem.Name = "UTF32_MenuItem";
-            this.UTF32_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.UTF32_MenuItem.Text = "UTF-32";
-            this.UTF32_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.UTF32_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // ASCII_MenuItem
             // 
             this.ASCII_MenuItem.Name = "ASCII_MenuItem";
-            this.ASCII_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.ASCII_MenuItem.Text = "ASCII";
-            this.ASCII_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.ASCII_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // ANSIEuro_MenuItem
             // 
             this.ANSIEuro_MenuItem.Name = "ANSIEuro_MenuItem";
-            this.ANSIEuro_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.ANSIEuro_MenuItem.Text = "ANSI (European)";
-            this.ANSIEuro_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.ANSIEuro_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // ANSICyrillic_MenuItem
             // 
             this.ANSICyrillic_MenuItem.Name = "ANSICyrillic_MenuItem";
-            this.ANSICyrillic_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.ANSICyrillic_MenuItem.Text = "ANSI (Cyrillic)";
-            this.ANSICyrillic_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.ANSICyrillic_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // KOI8R_MenuItem
             // 
             this.KOI8R_MenuItem.Name = "KOI8R_MenuItem";
-            this.KOI8R_MenuItem.Size = new System.Drawing.Size(161, 22);
-            this.KOI8R_MenuItem.Text = "KOI8 R";
-            this.KOI8R_MenuItem.Click += new System.EventHandler(this.EncodingMenu_Events_Click);
+            this.KOI8R_MenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // ContentPanel
             // 
@@ -508,13 +494,6 @@
             // PrintDoc
             // 
             this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
-            // 
-            // ClassicalDarkTheme_MenuItem
-            // 
-            this.ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
-            this.ClassicalDarkTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
-            this.ClassicalDarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
             // 
             // MainForm
             // 
@@ -534,12 +513,11 @@
             this.Text = "SText";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
-            this.DropDownEncodingMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

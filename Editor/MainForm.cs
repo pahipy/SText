@@ -6,6 +6,7 @@ using SText.Conf;
 using SText.Formats;
 using WPFControls;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace SText.Editor
 {
@@ -24,6 +25,7 @@ namespace SText.Editor
             host.Dock = DockStyle.Fill;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            SetEncodingMenuItems();
 
             About_MenuItem.Text = $"About {ProgramSets.ProgramName}";
 
@@ -300,7 +302,7 @@ namespace SText.Editor
 
                 case "Print_MenuItem":
                     {
-                        PrintDialog pd = new PrintDialog();
+                        System.Windows.Forms.PrintDialog pd = new System.Windows.Forms.PrintDialog();
                         if (pd.ShowDialog() == DialogResult.OK)
                         {
                             PrintDoc.PrinterSettings = pd.PrinterSettings;
@@ -582,7 +584,7 @@ namespace SText.Editor
 
         }
 
-        private void OpenFileAndReadContent(string path)
+        private void OpenFileAndReadContent(string path, bool autodetectEncoding = true)
         {
 
             try
@@ -606,7 +608,8 @@ namespace SText.Editor
                                 txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
                                 cont = txtsFile.ReadFile();
                                 isReadOnly = txtsFile.IsReadOnly;
-                                FileEncoding = txtsFile.Encoding;
+                                if (autodetectEncoding)
+                                    FileEncoding = txtsFile.Encoding;
 
                                 if (txtsFile.Code == 1)
                                 {
@@ -631,7 +634,7 @@ namespace SText.Editor
 
                                 if (!TXTSFormat.IsTXTSFile(path))
                                 {
-                                    OpenFileAndReadContent(path);
+                                    OpenFileAndReadContent(path, autodetectEncoding);
                                     return;
                                 }
 
@@ -642,7 +645,8 @@ namespace SText.Editor
                             {
                                 cont = txtsFile.ReadFile();
                                 isReadOnly = txtsFile.IsReadOnly;
-                                FileEncoding = txtsFile.Encoding;
+                                if (autodetectEncoding)
+                                    FileEncoding = txtsFile.Encoding;
                             }
                             else
                                 return;
@@ -652,8 +656,8 @@ namespace SText.Editor
                             if (openTxts() == 1)
                                 return;
                         }
-
-                        FileEncoding = txtsFile.Encoding;
+                        if (autodetectEncoding)
+                            FileEncoding = txtsFile.Encoding;
                     }
                     else
                     {
@@ -662,7 +666,8 @@ namespace SText.Editor
                             txtFile.CloseFile();
                             txtFile = null;
                         }
-                        FileEncoding = TXTFormat.GetEncoding(path);
+                        if (autodetectEncoding)
+                            FileEncoding = TXTFormat.GetEncoding(path);
                         txtFile = new TXTFormat(path, fileEncoding);
                         cont = txtFile.ReadFile();
                         isReadOnly = txtFile.IsReadOnly;
@@ -752,83 +757,54 @@ namespace SText.Editor
             ShowStatusBar = ((ToolStripMenuItem)sender).Checked;
         }
 
-        private void EncodingMenu_Events_Click(object sender, EventArgs e)
+        private void SetEncodingMenuItems()
         {
-            var item = (ToolStripMenuItem)sender;
-            Encoding enc = FileEncoding;
+            EncodingInfo[] allEnc = Encoding.GetEncodings();
+            ToolStripMenuItem[] menuItems = new ToolStripMenuItem[allEnc.Length];
 
-            switch (item.Name)
+            for (int i = 0; i < allEnc.Length; i++) 
             {
-                case "UTF8_MenuItem":
-                    {
-                        enc = Encoding.UTF8;
-                        break;
-                    }
+                menuItems[i] = new ToolStripMenuItem();
+                menuItems[i].Name = $"encodingMenuItem{i}";
+                menuItems[i].Text = allEnc[i].Name;
+                menuItems[i].Tag = allEnc[i].CodePage;
+                menuItems[i].Click += (s, e) =>
+                {
+                    int code = (int)((ToolStripMenuItem)s).Tag;
+                    Encoding enc = FileEncoding;
+                    enc = Encoding.GetEncoding(code);
 
-                case "UTF16_MenuItem":
+                    if (FileName != null && File.Exists(FileName))
                     {
-                        enc = Encoding.Unicode;
-                        break;
-                    }
+                        if (contentHash != Content.GetHashCode())
+                        {
+                            SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
-                case "ASCII_MenuItem":
-                    {
-                        enc = Encoding.ASCII;
-                        break;
-                    }
+                            switch (saveDialog.ShowDialog())
+                            {
+                                case DialogResult.OK: SaveFile(); break;
+                                case DialogResult.Cancel: return;
+                            }
 
-                case "UTF32_MenuItem":
-                    {
-                        enc = Encoding.UTF32;
-                        break;
-                    }
+                        }
+                        if (txtFile is not null)
+                            txtFile.CloseFile();
 
-                case "ANSIEuro_MenuItem":
-                    {
-                        enc = Encoding.GetEncoding("Windows-1252");
-                        break;
-                    }
+                        if (txtsFile is not null && txtsFile.Path == FileName)
+                        {
+                            txtsFile.Encoding = enc;
+                        }
 
-                case "ANSICyrillic_MenuItem":
-                    {
-                        enc = Encoding.GetEncoding("Windows-1251");
-                        break;
-                    }
+                        FileEncoding = enc;
+                        OpenFileAndReadContent(FileName, false);
 
-                case "KOI8R_MenuItem":
-                    {
-                        enc = Encoding.GetEncoding("koi8-r");
-                        break;
                     }
+                    FileEncoding = enc;
+
+                };
             }
 
-
-            if (FileName != null && File.Exists(FileName))
-            {
-                if (contentHash != Content.GetHashCode())
-                {
-                    SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
-
-                    switch (saveDialog.ShowDialog())
-                    {
-                        case DialogResult.OK: SaveFile(); break;
-                        case DialogResult.Cancel: return;
-                    }
-
-                }
-                if (txtFile is not null)
-                    txtFile.CloseFile();
-
-                if (txtsFile is not null && txtsFile.Path == FileName)
-                {
-                    txtsFile.Encoding = enc;
-                }
-
-                FileEncoding = enc;
-                OpenFileAndReadContent(FileName);
-                
-            }
-            FileEncoding = enc;
+            DropDownEncodingMenu.Items.AddRange(menuItems);
         }
 
         private void ContentViewer_TextChanged(object sender, EventArgs e)
@@ -868,11 +844,8 @@ namespace SText.Editor
 
         #endregion
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
-            /*if (ContentViewer.SelectedText.Length > 0)
-                ContentViewer.DeselectAll();*/
-
             appWindowIsShown = true;
         }
 
