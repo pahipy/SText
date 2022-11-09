@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net.Sockets;
 
 namespace SText.Formats
 {
@@ -24,8 +25,8 @@ namespace SText.Formats
                     fs = File.Create(path);
                     isReadOnly = false;
                 }
-                
-                fileEncoding = Encoding.UTF8;
+
+                    fileEncoding = Encoding.UTF8;
             }
             else
             {
@@ -90,6 +91,23 @@ namespace SText.Formats
             }
 
             ReopenStream();
+        }
+
+        public static Encoding GetEncoding(string path)
+        {
+            using (FileStream fileStream = File.OpenRead(path))
+            {
+                Ude.CharsetDetector charsetDetector = new Ude.CharsetDetector();
+                charsetDetector.Feed(fileStream);
+                charsetDetector.DataEnd();
+                
+                if (charsetDetector.Charset != null)
+                {
+                    return Encoding.GetEncoding(charsetDetector.Charset);
+                }
+       
+            }
+            return Encoding.UTF8;
         }
 
         public void CloseFile()

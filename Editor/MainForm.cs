@@ -659,7 +659,7 @@ namespace SText.Editor
                             txtFile.CloseFile();
                             txtFile = null;
                         }
-
+                        FileEncoding = TXTFormat.GetEncoding(path);
                         txtFile = new TXTFormat(path, fileEncoding);
                         cont = txtFile.ReadFile();
                         isReadOnly = txtFile.IsReadOnly;
