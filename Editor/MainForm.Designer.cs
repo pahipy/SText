@@ -79,6 +79,7 @@
             this.KOI8R_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.PrintDoc = new System.Drawing.Printing.PrintDocument();
+            this.ClassicalDarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.DropDownEncodingMenu.SuspendLayout();
@@ -289,7 +290,7 @@
             this.ShowStatusBar_MenuItem.CheckOnClick = true;
             this.ShowStatusBar_MenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(126, 22);
+            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.ShowStatusBar_MenuItem.Text = "Status Bar";
             this.ShowStatusBar_MenuItem.Click += new System.EventHandler(this.ShowStatusBar_MenuItem_Click);
             // 
@@ -298,15 +299,16 @@
             this.Theme_MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DefaultTheme_MenuItem,
             this.DarkTheme_MenuItem,
-            this.BlueTheme_MenuItem});
+            this.BlueTheme_MenuItem,
+            this.ClassicalDarkTheme_MenuItem});
             this.Theme_MenuItem.Name = "Theme_MenuItem";
-            this.Theme_MenuItem.Size = new System.Drawing.Size(126, 22);
+            this.Theme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
             this.DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(112, 22);
+            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.DefaultTheme_MenuItem.Tag = "0";
             this.DefaultTheme_MenuItem.Text = "Default";
             this.DefaultTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -314,7 +316,7 @@
             // DarkTheme_MenuItem
             // 
             this.DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(112, 22);
+            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.DarkTheme_MenuItem.Tag = "1";
             this.DarkTheme_MenuItem.Text = "Dark";
             this.DarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -322,7 +324,7 @@
             // BlueTheme_MenuItem
             // 
             this.BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(112, 22);
+            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.BlueTheme_MenuItem.Tag = "2";
             this.BlueTheme_MenuItem.Text = "Blue";
             this.BlueTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
@@ -507,6 +509,13 @@
             // 
             this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
             // 
+            // ClassicalDarkTheme_MenuItem
+            // 
+            this.ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
+            this.ClassicalDarkTheme_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
+            this.ClassicalDarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -587,6 +596,7 @@
         private ToolStripMenuItem KOI8R_MenuItem;
         private ToolStripMenuItem ShowSetPasswordDialog_DebugMenuItem;
         private ToolStripMenuItem ShowOpenPasswordDialog_DebugMenuItem;
+        private ToolStripMenuItem ClassicalDarkTheme_MenuItem;
     }
 }
 

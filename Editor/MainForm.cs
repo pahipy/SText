@@ -494,6 +494,12 @@ namespace SText.Editor
                         ThemeSelector.CurrentTheme = Theme.Blue;
                         break;
                     }
+
+                case "ClassicalDarkTheme_MenuItem":
+                    {
+                        ThemeSelector.CurrentTheme = Theme.ClassicalDark;
+                        break;
+                    }
             }
 
             ApplyTheme();
@@ -501,26 +507,7 @@ namespace SText.Editor
 
         private void ApplyTheme()
         {
-            switch (ThemeSelector.CurrentTheme)
-            {
-                case Theme.Default:
-                    {
-                        StatusBar_Theme.Text = "Theme: Default";
-                        break;
-                    }
-
-                case Theme.Dark:
-                    {
-                        StatusBar_Theme.Text = "Theme: Dark";
-                        break;
-                    }
-
-                case Theme.Blue:
-                    {
-                        StatusBar_Theme.Text = "Theme: Blue";
-                        break;
-                    }
-            }
+            StatusBar_Theme.Text = $"Theme: {ThemeSelector.CurrentColorSchema.ThemeName}";
 
             System.Windows.Media.Color bcolor = System.Windows.Media.Color.FromRgb(ThemeSelector.CurrentColorSchema.TextFieldColor.R,
                 ThemeSelector.CurrentColorSchema.TextFieldColor.G, ThemeSelector.CurrentColorSchema.TextFieldColor.B);
@@ -530,9 +517,31 @@ namespace SText.Editor
 
             ContentViewer.Backcolor = new SolidColorBrush(bcolor);
             ContentViewer.Textcolor = new SolidColorBrush(tcolor);
+            ContentPanel.BackColor = ThemeSelector.CurrentColorSchema.TextFieldColor;
+            this.BackColor = ThemeSelector.CurrentColorSchema.TextFieldColor;
             MainMenu.BackColor = ThemeSelector.CurrentColorSchema.MenuColor;
             MainMenu.ForeColor = ThemeSelector.CurrentColorSchema.MenuFontColor;
-            
+            ContentViewer.MenuSeparatorColor = new SolidColorBrush(ThemeSelector.CurrentColorSchema.MenuSeparatorColor);
+
+            ContentViewer.ContextMenuBackground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(
+                ThemeSelector.CurrentColorSchema.MenuColor.R, ThemeSelector.CurrentColorSchema.MenuColor.G,
+                ThemeSelector.CurrentColorSchema.MenuColor.B));
+
+            ContentViewer.ContextMenuForeground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(
+                ThemeSelector.CurrentColorSchema.MenuFontColor.R, ThemeSelector.CurrentColorSchema.MenuFontColor.G,
+                ThemeSelector.CurrentColorSchema.MenuFontColor.B));
+
+            ContentViewer.MenuItemColorOnMouseHover = new SolidColorBrush(
+                System.Windows.Media.Color.FromRgb(ThemeSelector.CurrentColorSchema.MenuItemSelectedColor.R,
+                ThemeSelector.CurrentColorSchema.MenuItemSelectedColor.G, ThemeSelector.CurrentColorSchema.MenuItemSelectedColor.B));
+
+            ContentViewer.MenuItemColorOnMousePressed = new SolidColorBrush(
+                System.Windows.Media.Color.FromRgb(ThemeSelector.CurrentColorSchema.MenuItemSelectedColor.R,
+                ThemeSelector.CurrentColorSchema.MenuItemSelectedColor.G, ThemeSelector.CurrentColorSchema.MenuItemSelectedColor.B));
+
+            ContentViewer.BackgroundScrollBarColor = new SolidColorBrush(ThemeSelector.CurrentColorSchema.ScrollBarBackgroundColor);
+            ContentViewer.ScrollBarThumbColor = ThemeSelector.CurrentColorSchema.ScrollBarThumbColor;
+            ContentViewer.ScrollBarGlyphColor = ThemeSelector.CurrentColorSchema.ScrollBarGlyphColor;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

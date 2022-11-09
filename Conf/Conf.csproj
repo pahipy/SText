@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <UseWPF>true</UseWPF>
     <Copyright>© 2022 pahipy</Copyright>
     <Company>pahipy</Company>
     <Version>1.2.2</Version>

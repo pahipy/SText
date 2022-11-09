@@ -35,7 +35,11 @@ namespace WPFControls
         public Brush Backcolor
         {
             get => this.TextViewer.Background;
-            set => this.TextViewer.Background = value;
+            set
+            {
+                this.Background= value;
+                this.TextViewer.Background = value;
+            }
         }
 
         public Brush Textcolor
