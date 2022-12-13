@@ -104,6 +104,12 @@ namespace SText.Conf
 
         public static ColorSchema[] ColorCollection { get => colors; }
         public static ColorSchema CurrentColorSchema { get => colors[(int)CurrentTheme]; }
+
+        private static ThemeEvents events = new ThemeEvents();
+        public static ThemeEvents Events
+        {
+            get => events;
+        }
     }
 
     public struct ColorSchema

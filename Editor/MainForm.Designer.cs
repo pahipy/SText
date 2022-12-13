@@ -22,14 +22,10 @@
 
         #region The code was created by WinForms constructor
 
-        /// <summary>
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
-        /// </summary>
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.New_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -443,9 +439,10 @@
             this.DropDownEncodingMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.DropDownEncodingMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.DropDownEncodingMenu.Name = "DropDownEncodingMenu";
+            this.DropDownEncodingMenu.OwnerItem = this.EncodingMenuButton;
             this.DropDownEncodingMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.DropDownEncodingMenu.ShowItemToolTips = false;
-            this.DropDownEncodingMenu.Size = new System.Drawing.Size(181, 26);
+            this.DropDownEncodingMenu.Size = new System.Drawing.Size(61, 4);
             // 
             // UTF8_MenuItem
             // 
@@ -499,21 +496,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1115, 569);
             this.Controls.Add(this.ContentPanel);
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.StatusBar);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.MainMenu;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MinimumSize = new System.Drawing.Size(200, 100);
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "SText";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Size = new System.Drawing.Size(1115, 569);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.StatusBar.ResumeLayout(false);

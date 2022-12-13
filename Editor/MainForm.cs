@@ -10,11 +10,12 @@ using System.Windows.Controls;
 
 namespace SText.Editor
 {
-    public partial class MainForm : Form
+    public partial class MainForm : System.Windows.Forms.UserControl
     {
         public MainForm()
         {
             InitializeComponent();
+            Application.EnableVisualStyles();
 
 #if !DEBUG
             debugToolStripMenuItem.Visible = false;
@@ -38,9 +39,9 @@ namespace SText.Editor
             ShowStatusBar = true;
             ThemeSelector.CurrentTheme = Theme.Default;
 
-            LoadSettingsToStruct();
+            //LoadSettingsToStruct(new System.Windows.Window());
 
-            SettingsManager = new GlobalSettingsManager(ProgramSets.ConfigFileName, Settings);
+            SettngsInf.SettingsManager = new GlobalSettingsManager(ProgramSets.ConfigFileName, SettngsInf.Settings);
 
             ApplySettings();
 
@@ -96,12 +97,11 @@ namespace SText.Editor
             };
 
             ContentViewer.Inner.TextChanged += ContentViewer_TextChanged;
-
+            FormEvents.Events.FormClosingFromWPF += Form1_FormClosing;
         }
 
         private FontDialog fd = new FontDialog();
-        private SettingsTemplate Settings;
-        private GlobalSettingsManager SettingsManager;
+        
         private bool FontSizeChangeByMouseWheelAct = false;
         private bool isDebug = true;
         private TXTSFormat txtsFile;
@@ -159,7 +159,7 @@ namespace SText.Editor
 
                 if (Content.GetHashCode() != contentHash)
                     title = $"*{title}";
-
+                FormEvents.Events.NotifyFormTitleChanged(title);
                 return title;
             }
         }
@@ -200,36 +200,37 @@ namespace SText.Editor
             }
         }
 
-        private void LoadSettingsToStruct()
+        private void LoadSettingsToStruct(System.Windows.Window wnd)
         {
-            Settings.CurrentTheme = ThemeSelector.CurrentTheme;
-            Settings.ShowStatusBar = ShowStatusBar;
-            Settings.WordWrap = WordWrap;
-            Settings.FontSize = ContentViewer.Font.Size;
-            Settings.FontFamily = ContentViewer.Font.FontFamily.Name;
-            Settings.FontStyle = (int)ContentViewer.Font.Style;
+            SettngsInf.Settings.CurrentTheme = ThemeSelector.CurrentTheme;
+            SettngsInf.Settings.ShowStatusBar = ShowStatusBar;
+            SettngsInf.Settings.WordWrap = WordWrap;
+            SettngsInf.Settings.FontSize = ContentViewer.Font.Size;
+            SettngsInf.Settings.FontFamily = ContentViewer.Font.FontFamily.Name;
+            SettngsInf.Settings.FontStyle = (int)ContentViewer.Font.Style;
             
-            if (WindowState != FormWindowState.Minimized)
-                Settings.WindowState = (int)this.WindowState;
+            if (wnd.WindowState != System.Windows.WindowState.Minimized)
+                SettngsInf.Settings.WindowState = (int)wnd.WindowState;
 
-            if (WindowState != FormWindowState.Maximized && WindowState != FormWindowState.Minimized)
+            if (wnd.WindowState != System.Windows.WindowState.Maximized && 
+                wnd.WindowState != System.Windows.WindowState.Minimized)
             {
-                Settings.WindowPosition = new Point(Left, Top);
-                Settings.WindowSize = this.Size;
+                SettngsInf.Settings.WindowPosition = new Point((int)wnd.Left, (int)wnd.Top);
+                SettngsInf.Settings.WindowSize = new Size((int)wnd.Width, (int)wnd.Height);
             }
                 
         }
 
         private void ApplySettings()
         {
-            Settings = SettingsManager.Settings;
-            ThemeSelector.CurrentTheme = Settings.CurrentTheme;
-            ShowStatusBar = Settings.ShowStatusBar;
-            WordWrap = Settings.WordWrap;
-            ContentViewer.Font = new Font(Settings.FontFamily, Settings.FontSize, (FontStyle)Settings.FontStyle);
-            this.WindowState = (FormWindowState)Settings.WindowState;
-            this.Location = new Point(Settings.WindowPosition.X, Settings.WindowPosition.Y);
-            this.Size = Settings.WindowSize;
+            SettngsInf.Settings = SettngsInf.SettingsManager.Settings;
+            ThemeSelector.CurrentTheme = SettngsInf.Settings.CurrentTheme;
+            ShowStatusBar = SettngsInf.Settings.ShowStatusBar;
+            WordWrap = SettngsInf.Settings.WordWrap;
+            ContentViewer.Font = new Font(SettngsInf.Settings.FontFamily, SettngsInf.Settings.FontSize, 
+                (FontStyle)SettngsInf.Settings.FontStyle);
+            FormEvents.Events.NotifyFormPositionChanged(SettngsInf.Settings.WindowPosition.X, SettngsInf.Settings.WindowPosition.Y);
+            FormEvents.Events.NotifyFormSizeChanged(SettngsInf.Settings.WindowSize.Width, SettngsInf.Settings.WindowSize.Height);
             ApplyTheme();
         }
 
@@ -316,7 +317,7 @@ namespace SText.Editor
 
                 case "Exit_MenuItem":
                     {
-                        Close();
+                        //Close();
                         return;
                     }
             }
@@ -544,13 +545,14 @@ namespace SText.Editor
             ContentViewer.BackgroundScrollBarColor = new SolidColorBrush(ThemeSelector.CurrentColorSchema.ScrollBarBackgroundColor);
             ContentViewer.ScrollBarThumbColor = ThemeSelector.CurrentColorSchema.ScrollBarThumbColor;
             ContentViewer.ScrollBarGlyphColor = ThemeSelector.CurrentColorSchema.ScrollBarGlyphColor;
+            ThemeSelector.Events.NotifyThemeChanged(ThemeSelector.CurrentTheme);
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            LoadSettingsToStruct();
-            SettingsManager.Settings = Settings;
-            SettingsManager.SaveConfig();
+            LoadSettingsToStruct((System.Windows.Window)sender);
+            SettngsInf.SettingsManager.Settings = SettngsInf.Settings;
+            SettngsInf.SettingsManager.SaveConfig();
 
             SaveDialog s = new SaveDialog(FileName, saveFileDialog);
 

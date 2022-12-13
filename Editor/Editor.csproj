@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Conf\Conf.csproj" />
     <ProjectReference Include="..\Dialogs\Dialogs.csproj" />
     <ProjectReference Include="..\Formats\Formats.csproj" />
