@@ -39,7 +39,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" x:Name="TitleBar">
+            <Grid Grid.Row="0" x:Name="TitleBar" Focusable="False">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*"/>
@@ -53,14 +53,14 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="MinimizeButton" Style="{StaticResource windowButtons}" Grid.Column="0"/>
-                    <Button x:Name="MaximizeButton" Style="{StaticResource windowButtons}" Grid.Column="1"/>
-                    <Button x:Name="CloseButton" Style="{StaticResource windowButtons}" Grid.Column="2"/>
+                    <Button Focusable="False" x:Name="MinimizeButton" Style="{StaticResource windowButtons}" Grid.Column="0"/>
+                    <Button Focusable="False" x:Name="MaximizeButton" Style="{StaticResource windowButtons}" Grid.Column="1"/>
+                    <Button Focusable="False" x:Name="CloseButton" Style="{StaticResource windowButtons}" Grid.Column="2"/>
                 </Grid>
             </Grid>
-            <WindowsFormsHost Grid.Row="1" Margin="0" Padding="0">
+            <WindowsFormsHost x:Name="WinFormHost" Focusable="True" Grid.Row="1" Margin="0" Padding="0">
                 <WindowsFormsHost.Child>
-                    <local:MainForm/>
+                    <local:MainForm TabIndex="1" x:Name="MForm"/>
                 </WindowsFormsHost.Child>
             </WindowsFormsHost>
         </Grid>

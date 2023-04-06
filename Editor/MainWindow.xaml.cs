@@ -48,6 +48,12 @@ namespace SText.Editor
 
             Conf.FormEvents.Events.FormTitleChanged += (title) => this.Title = title;
 
+            FormEvents.Events.MessageFromFormToWPF += (o, msg) =>
+            {
+                if (msg == "close")
+                    this.Close();
+            };
+
         }
 
         private void ApplyTheme()
@@ -60,7 +66,6 @@ namespace SText.Editor
                 Conf.ThemeSelector.CurrentColorSchema.MenuFontColor.G,
                 Conf.ThemeSelector.CurrentColorSchema.MenuFontColor.B));
             WindowBorder.BorderBrush = BackgroundBrush;
-
         }
 
         private void WpfWindow_Loaded(object sender, RoutedEventArgs e)
@@ -69,12 +74,14 @@ namespace SText.Editor
             this.Top = SettngsInf.Settings.WindowPosition.Y;
             this.Width = SettngsInf.Settings.WindowSize.Width;
             this.Height = SettngsInf.Settings.WindowSize.Height;
+            this.WindowState = SettngsInf.Settings.WindowState == 2 ? WindowState.Maximized : WindowState.Normal;
         }
 
         private void WpfWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             FormEvents.Events.NotifyFormClosingFromWPF(sender, e);
         }
+
     }
 
 }

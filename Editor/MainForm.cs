@@ -98,6 +98,7 @@ namespace SText.Editor
 
             ContentViewer.Inner.TextChanged += ContentViewer_TextChanged;
             FormEvents.Events.FormClosingFromWPF += Form1_FormClosing;
+
         }
 
         private FontDialog fd = new FontDialog();
@@ -317,7 +318,7 @@ namespace SText.Editor
 
                 case "Exit_MenuItem":
                     {
-                        //Close();
+                        FormEvents.Events.NotifyMessageFromFormToWPF(sender, "close");
                         return;
                     }
             }

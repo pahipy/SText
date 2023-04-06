@@ -73,5 +73,20 @@ namespace SText.Conf
         {
             OnFormClosingFromWPF(sender, e);
         }
+
+        public delegate void MessageFromFormToWPFEventHandler(object obj, string msg);
+
+        public event MessageFromFormToWPFEventHandler MessageFromFormToWPF;
+
+        protected virtual void OnMessageFromFormToWPF(object obj, string msg)
+        {
+            MessageFromFormToWPFEventHandler handler = MessageFromFormToWPF;
+            handler?.Invoke(obj, msg);
+        }
+
+        public void NotifyMessageFromFormToWPF(object obj, string msg)
+        {
+            OnMessageFromFormToWPF(obj, msg);
+        }
     }
 }
