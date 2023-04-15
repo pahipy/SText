@@ -488,7 +488,7 @@
             StartPosition = FormStartPosition.Manual;
             Text = "SText";
             FormClosing += Form1_FormClosing;
-            Load += Form1_Load;
+            Load += MainForm_Load;
             Shown += MainForm_Shown;
             MainMenu.ResumeLayout(false);
             MainMenu.PerformLayout();

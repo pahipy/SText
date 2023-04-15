@@ -23,6 +23,7 @@ namespace SText.Editor
             host.Child = ContentViewer;
             ContentPanel.Controls.Add(host);
             host.Dock = DockStyle.Fill;
+            host.Visible = false;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             SetEncodingMenuItems();
@@ -97,6 +98,8 @@ namespace SText.Editor
             };
 
             ContentViewer.Inner.TextChanged += ContentViewer_TextChanged;
+
+            
 
         }
 
@@ -241,10 +244,12 @@ namespace SText.Editor
             ContentViewer.Font = fd.Font;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             contentHash = Content.GetHashCode();
             FileName = FileName;
+            host.Visible = true;
+            ContentViewer.Inner.Focus();
         }
 
         private void SaveFile()
@@ -362,7 +367,7 @@ namespace SText.Editor
                             ContentViewer.Inner.Select(start, 0);
                         }
                         catch { }
-
+                        
                         return;
                     }
 
