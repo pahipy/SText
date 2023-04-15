@@ -355,22 +355,13 @@ namespace SText.Editor
 
                 case "delete":
                     {
-                        /*int begin = ContentViewer.SelectionStart,
-                            end = ContentViewer.SelectionLength + ContentViewer.SelectionStart;
-                        ContentViewer.DeselectAll();
-                        if (end < begin)
+                        try
                         {
-                            int k = begin;
-                            begin = end;
-                            end = k;
+                            int start = ContentViewer.Inner.SelectionStart;
+                            Content = Content.Remove(ContentViewer.Inner.SelectionStart, ContentViewer.Inner.SelectionLength);
+                            ContentViewer.Inner.Select(start, 0);
                         }
-
-                        end = end < 0 ? -end : end;
-                        begin = begin < 0 ? -begin : begin;
-
-                        Content = Content.Remove(begin, end - 1);*/
-                        if (ContentViewer.Inner.SelectedText.Length > 0)
-                            Content = Content.Replace(ContentViewer.Inner.SelectedText, "");
+                        catch { }
 
                         return;
                     }
@@ -383,9 +374,17 @@ namespace SText.Editor
 
                 case "dateAndTime":
                     {
-                        DateTime dt = DateTime.Now;
-                        Content = Content.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
-                            + dt.ToShortDateString());
+                        try
+                        {
+                            int start = ContentViewer.Inner.SelectionStart;
+                            DateTime dt = DateTime.Now;
+                            Content = Content.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
+                                + dt.ToShortDateString());
+
+                            ContentViewer.Inner.Select(start, 0);
+
+                        } catch { }
+                        
                         return;
                     }
             }
