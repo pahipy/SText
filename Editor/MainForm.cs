@@ -21,7 +21,6 @@ namespace SText.Editor
             isDebug = false;
 #endif
             host.Child = ContentViewer;
-            ContentPanel.Controls.Add(host);
             host.Dock = DockStyle.Fill;
             host.Visible = false;
 
@@ -248,6 +247,7 @@ namespace SText.Editor
         {
             contentHash = Content.GetHashCode();
             FileName = FileName;
+            ContentPanel.Controls.Add(host);
             host.Visible = true;
             ContentViewer.Inner.Focus();
         }
