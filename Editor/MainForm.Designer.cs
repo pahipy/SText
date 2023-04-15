@@ -28,499 +28,462 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.MainMenu = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.New_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Open_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Save_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SaveAs_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.Print_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.Exit_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Undo_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Cut_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Copy_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Paste_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Delete_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectAll_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DateAndTime_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.WordWrap_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowStatusBar_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Theme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DefaultTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BlueTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ClassicalDarkTheme_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowCMD_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowSetPasswordDialog_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowOpenPasswordDialog_DebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.About_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.StatusBar = new System.Windows.Forms.ToolStrip();
-            this.StatusBar_Theme = new System.Windows.Forms.ToolStripStatusLabel();
-            this.StatusBar_File = new System.Windows.Forms.ToolStripStatusLabel();
-            this.EncodingMenuButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.DropDownEncodingMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.UTF8_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.UTF16_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.UTF32_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ASCII_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ANSIEuro_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ANSICyrillic_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.KOI8R_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContentPanel = new System.Windows.Forms.Panel();
-            this.PrintDoc = new System.Drawing.Printing.PrintDocument();
-            this.MainMenu.SuspendLayout();
-            this.StatusBar.SuspendLayout();
-            this.SuspendLayout();
+            MainMenu = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            New_MenuItem = new ToolStripMenuItem();
+            Open_MenuItem = new ToolStripMenuItem();
+            Save_MenuItem = new ToolStripMenuItem();
+            SaveAs_MenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            Print_MenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            Exit_MenuItem = new ToolStripMenuItem();
+            editToolStripMenuItem = new ToolStripMenuItem();
+            Undo_MenuItem = new ToolStripMenuItem();
+            Cut_MenuItem = new ToolStripMenuItem();
+            Copy_MenuItem = new ToolStripMenuItem();
+            Paste_MenuItem = new ToolStripMenuItem();
+            Delete_MenuItem = new ToolStripMenuItem();
+            SelectAll_MenuItem = new ToolStripMenuItem();
+            DateAndTime_MenuItem = new ToolStripMenuItem();
+            formatToolStripMenuItem = new ToolStripMenuItem();
+            WordWrap_MenuItem = new ToolStripMenuItem();
+            fontToolStripMenuItem = new ToolStripMenuItem();
+            viewToolStripMenuItem = new ToolStripMenuItem();
+            ShowStatusBar_MenuItem = new ToolStripMenuItem();
+            Theme_MenuItem = new ToolStripMenuItem();
+            DefaultTheme_MenuItem = new ToolStripMenuItem();
+            DarkTheme_MenuItem = new ToolStripMenuItem();
+            BlueTheme_MenuItem = new ToolStripMenuItem();
+            ClassicalDarkTheme_MenuItem = new ToolStripMenuItem();
+            debugToolStripMenuItem = new ToolStripMenuItem();
+            ShowCMD_DebugMenuItem = new ToolStripMenuItem();
+            ShowSetPasswordDialog_DebugMenuItem = new ToolStripMenuItem();
+            ShowOpenPasswordDialog_DebugMenuItem = new ToolStripMenuItem();
+            helpToolStripMenuItem1 = new ToolStripMenuItem();
+            About_MenuItem = new ToolStripMenuItem();
+            openFileDialog = new OpenFileDialog();
+            saveFileDialog = new SaveFileDialog();
+            StatusBar = new ToolStrip();
+            StatusBar_Theme = new ToolStripStatusLabel();
+            StatusBar_File = new ToolStripStatusLabel();
+            EncodingMenuButton = new ToolStripDropDownButton();
+            DropDownEncodingMenu = new ContextMenuStrip(components);
+            UTF8_MenuItem = new ToolStripMenuItem();
+            UTF16_MenuItem = new ToolStripMenuItem();
+            UTF32_MenuItem = new ToolStripMenuItem();
+            ASCII_MenuItem = new ToolStripMenuItem();
+            ANSIEuro_MenuItem = new ToolStripMenuItem();
+            ANSICyrillic_MenuItem = new ToolStripMenuItem();
+            KOI8R_MenuItem = new ToolStripMenuItem();
+            ContentPanel = new Panel();
+            PrintDoc = new System.Drawing.Printing.PrintDocument();
+            MainMenu.SuspendLayout();
+            StatusBar.SuspendLayout();
+            SuspendLayout();
             // 
             // MainMenu
             // 
-            this.MainMenu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.formatToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.debugToolStripMenuItem,
-            this.helpToolStripMenuItem1});
-            this.MainMenu.Location = new System.Drawing.Point(0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.MainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.MainMenu.Size = new System.Drawing.Size(1115, 24);
-            this.MainMenu.TabIndex = 1;
+            MainMenu.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            MainMenu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, formatToolStripMenuItem, viewToolStripMenuItem, debugToolStripMenuItem, helpToolStripMenuItem1 });
+            MainMenu.Location = new Point(0, 0);
+            MainMenu.Name = "MainMenu";
+            MainMenu.Padding = new Padding(7, 0, 0, 0);
+            MainMenu.RenderMode = ToolStripRenderMode.Professional;
+            MainMenu.Size = new Size(1115, 24);
+            MainMenu.TabIndex = 1;
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.New_MenuItem,
-            this.Open_MenuItem,
-            this.Save_MenuItem,
-            this.SaveAs_MenuItem,
-            this.toolStripSeparator1,
-            this.Print_MenuItem,
-            this.toolStripSeparator2,
-            this.Exit_MenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 24);
-            this.fileToolStripMenuItem.Text = "File";
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { New_MenuItem, Open_MenuItem, Save_MenuItem, SaveAs_MenuItem, toolStripSeparator1, Print_MenuItem, toolStripSeparator2, Exit_MenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 24);
+            fileToolStripMenuItem.Text = "File";
             // 
             // New_MenuItem
             // 
-            this.New_MenuItem.Name = "New_MenuItem";
-            this.New_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.New_MenuItem.Size = new System.Drawing.Size(195, 22);
-            this.New_MenuItem.Text = "New";
-            this.New_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            New_MenuItem.Name = "New_MenuItem";
+            New_MenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            New_MenuItem.Size = new Size(195, 22);
+            New_MenuItem.Text = "New";
+            New_MenuItem.Click += MenuFile_Events_Click;
             // 
             // Open_MenuItem
             // 
-            this.Open_MenuItem.Name = "Open_MenuItem";
-            this.Open_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Open_MenuItem.Size = new System.Drawing.Size(195, 22);
-            this.Open_MenuItem.Text = "Open...";
-            this.Open_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            Open_MenuItem.Name = "Open_MenuItem";
+            Open_MenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            Open_MenuItem.Size = new Size(195, 22);
+            Open_MenuItem.Text = "Open...";
+            Open_MenuItem.Click += MenuFile_Events_Click;
             // 
             // Save_MenuItem
             // 
-            this.Save_MenuItem.Name = "Save_MenuItem";
-            this.Save_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Save_MenuItem.Size = new System.Drawing.Size(195, 22);
-            this.Save_MenuItem.Text = "Save";
-            this.Save_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            Save_MenuItem.Name = "Save_MenuItem";
+            Save_MenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            Save_MenuItem.Size = new Size(195, 22);
+            Save_MenuItem.Text = "Save";
+            Save_MenuItem.Click += MenuFile_Events_Click;
             // 
             // SaveAs_MenuItem
             // 
-            this.SaveAs_MenuItem.Name = "SaveAs_MenuItem";
-            this.SaveAs_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.SaveAs_MenuItem.Size = new System.Drawing.Size(195, 22);
-            this.SaveAs_MenuItem.Text = "Save As...";
-            this.SaveAs_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            SaveAs_MenuItem.Name = "SaveAs_MenuItem";
+            SaveAs_MenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+            SaveAs_MenuItem.Size = new Size(195, 22);
+            SaveAs_MenuItem.Text = "Save As...";
+            SaveAs_MenuItem.Click += MenuFile_Events_Click;
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(192, 6);
             // 
             // Print_MenuItem
             // 
-            this.Print_MenuItem.Name = "Print_MenuItem";
-            this.Print_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.Print_MenuItem.Size = new System.Drawing.Size(195, 22);
-            this.Print_MenuItem.Text = "Print";
-            this.Print_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            Print_MenuItem.Name = "Print_MenuItem";
+            Print_MenuItem.ShortcutKeys = Keys.Control | Keys.P;
+            Print_MenuItem.Size = new Size(195, 22);
+            Print_MenuItem.Text = "Print";
+            Print_MenuItem.Click += MenuFile_Events_Click;
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(192, 6);
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(192, 6);
             // 
             // Exit_MenuItem
             // 
-            this.Exit_MenuItem.Name = "Exit_MenuItem";
-            this.Exit_MenuItem.Size = new System.Drawing.Size(195, 22);
-            this.Exit_MenuItem.Text = "Exit";
-            this.Exit_MenuItem.Click += new System.EventHandler(this.MenuFile_Events_Click);
+            Exit_MenuItem.Name = "Exit_MenuItem";
+            Exit_MenuItem.Size = new Size(195, 22);
+            Exit_MenuItem.Text = "Exit";
+            Exit_MenuItem.Click += MenuFile_Events_Click;
             // 
             // editToolStripMenuItem
             // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Undo_MenuItem,
-            this.Cut_MenuItem,
-            this.Copy_MenuItem,
-            this.Paste_MenuItem,
-            this.Delete_MenuItem,
-            this.SelectAll_MenuItem,
-            this.DateAndTime_MenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 24);
-            this.editToolStripMenuItem.Text = "Edit";
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { Undo_MenuItem, Cut_MenuItem, Copy_MenuItem, Paste_MenuItem, Delete_MenuItem, SelectAll_MenuItem, DateAndTime_MenuItem });
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new Size(39, 24);
+            editToolStripMenuItem.Text = "Edit";
             // 
             // Undo_MenuItem
             // 
-            this.Undo_MenuItem.Name = "Undo_MenuItem";
-            this.Undo_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.Undo_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.Undo_MenuItem.Tag = "undo";
-            this.Undo_MenuItem.Text = "Undo";
-            this.Undo_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            Undo_MenuItem.Name = "Undo_MenuItem";
+            Undo_MenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+            Undo_MenuItem.Size = new Size(164, 22);
+            Undo_MenuItem.Tag = "undo";
+            Undo_MenuItem.Text = "Undo";
+            Undo_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // Cut_MenuItem
             // 
-            this.Cut_MenuItem.Name = "Cut_MenuItem";
-            this.Cut_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.Cut_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.Cut_MenuItem.Tag = "cut";
-            this.Cut_MenuItem.Text = "Cut";
-            this.Cut_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            Cut_MenuItem.Name = "Cut_MenuItem";
+            Cut_MenuItem.ShortcutKeys = Keys.Control | Keys.X;
+            Cut_MenuItem.Size = new Size(164, 22);
+            Cut_MenuItem.Tag = "cut";
+            Cut_MenuItem.Text = "Cut";
+            Cut_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // Copy_MenuItem
             // 
-            this.Copy_MenuItem.Name = "Copy_MenuItem";
-            this.Copy_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.Copy_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.Copy_MenuItem.Tag = "copy";
-            this.Copy_MenuItem.Text = "Copy";
-            this.Copy_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            Copy_MenuItem.Name = "Copy_MenuItem";
+            Copy_MenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            Copy_MenuItem.Size = new Size(164, 22);
+            Copy_MenuItem.Tag = "copy";
+            Copy_MenuItem.Text = "Copy";
+            Copy_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // Paste_MenuItem
             // 
-            this.Paste_MenuItem.Name = "Paste_MenuItem";
-            this.Paste_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.Paste_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.Paste_MenuItem.Tag = "paste";
-            this.Paste_MenuItem.Text = "Paste";
-            this.Paste_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            Paste_MenuItem.Name = "Paste_MenuItem";
+            Paste_MenuItem.ShortcutKeys = Keys.Control | Keys.V;
+            Paste_MenuItem.Size = new Size(164, 22);
+            Paste_MenuItem.Tag = "paste";
+            Paste_MenuItem.Text = "Paste";
+            Paste_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // Delete_MenuItem
             // 
-            this.Delete_MenuItem.Name = "Delete_MenuItem";
-            this.Delete_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.Delete_MenuItem.Tag = "delete";
-            this.Delete_MenuItem.Text = "Delete";
-            this.Delete_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            Delete_MenuItem.Name = "Delete_MenuItem";
+            Delete_MenuItem.Size = new Size(164, 22);
+            Delete_MenuItem.Tag = "delete";
+            Delete_MenuItem.Text = "Delete";
+            Delete_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // SelectAll_MenuItem
             // 
-            this.SelectAll_MenuItem.Name = "SelectAll_MenuItem";
-            this.SelectAll_MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.SelectAll_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.SelectAll_MenuItem.Tag = "selectAll";
-            this.SelectAll_MenuItem.Text = "Select All";
-            this.SelectAll_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            SelectAll_MenuItem.Name = "SelectAll_MenuItem";
+            SelectAll_MenuItem.ShortcutKeys = Keys.Control | Keys.A;
+            SelectAll_MenuItem.Size = new Size(164, 22);
+            SelectAll_MenuItem.Tag = "selectAll";
+            SelectAll_MenuItem.Text = "Select All";
+            SelectAll_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // DateAndTime_MenuItem
             // 
-            this.DateAndTime_MenuItem.Name = "DateAndTime_MenuItem";
-            this.DateAndTime_MenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.DateAndTime_MenuItem.Size = new System.Drawing.Size(164, 22);
-            this.DateAndTime_MenuItem.Tag = "dateAndTime";
-            this.DateAndTime_MenuItem.Text = "Date/Time";
-            this.DateAndTime_MenuItem.Click += new System.EventHandler(this.MenuEdit_Events_Click);
+            DateAndTime_MenuItem.Name = "DateAndTime_MenuItem";
+            DateAndTime_MenuItem.ShortcutKeys = Keys.F5;
+            DateAndTime_MenuItem.Size = new Size(164, 22);
+            DateAndTime_MenuItem.Tag = "dateAndTime";
+            DateAndTime_MenuItem.Text = "Date/Time";
+            DateAndTime_MenuItem.Click += MenuEdit_Events_Click;
             // 
             // formatToolStripMenuItem
             // 
-            this.formatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.WordWrap_MenuItem,
-            this.fontToolStripMenuItem});
-            this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
-            this.formatToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
-            this.formatToolStripMenuItem.Text = "Format";
+            formatToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { WordWrap_MenuItem, fontToolStripMenuItem });
+            formatToolStripMenuItem.Name = "formatToolStripMenuItem";
+            formatToolStripMenuItem.Size = new Size(57, 24);
+            formatToolStripMenuItem.Text = "Format";
             // 
             // WordWrap_MenuItem
             // 
-            this.WordWrap_MenuItem.CheckOnClick = true;
-            this.WordWrap_MenuItem.Name = "WordWrap_MenuItem";
-            this.WordWrap_MenuItem.Size = new System.Drawing.Size(134, 22);
-            this.WordWrap_MenuItem.Text = "Word Wrap";
-            this.WordWrap_MenuItem.Click += new System.EventHandler(this.WordWrap_MenuItem_Click);
+            WordWrap_MenuItem.CheckOnClick = true;
+            WordWrap_MenuItem.Name = "WordWrap_MenuItem";
+            WordWrap_MenuItem.Size = new Size(134, 22);
+            WordWrap_MenuItem.Text = "Word Wrap";
+            WordWrap_MenuItem.Click += WordWrap_MenuItem_Click;
             // 
             // fontToolStripMenuItem
             // 
-            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.fontToolStripMenuItem.Text = "Font...";
-            this.fontToolStripMenuItem.Click += new System.EventHandler(this.ChangeFont_MenuItem_Click);
+            fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+            fontToolStripMenuItem.Size = new Size(134, 22);
+            fontToolStripMenuItem.Text = "Font...";
+            fontToolStripMenuItem.Click += ChangeFont_MenuItem_Click;
             // 
             // viewToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowStatusBar_MenuItem,
-            this.Theme_MenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.viewToolStripMenuItem.Text = "View";
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowStatusBar_MenuItem, Theme_MenuItem });
+            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            viewToolStripMenuItem.Size = new Size(44, 24);
+            viewToolStripMenuItem.Text = "View";
             // 
             // ShowStatusBar_MenuItem
             // 
-            this.ShowStatusBar_MenuItem.Checked = true;
-            this.ShowStatusBar_MenuItem.CheckOnClick = true;
-            this.ShowStatusBar_MenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            this.ShowStatusBar_MenuItem.Size = new System.Drawing.Size(126, 22);
-            this.ShowStatusBar_MenuItem.Text = "Status Bar";
-            this.ShowStatusBar_MenuItem.Click += new System.EventHandler(this.ShowStatusBar_MenuItem_Click);
+            ShowStatusBar_MenuItem.Checked = true;
+            ShowStatusBar_MenuItem.CheckOnClick = true;
+            ShowStatusBar_MenuItem.CheckState = CheckState.Checked;
+            ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
+            ShowStatusBar_MenuItem.Size = new Size(180, 22);
+            ShowStatusBar_MenuItem.Text = "Status Bar";
+            ShowStatusBar_MenuItem.Click += ShowStatusBar_MenuItem_Click;
             // 
             // Theme_MenuItem
             // 
-            this.Theme_MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DefaultTheme_MenuItem,
-            this.DarkTheme_MenuItem,
-            this.BlueTheme_MenuItem,
-            this.ClassicalDarkTheme_MenuItem});
-            this.Theme_MenuItem.Name = "Theme_MenuItem";
-            this.Theme_MenuItem.Size = new System.Drawing.Size(126, 22);
-            this.Theme_MenuItem.Text = "Theme";
+            Theme_MenuItem.DropDownItems.AddRange(new ToolStripItem[] { DefaultTheme_MenuItem, DarkTheme_MenuItem, BlueTheme_MenuItem, ClassicalDarkTheme_MenuItem });
+            Theme_MenuItem.Name = "Theme_MenuItem";
+            Theme_MenuItem.Size = new Size(180, 22);
+            Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
-            this.DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            this.DefaultTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
-            this.DefaultTheme_MenuItem.Tag = "0";
-            this.DefaultTheme_MenuItem.Text = "Default";
-            this.DefaultTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
+            DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
+            DefaultTheme_MenuItem.Size = new Size(180, 22);
+            DefaultTheme_MenuItem.Tag = "0";
+            DefaultTheme_MenuItem.Text = "Default";
+            DefaultTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
             // DarkTheme_MenuItem
             // 
-            this.DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            this.DarkTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
-            this.DarkTheme_MenuItem.Tag = "1";
-            this.DarkTheme_MenuItem.Text = "Dark";
-            this.DarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
+            DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
+            DarkTheme_MenuItem.Size = new Size(180, 22);
+            DarkTheme_MenuItem.Tag = "1";
+            DarkTheme_MenuItem.Text = "Dark";
+            DarkTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
             // BlueTheme_MenuItem
             // 
-            this.BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            this.BlueTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
-            this.BlueTheme_MenuItem.Tag = "2";
-            this.BlueTheme_MenuItem.Text = "Blue";
-            this.BlueTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
+            BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
+            BlueTheme_MenuItem.Size = new Size(180, 22);
+            BlueTheme_MenuItem.Tag = "2";
+            BlueTheme_MenuItem.Text = "Blue";
+            BlueTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
             // ClassicalDarkTheme_MenuItem
             // 
-            this.ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
-            this.ClassicalDarkTheme_MenuItem.Size = new System.Drawing.Size(146, 22);
-            this.ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
-            this.ClassicalDarkTheme_MenuItem.Click += new System.EventHandler(this.MenuTheme_Events_Click);
+            ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
+            ClassicalDarkTheme_MenuItem.Size = new Size(180, 22);
+            ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
+            ClassicalDarkTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
             // debugToolStripMenuItem
             // 
-            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowCMD_DebugMenuItem,
-            this.ShowSetPasswordDialog_DebugMenuItem,
-            this.ShowOpenPasswordDialog_DebugMenuItem});
-            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
-            this.debugToolStripMenuItem.Text = "Debug";
+            debugToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowCMD_DebugMenuItem, ShowSetPasswordDialog_DebugMenuItem, ShowOpenPasswordDialog_DebugMenuItem });
+            debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            debugToolStripMenuItem.Size = new Size(54, 24);
+            debugToolStripMenuItem.Text = "Debug";
             // 
             // ShowCMD_DebugMenuItem
             // 
-            this.ShowCMD_DebugMenuItem.Name = "ShowCMD_DebugMenuItem";
-            this.ShowCMD_DebugMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.ShowCMD_DebugMenuItem.Text = "Show Command Line Arguments";
-            this.ShowCMD_DebugMenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
+            ShowCMD_DebugMenuItem.Name = "ShowCMD_DebugMenuItem";
+            ShowCMD_DebugMenuItem.Size = new Size(250, 22);
+            ShowCMD_DebugMenuItem.Text = "Show Command Line Arguments";
+            ShowCMD_DebugMenuItem.Click += DebugMenuItems_Events;
             // 
             // ShowSetPasswordDialog_DebugMenuItem
             // 
-            this.ShowSetPasswordDialog_DebugMenuItem.Name = "ShowSetPasswordDialog_DebugMenuItem";
-            this.ShowSetPasswordDialog_DebugMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.ShowSetPasswordDialog_DebugMenuItem.Text = "Show SetPasswordDialog";
-            this.ShowSetPasswordDialog_DebugMenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
+            ShowSetPasswordDialog_DebugMenuItem.Name = "ShowSetPasswordDialog_DebugMenuItem";
+            ShowSetPasswordDialog_DebugMenuItem.Size = new Size(250, 22);
+            ShowSetPasswordDialog_DebugMenuItem.Text = "Show SetPasswordDialog";
+            ShowSetPasswordDialog_DebugMenuItem.Click += DebugMenuItems_Events;
             // 
             // ShowOpenPasswordDialog_DebugMenuItem
             // 
-            this.ShowOpenPasswordDialog_DebugMenuItem.Name = "ShowOpenPasswordDialog_DebugMenuItem";
-            this.ShowOpenPasswordDialog_DebugMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.ShowOpenPasswordDialog_DebugMenuItem.Text = "Show OpenPasswordDialog";
-            this.ShowOpenPasswordDialog_DebugMenuItem.Click += new System.EventHandler(this.DebugMenuItems_Events);
+            ShowOpenPasswordDialog_DebugMenuItem.Name = "ShowOpenPasswordDialog_DebugMenuItem";
+            ShowOpenPasswordDialog_DebugMenuItem.Size = new Size(250, 22);
+            ShowOpenPasswordDialog_DebugMenuItem.Text = "Show OpenPasswordDialog";
+            ShowOpenPasswordDialog_DebugMenuItem.Click += DebugMenuItems_Events;
             // 
             // helpToolStripMenuItem1
             // 
-            this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.About_MenuItem});
-            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 24);
-            this.helpToolStripMenuItem1.Text = "Help";
+            helpToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { About_MenuItem });
+            helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            helpToolStripMenuItem1.Size = new Size(44, 24);
+            helpToolStripMenuItem1.Text = "Help";
             // 
             // About_MenuItem
             // 
-            this.About_MenuItem.Name = "About_MenuItem";
-            this.About_MenuItem.Size = new System.Drawing.Size(137, 22);
-            this.About_MenuItem.Text = "About SText";
-            this.About_MenuItem.Click += new System.EventHandler(this.About_MenuItem_Click);
+            About_MenuItem.Name = "About_MenuItem";
+            About_MenuItem.Size = new Size(137, 22);
+            About_MenuItem.Text = "About SText";
+            About_MenuItem.Click += About_MenuItem_Click;
             // 
             // openFileDialog
             // 
-            this.openFileDialog.CheckFileExists = false;
-            this.openFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
-            this.openFileDialog.RestoreDirectory = true;
+            openFileDialog.CheckFileExists = false;
+            openFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
+            openFileDialog.RestoreDirectory = true;
             // 
             // saveFileDialog
             // 
-            this.saveFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
-            this.saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
+            saveFileDialog.RestoreDirectory = true;
             // 
             // StatusBar
             // 
-            this.StatusBar.AutoSize = false;
-            this.StatusBar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.StatusBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.StatusBar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.StatusBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusBar_Theme,
-            this.StatusBar_File,
-            this.EncodingMenuButton});
-            this.StatusBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.StatusBar.Location = new System.Drawing.Point(0, 540);
-            this.StatusBar.Name = "StatusBar";
-            this.StatusBar.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.StatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.StatusBar.Size = new System.Drawing.Size(1115, 29);
-            this.StatusBar.TabIndex = 3;
+            StatusBar.AutoSize = false;
+            StatusBar.BackgroundImageLayout = ImageLayout.None;
+            StatusBar.Dock = DockStyle.Bottom;
+            StatusBar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            StatusBar.GripStyle = ToolStripGripStyle.Hidden;
+            StatusBar.Items.AddRange(new ToolStripItem[] { StatusBar_Theme, StatusBar_File, EncodingMenuButton });
+            StatusBar.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            StatusBar.Location = new Point(0, 540);
+            StatusBar.Name = "StatusBar";
+            StatusBar.Padding = new Padding(1, 0, 16, 0);
+            StatusBar.RenderMode = ToolStripRenderMode.Professional;
+            StatusBar.Size = new Size(1115, 29);
+            StatusBar.TabIndex = 3;
             // 
             // StatusBar_Theme
             // 
-            this.StatusBar_Theme.Margin = new System.Windows.Forms.Padding(0);
-            this.StatusBar_Theme.Name = "StatusBar_Theme";
-            this.StatusBar_Theme.Size = new System.Drawing.Size(46, 29);
-            this.StatusBar_Theme.Text = "Theme:";
+            StatusBar_Theme.Margin = new Padding(0);
+            StatusBar_Theme.Name = "StatusBar_Theme";
+            StatusBar_Theme.Size = new Size(46, 29);
+            StatusBar_Theme.Text = "Theme:";
             // 
             // StatusBar_File
             // 
-            this.StatusBar_File.Margin = new System.Windows.Forms.Padding(0);
-            this.StatusBar_File.Name = "StatusBar_File";
-            this.StatusBar_File.Size = new System.Drawing.Size(28, 29);
-            this.StatusBar_File.Text = "File:";
+            StatusBar_File.Margin = new Padding(0);
+            StatusBar_File.Name = "StatusBar_File";
+            StatusBar_File.Size = new Size(28, 29);
+            StatusBar_File.Text = "File:";
             // 
             // EncodingMenuButton
             // 
-            this.EncodingMenuButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.EncodingMenuButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.EncodingMenuButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.EncodingMenuButton.DropDown = this.DropDownEncodingMenu;
-            this.EncodingMenuButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EncodingMenuButton.Margin = new System.Windows.Forms.Padding(0);
-            this.EncodingMenuButton.Name = "EncodingMenuButton";
-            this.EncodingMenuButton.Size = new System.Drawing.Size(70, 29);
-            this.EncodingMenuButton.Text = "Encoding";
-            this.EncodingMenuButton.ToolTipText = "Encoding";
+            EncodingMenuButton.Alignment = ToolStripItemAlignment.Right;
+            EncodingMenuButton.BackgroundImageLayout = ImageLayout.None;
+            EncodingMenuButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            EncodingMenuButton.DropDown = DropDownEncodingMenu;
+            EncodingMenuButton.ImageTransparentColor = Color.Magenta;
+            EncodingMenuButton.Margin = new Padding(0);
+            EncodingMenuButton.Name = "EncodingMenuButton";
+            EncodingMenuButton.Size = new Size(70, 29);
+            EncodingMenuButton.Text = "Encoding";
+            EncodingMenuButton.ToolTipText = "Encoding";
             // 
             // DropDownEncodingMenu
             // 
-            this.DropDownEncodingMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.DropDownEncodingMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.DropDownEncodingMenu.Name = "DropDownEncodingMenu";
-            this.DropDownEncodingMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.DropDownEncodingMenu.ShowItemToolTips = false;
-            this.DropDownEncodingMenu.Size = new System.Drawing.Size(181, 26);
+            DropDownEncodingMenu.BackgroundImageLayout = ImageLayout.None;
+            DropDownEncodingMenu.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
+            DropDownEncodingMenu.Name = "DropDownEncodingMenu";
+            DropDownEncodingMenu.OwnerItem = EncodingMenuButton;
+            DropDownEncodingMenu.RenderMode = ToolStripRenderMode.Professional;
+            DropDownEncodingMenu.ShowItemToolTips = false;
+            DropDownEncodingMenu.Size = new Size(61, 4);
             // 
             // UTF8_MenuItem
             // 
-            this.UTF8_MenuItem.Name = "UTF8_MenuItem";
-            this.UTF8_MenuItem.Size = new System.Drawing.Size(32, 19);
+            UTF8_MenuItem.Name = "UTF8_MenuItem";
+            UTF8_MenuItem.Size = new Size(32, 19);
             // 
             // UTF16_MenuItem
             // 
-            this.UTF16_MenuItem.Name = "UTF16_MenuItem";
-            this.UTF16_MenuItem.Size = new System.Drawing.Size(32, 19);
+            UTF16_MenuItem.Name = "UTF16_MenuItem";
+            UTF16_MenuItem.Size = new Size(32, 19);
             // 
             // UTF32_MenuItem
             // 
-            this.UTF32_MenuItem.Name = "UTF32_MenuItem";
-            this.UTF32_MenuItem.Size = new System.Drawing.Size(32, 19);
+            UTF32_MenuItem.Name = "UTF32_MenuItem";
+            UTF32_MenuItem.Size = new Size(32, 19);
             // 
             // ASCII_MenuItem
             // 
-            this.ASCII_MenuItem.Name = "ASCII_MenuItem";
-            this.ASCII_MenuItem.Size = new System.Drawing.Size(32, 19);
+            ASCII_MenuItem.Name = "ASCII_MenuItem";
+            ASCII_MenuItem.Size = new Size(32, 19);
             // 
             // ANSIEuro_MenuItem
             // 
-            this.ANSIEuro_MenuItem.Name = "ANSIEuro_MenuItem";
-            this.ANSIEuro_MenuItem.Size = new System.Drawing.Size(32, 19);
+            ANSIEuro_MenuItem.Name = "ANSIEuro_MenuItem";
+            ANSIEuro_MenuItem.Size = new Size(32, 19);
             // 
             // ANSICyrillic_MenuItem
             // 
-            this.ANSICyrillic_MenuItem.Name = "ANSICyrillic_MenuItem";
-            this.ANSICyrillic_MenuItem.Size = new System.Drawing.Size(32, 19);
+            ANSICyrillic_MenuItem.Name = "ANSICyrillic_MenuItem";
+            ANSICyrillic_MenuItem.Size = new Size(32, 19);
             // 
             // KOI8R_MenuItem
             // 
-            this.KOI8R_MenuItem.Name = "KOI8R_MenuItem";
-            this.KOI8R_MenuItem.Size = new System.Drawing.Size(32, 19);
+            KOI8R_MenuItem.Name = "KOI8R_MenuItem";
+            KOI8R_MenuItem.Size = new Size(32, 19);
             // 
             // ContentPanel
             // 
-            this.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ContentPanel.Location = new System.Drawing.Point(0, 24);
-            this.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.ContentPanel.Name = "ContentPanel";
-            this.ContentPanel.Size = new System.Drawing.Size(1115, 516);
-            this.ContentPanel.TabIndex = 4;
+            ContentPanel.Dock = DockStyle.Fill;
+            ContentPanel.Location = new Point(0, 24);
+            ContentPanel.Margin = new Padding(4, 3, 4, 3);
+            ContentPanel.Name = "ContentPanel";
+            ContentPanel.Size = new Size(1115, 516);
+            ContentPanel.TabIndex = 4;
             // 
             // PrintDoc
             // 
-            this.PrintDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDoc_PrintPage);
+            PrintDoc.PrintPage += PrintDoc_PrintPage;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1115, 569);
-            this.Controls.Add(this.ContentPanel);
-            this.Controls.Add(this.MainMenu);
-            this.Controls.Add(this.StatusBar);
-            this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.MainMenu;
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MinimumSize = new System.Drawing.Size(200, 100);
-            this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "SText";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
-            this.MainMenu.ResumeLayout(false);
-            this.MainMenu.PerformLayout();
-            this.StatusBar.ResumeLayout(false);
-            this.StatusBar.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            ClientSize = new Size(1115, 569);
+            Controls.Add(ContentPanel);
+            Controls.Add(MainMenu);
+            Controls.Add(StatusBar);
+            DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = MainMenu;
+            Margin = new Padding(4, 3, 4, 3);
+            MinimumSize = new Size(200, 100);
+            Name = "MainForm";
+            StartPosition = FormStartPosition.Manual;
+            Text = "SText";
+            FormClosing += Form1_FormClosing;
+            Load += Form1_Load;
+            Shown += MainForm_Shown;
+            MainMenu.ResumeLayout(false);
+            MainMenu.PerformLayout();
+            StatusBar.ResumeLayout(false);
+            StatusBar.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

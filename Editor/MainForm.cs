@@ -33,7 +33,7 @@ namespace SText.Editor
             DropDownEncodingMenu.Renderer = new CustomRenderForMenu();
             StatusBar.Renderer = new CustomRenderForStatusBar();
 
-            
+
             FileEncoding = Encoding.UTF8;
             ShowStatusBar = true;
             ThemeSelector.CurrentTheme = Theme.Default;
@@ -44,7 +44,8 @@ namespace SText.Editor
 
             ApplySettings();
 
-            try {
+            try
+            {
                 if (Environment.GetCommandLineArgs().Length > 1)
                 {
                     string filename = "";
@@ -57,11 +58,11 @@ namespace SText.Editor
                     {
                         OpenFileAndReadContent(filename);
                     }
- 
+
                 }
             }
             catch { }
-            
+
 
             ContentViewer.Inner.MouseWheel += (s, e) =>
             {
@@ -208,7 +209,7 @@ namespace SText.Editor
             Settings.FontSize = ContentViewer.Font.Size;
             Settings.FontFamily = ContentViewer.Font.FontFamily.Name;
             Settings.FontStyle = (int)ContentViewer.Font.Style;
-            
+
             if (WindowState != FormWindowState.Minimized)
                 Settings.WindowState = (int)this.WindowState;
 
@@ -217,7 +218,7 @@ namespace SText.Editor
                 Settings.WindowPosition = new Point(Left, Top);
                 Settings.WindowSize = this.Size;
             }
-                
+
         }
 
         private void ApplySettings()
@@ -263,10 +264,10 @@ namespace SText.Editor
                 {
                     SaveFileAndUpdateHash(saveFileDialog.FileName);
                 }
-                
+
                 saveFileDialog.FileName = null;
             }
-            catch{ }
+            catch { }
         }
 
         private void MenuFile_Events_Click(object sender, EventArgs e)
@@ -277,7 +278,7 @@ namespace SText.Editor
             {
                 case "New_MenuItem":
                     {
-                       NewFile();
+                        NewFile();
 
                         return;
                     }
@@ -443,14 +444,14 @@ namespace SText.Editor
                 {
                     OpenFileAndReadContent(openFileDialog.FileName);
                 }
-            } 
+            }
             else
             {
                 SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
                 switch (saveDialog.ShowDialog())
                 {
-                    case DialogResult.OK: 
+                    case DialogResult.OK:
                         {
                             if (!File.Exists(FileName))
                                 FileName = saveDialog.FileName;
@@ -458,12 +459,12 @@ namespace SText.Editor
                             SaveFile();
 
                             OpenFile(false, path);
-                            break; 
+                            break;
                         }
                     case DialogResult.Cancel: return;
                     case DialogResult.Abort: OpenFile(true, path); return;
                 }
-                
+
             }
         }
 
@@ -544,6 +545,17 @@ namespace SText.Editor
             ContentViewer.BackgroundScrollBarColor = new SolidColorBrush(ThemeSelector.CurrentColorSchema.ScrollBarBackgroundColor);
             ContentViewer.ScrollBarThumbColor = ThemeSelector.CurrentColorSchema.ScrollBarThumbColor;
             ContentViewer.ScrollBarGlyphColor = ThemeSelector.CurrentColorSchema.ScrollBarGlyphColor;
+
+            foreach (ToolStripMenuItem item in Theme_MenuItem.DropDownItems)
+                item.Checked = false;
+
+            switch (ThemeSelector.CurrentTheme)
+            {
+                case Theme.Default: DefaultTheme_MenuItem.Checked = true; break;
+                case Theme.Dark: DarkTheme_MenuItem.Checked = true; break;
+                case Theme.Blue: BlueTheme_MenuItem.Checked = true; break;
+                case Theme.ClassicalDark: ClassicalDarkTheme_MenuItem.Checked = true; break;
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -682,11 +694,11 @@ namespace SText.Editor
             {
                 DialogManager.ShowWarningDialogWithText(ex.Message);
             }
-            
+
         }
 
         private void SaveFileAndUpdateHash(string path)
-        {   
+        {
 
             try
             {
@@ -743,7 +755,7 @@ namespace SText.Editor
             {
                 DialogManager.ShowWarningDialogWithText(ex.Message);
             }
-           
+
         }
 
         private void WordWrap_MenuItem_Click(object sender, EventArgs e)
@@ -762,7 +774,7 @@ namespace SText.Editor
             EncodingInfo[] allEnc = Encoding.GetEncodings();
             ToolStripMenuItem[] menuItems = new ToolStripMenuItem[allEnc.Length];
 
-            for (int i = 0; i < allEnc.Length; i++) 
+            for (int i = 0; i < allEnc.Length; i++)
             {
                 menuItems[i] = new ToolStripMenuItem();
                 menuItems[i].Name = $"encodingMenuItem{i}";
@@ -813,12 +825,12 @@ namespace SText.Editor
         }
 
         #region Debug
-         
+
         private void DebugMenuItems_Events(object sender, EventArgs e)
         {
             var item = (ToolStripMenuItem)sender;
 
-            switch(item.Name)
+            switch (item.Name)
             {
                 case "ShowCMD_DebugMenuItem":
                     {
