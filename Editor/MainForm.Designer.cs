@@ -80,6 +80,8 @@
             KOI8R_MenuItem = new ToolStripMenuItem();
             ContentPanel = new Panel();
             PrintDoc = new System.Drawing.Printing.PrintDocument();
+            toolStripSeparator3 = new ToolStripSeparator();
+            toolStripSeparator4 = new ToolStripSeparator();
             MainMenu.SuspendLayout();
             StatusBar.SuspendLayout();
             SuspendLayout();
@@ -161,7 +163,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { Undo_MenuItem, Cut_MenuItem, Copy_MenuItem, Paste_MenuItem, Delete_MenuItem, SelectAll_MenuItem, DateAndTime_MenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { Undo_MenuItem, toolStripSeparator3, Cut_MenuItem, Copy_MenuItem, Paste_MenuItem, Delete_MenuItem, toolStripSeparator4, SelectAll_MenuItem, DateAndTime_MenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 24);
             editToolStripMenuItem.Text = "Edit";
@@ -170,7 +172,7 @@
             // 
             Undo_MenuItem.Name = "Undo_MenuItem";
             Undo_MenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            Undo_MenuItem.Size = new Size(164, 22);
+            Undo_MenuItem.Size = new Size(180, 22);
             Undo_MenuItem.Tag = "undo";
             Undo_MenuItem.Text = "Undo";
             Undo_MenuItem.Click += MenuEdit_Events_Click;
@@ -179,7 +181,7 @@
             // 
             Cut_MenuItem.Name = "Cut_MenuItem";
             Cut_MenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            Cut_MenuItem.Size = new Size(164, 22);
+            Cut_MenuItem.Size = new Size(180, 22);
             Cut_MenuItem.Tag = "cut";
             Cut_MenuItem.Text = "Cut";
             Cut_MenuItem.Click += MenuEdit_Events_Click;
@@ -188,7 +190,7 @@
             // 
             Copy_MenuItem.Name = "Copy_MenuItem";
             Copy_MenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            Copy_MenuItem.Size = new Size(164, 22);
+            Copy_MenuItem.Size = new Size(180, 22);
             Copy_MenuItem.Tag = "copy";
             Copy_MenuItem.Text = "Copy";
             Copy_MenuItem.Click += MenuEdit_Events_Click;
@@ -197,7 +199,7 @@
             // 
             Paste_MenuItem.Name = "Paste_MenuItem";
             Paste_MenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            Paste_MenuItem.Size = new Size(164, 22);
+            Paste_MenuItem.Size = new Size(180, 22);
             Paste_MenuItem.Tag = "paste";
             Paste_MenuItem.Text = "Paste";
             Paste_MenuItem.Click += MenuEdit_Events_Click;
@@ -205,7 +207,7 @@
             // Delete_MenuItem
             // 
             Delete_MenuItem.Name = "Delete_MenuItem";
-            Delete_MenuItem.Size = new Size(164, 22);
+            Delete_MenuItem.Size = new Size(180, 22);
             Delete_MenuItem.Tag = "delete";
             Delete_MenuItem.Text = "Delete";
             Delete_MenuItem.Click += MenuEdit_Events_Click;
@@ -214,7 +216,7 @@
             // 
             SelectAll_MenuItem.Name = "SelectAll_MenuItem";
             SelectAll_MenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            SelectAll_MenuItem.Size = new Size(164, 22);
+            SelectAll_MenuItem.Size = new Size(180, 22);
             SelectAll_MenuItem.Tag = "selectAll";
             SelectAll_MenuItem.Text = "Select All";
             SelectAll_MenuItem.Click += MenuEdit_Events_Click;
@@ -223,7 +225,7 @@
             // 
             DateAndTime_MenuItem.Name = "DateAndTime_MenuItem";
             DateAndTime_MenuItem.ShortcutKeys = Keys.F5;
-            DateAndTime_MenuItem.Size = new Size(164, 22);
+            DateAndTime_MenuItem.Size = new Size(180, 22);
             DateAndTime_MenuItem.Tag = "dateAndTime";
             DateAndTime_MenuItem.Text = "Date/Time";
             DateAndTime_MenuItem.Click += MenuEdit_Events_Click;
@@ -239,14 +241,14 @@
             // 
             WordWrap_MenuItem.CheckOnClick = true;
             WordWrap_MenuItem.Name = "WordWrap_MenuItem";
-            WordWrap_MenuItem.Size = new Size(134, 22);
+            WordWrap_MenuItem.Size = new Size(180, 22);
             WordWrap_MenuItem.Text = "Word Wrap";
             WordWrap_MenuItem.Click += WordWrap_MenuItem_Click;
             // 
             // fontToolStripMenuItem
             // 
             fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            fontToolStripMenuItem.Size = new Size(134, 22);
+            fontToolStripMenuItem.Size = new Size(180, 22);
             fontToolStripMenuItem.Text = "Font...";
             fontToolStripMenuItem.Click += ChangeFont_MenuItem_Click;
             // 
@@ -263,7 +265,7 @@
             ShowStatusBar_MenuItem.CheckOnClick = true;
             ShowStatusBar_MenuItem.CheckState = CheckState.Checked;
             ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            ShowStatusBar_MenuItem.Size = new Size(180, 22);
+            ShowStatusBar_MenuItem.Size = new Size(126, 22);
             ShowStatusBar_MenuItem.Text = "Status Bar";
             ShowStatusBar_MenuItem.Click += ShowStatusBar_MenuItem_Click;
             // 
@@ -271,13 +273,13 @@
             // 
             Theme_MenuItem.DropDownItems.AddRange(new ToolStripItem[] { DefaultTheme_MenuItem, DarkTheme_MenuItem, BlueTheme_MenuItem, ClassicalDarkTheme_MenuItem });
             Theme_MenuItem.Name = "Theme_MenuItem";
-            Theme_MenuItem.Size = new Size(180, 22);
+            Theme_MenuItem.Size = new Size(126, 22);
             Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
             // 
             DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            DefaultTheme_MenuItem.Size = new Size(180, 22);
+            DefaultTheme_MenuItem.Size = new Size(146, 22);
             DefaultTheme_MenuItem.Tag = "0";
             DefaultTheme_MenuItem.Text = "Default";
             DefaultTheme_MenuItem.Click += MenuTheme_Events_Click;
@@ -285,7 +287,7 @@
             // DarkTheme_MenuItem
             // 
             DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            DarkTheme_MenuItem.Size = new Size(180, 22);
+            DarkTheme_MenuItem.Size = new Size(146, 22);
             DarkTheme_MenuItem.Tag = "1";
             DarkTheme_MenuItem.Text = "Dark";
             DarkTheme_MenuItem.Click += MenuTheme_Events_Click;
@@ -293,7 +295,7 @@
             // BlueTheme_MenuItem
             // 
             BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            BlueTheme_MenuItem.Size = new Size(180, 22);
+            BlueTheme_MenuItem.Size = new Size(146, 22);
             BlueTheme_MenuItem.Tag = "2";
             BlueTheme_MenuItem.Text = "Blue";
             BlueTheme_MenuItem.Click += MenuTheme_Events_Click;
@@ -301,7 +303,7 @@
             // ClassicalDarkTheme_MenuItem
             // 
             ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
-            ClassicalDarkTheme_MenuItem.Size = new Size(180, 22);
+            ClassicalDarkTheme_MenuItem.Size = new Size(146, 22);
             ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
             ClassicalDarkTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
@@ -459,6 +461,16 @@
             // 
             PrintDoc.PrintPage += PrintDoc_PrintPage;
             // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(177, 6);
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(177, 6);
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -538,6 +550,8 @@
         private ToolStripMenuItem ShowSetPasswordDialog_DebugMenuItem;
         private ToolStripMenuItem ShowOpenPasswordDialog_DebugMenuItem;
         private ToolStripMenuItem ClassicalDarkTheme_MenuItem;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripSeparator toolStripSeparator4;
     }
 }
 

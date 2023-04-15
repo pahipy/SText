@@ -383,8 +383,9 @@ namespace SText.Editor
 
                             ContentViewer.Inner.Select(start, 0);
 
-                        } catch { }
-                        
+                        }
+                        catch { }
+
                         return;
                     }
             }
