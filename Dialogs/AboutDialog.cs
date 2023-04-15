@@ -12,12 +12,12 @@ namespace SText.Dialogs
 {
     public partial class AboutDialog : Form
     {
-        public AboutDialog()
+        public AboutDialog(string version)
         {
             InitializeComponent();
             this.Text = $"About {ProgramSets.ProgramName}";
             Content.Text = $"{ProgramSets.ProgramName} is a simple text editor.";
-            VersionLabel.Text = ProductVersion;
+            VersionLabel.Text = version;
             ApplyTheme(); 
         }
 

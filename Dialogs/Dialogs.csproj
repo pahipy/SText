@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Copyright>© 2022 pahipy</Copyright>
+    <Copyright>© 2023 pahipy</Copyright>
     <Company>pahipy</Company>
-    <Version>1.2.2</Version>
+    <Version>1.3.0</Version>
     <ProductName>SText</ProductName>
   </PropertyGroup>
 

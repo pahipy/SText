@@ -475,7 +475,7 @@ namespace SText.Editor
 
         private void About_MenuItem_Click(object sender, EventArgs e)
         {
-            AboutDialog ab = new AboutDialog();
+            AboutDialog ab = new AboutDialog(ProductVersion);
             ab.ShowDialog();
         }
 
