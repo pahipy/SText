@@ -97,7 +97,7 @@ namespace SText.Formats
             fileStream.Position = 0;
 
             data = Crypt.EncryptStringToBytes(text, key, Encoding);
-            hash = Crypt.GetSHA256Hash(text);
+            hash = Crypt.GetSHA256Hash(text, Encoding);
             dataSize = data.Length;
 
             using (BinaryWriter bw = new BinaryWriter(fileStream))
@@ -141,7 +141,7 @@ namespace SText.Formats
             }
 
             string text = Crypt.DecryptStringFromBytes(data, key, this.Encoding);
-            if (!hash.SequenceEqual(Crypt.GetSHA256Hash(text)))
+            if (!hash.SequenceEqual(Crypt.GetSHA256Hash(text, Encoding)))
             {
                 code = 1;
                 return null;

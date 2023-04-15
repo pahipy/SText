@@ -103,8 +103,13 @@ namespace SText.Formats
 
         public static byte[] GetSHA256Hash(string str)
         {
+            return GetSHA256Hash(str, Encoding.UTF8);
+        }
+
+        public static byte[] GetSHA256Hash(string str, Encoding enc)
+        {
             SHA256 sha256 = SHA256.Create();
-            return sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
+            return sha256.ComputeHash(enc.GetBytes(str));
         }
 
     }
