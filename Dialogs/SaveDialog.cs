@@ -92,7 +92,7 @@ namespace SText.Dialogs
                 Message.ForeColor = Color.FromArgb(0, 59, 209);
             }
 
-            if (theme == Theme.Dark)
+            if (theme == Theme.Dark || theme == Theme.ClassicalDark)
             {
                 ContentIcon.Image = global::Dialogs.Resource.help_circle_white;
             }
