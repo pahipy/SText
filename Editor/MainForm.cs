@@ -115,6 +115,7 @@ namespace SText.Editor
         private bool isReadOnly = false;
         private Textarea ContentViewer = new Textarea();
         private ElementHost host = new ElementHost();
+        private string oldContent = "";
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -691,6 +692,7 @@ namespace SText.Editor
                     }
 
                     Content = cont;
+                    oldContent = cont;
                     contentHash = Content.GetHashCode();
                     FileName = path;
                 }
@@ -777,6 +779,7 @@ namespace SText.Editor
                     }
 
                     contentHash = Content.GetHashCode();
+                    oldContent = Content;
                     FileName = path;
                     return true;
                 }
@@ -910,7 +913,11 @@ namespace SText.Editor
             if (!File.Exists(FileName))
                 return;
 
-            SaveFileIfItChanged();
+            DialogResult res = SaveFileIfItChanged();
+
+            if (res == DialogResult.Cancel) return;
+            if (res == DialogResult.Abort)
+                Content = oldContent;
 
             string oldFile = FileName;
 
@@ -951,19 +958,20 @@ namespace SText.Editor
             
         }
 
-        private void SaveFileIfItChanged()
+        private DialogResult SaveFileIfItChanged()
         {
             if (contentHash != Content.GetHashCode())
             {
                 SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
+                DialogResult res = saveDialog.ShowDialog();
 
-                switch (saveDialog.ShowDialog())
-                {
-                    case DialogResult.OK: SaveFile(); break;
-                    case DialogResult.Cancel: return;
-                }
+                if (res == DialogResult.OK)
+                    SaveFile();
 
+                return res;
             }
+
+            return DialogResult.Ignore;
         }
 
         private void Tools_MenuItem_DropDownOpening(object sender, EventArgs e)
