@@ -98,7 +98,7 @@ namespace SText.Editor
 
             ContentViewer.Inner.TextChanged += ContentViewer_TextChanged;
 
-            
+
 
         }
 
@@ -367,7 +367,7 @@ namespace SText.Editor
                             ContentViewer.Inner.Select(start, 0);
                         }
                         catch { }
-                        
+
                         return;
                     }
 
@@ -702,7 +702,7 @@ namespace SText.Editor
 
         }
 
-        private void SaveFileAndUpdateHash(string path)
+        private bool SaveFileAndUpdateHash(string path)
         {
 
             try
@@ -720,8 +720,7 @@ namespace SText.Editor
                             {
                                 txtsFile.CloseFile();
                                 txtsFile = null;
-                                SaveFileAndUpdateHash(path);
-                                return;
+                                return SaveFileAndUpdateHash(path);
                             }
 
                             txtsFile.WriteFile(Content);
@@ -735,7 +734,7 @@ namespace SText.Editor
                             isReadOnly = txtsFile.IsReadOnly;
                         }
                         else
-                            return;
+                            return false;
                     }
                     else
                     {
@@ -754,11 +753,15 @@ namespace SText.Editor
 
                     contentHash = Content.GetHashCode();
                     FileName = path;
+                    return true;
                 }
+
+                return false;
             }
             catch (ArgumentException ex)
             {
                 DialogManager.ShowWarningDialogWithText(ex.Message);
+                return false;
             }
 
         }
@@ -793,17 +796,8 @@ namespace SText.Editor
 
                     if (FileName != null && File.Exists(FileName))
                     {
-                        if (contentHash != Content.GetHashCode())
-                        {
-                            SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
+                        SaveFileIfItChanged();
 
-                            switch (saveDialog.ShowDialog())
-                            {
-                                case DialogResult.OK: SaveFile(); break;
-                                case DialogResult.Cancel: return;
-                            }
-
-                        }
                         if (txtFile is not null)
                             txtFile.CloseFile();
 
@@ -883,5 +877,77 @@ namespace SText.Editor
             e.HasMorePages = (strToPrint.Length > 0);
         }
 
+        private void Tools_EncryptAdnDecrypt_Click(object sender, EventArgs e)
+        {
+            if (FileName is null)
+                return;
+
+            if (!File.Exists(FileName))
+                return;
+
+            SaveFileIfItChanged();
+
+            string oldFile = FileName;
+
+            if (txtsFile is null)
+            {
+                txtFile?.CloseFile();
+                txtFile = null;
+
+                FileName = Path.ChangeExtension(FileName, ".txts");
+
+            }
+            else
+            {
+
+                Content = txtsFile.ReadFile();
+
+                txtsFile.CloseFile();
+                txtsFile = null;
+
+                FileName = Path.ChangeExtension(FileName, ".txt");
+            }
+
+            if (SaveFileAndUpdateHash(FileName))
+            {
+                File.Delete(oldFile);
+            }
+            else
+            {
+                File.Delete(FileName);
+                SaveFileAndUpdateHash(oldFile);
+            }
+        }
+
+        private void SaveFileIfItChanged()
+        {
+            if (contentHash != Content.GetHashCode())
+            {
+                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
+
+                switch (saveDialog.ShowDialog())
+                {
+                    case DialogResult.OK: SaveFile(); break;
+                    case DialogResult.Cancel: return;
+                }
+
+            }
+        }
+
+        private void Tools_MenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            string lableText = "Encrypt current file";
+
+
+            if (txtsFile is not null && txtFile is null)
+            {
+                lableText = "Dencrypt current file";
+            }
+
+            Tools_EncryptAdnDecrypt.Enabled = !(txtsFile is null && txtFile is null);
+                
+
+            Tools_EncryptAdnDecrypt.Text = lableText;
+        }
     }
 }
