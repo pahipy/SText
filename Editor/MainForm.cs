@@ -723,14 +723,31 @@ namespace SText.Editor
                                 return SaveFileAndUpdateHash(path);
                             }
 
-                            txtsFile.WriteFile(Content);
+                            try
+                            {
+                                txtsFile.WriteFile(Content);
+                            }
+                            catch (Exception ex)
+                            {
+                                DialogManager.ShowWarningDialogWithText(ex.Message);
+                                return false;
+                            }
+                            
                             isReadOnly = txtsFile.IsReadOnly;
                         }
                         else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
                         {
                             txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
-
-                            txtsFile.WriteFile(Content);
+                            try
+                            {
+                                txtsFile.WriteFile(Content);
+                            }
+                            catch (Exception ex)
+                            {
+                                DialogManager.ShowWarningDialogWithText(ex.Message);
+                                return false;
+                            }
+                            
                             isReadOnly = txtsFile.IsReadOnly;
                         }
                         else
@@ -747,7 +764,15 @@ namespace SText.Editor
                             txtFile = new TXTFormat(path, fileEncoding);
                         }
 
-                        txtFile.WriteFile(Content);
+                        try
+                        {
+                            txtFile.WriteFile(Content);
+                        }catch(Exception ex)
+                        {
+                            DialogManager.ShowWarningDialogWithText(ex.Message);
+                            return false;
+                        }
+                        
                         isReadOnly = txtFile.IsReadOnly;
                     }
 
@@ -908,15 +933,22 @@ namespace SText.Editor
                 FileName = Path.ChangeExtension(FileName, ".txt");
             }
 
-            if (SaveFileAndUpdateHash(FileName))
+            try
             {
-                File.Delete(oldFile);
-            }
-            else
+                if (SaveFileAndUpdateHash(FileName))
+                {
+                    File.Delete(oldFile);
+                }
+                else
+                {
+                    File.Delete(FileName);
+                    SaveFileAndUpdateHash(oldFile);
+                }
+            }catch (Exception ex)
             {
-                File.Delete(FileName);
-                SaveFileAndUpdateHash(oldFile);
+                DialogManager.ShowWarningDialogWithText(ex.Message);
             }
+            
         }
 
         private void SaveFileIfItChanged()

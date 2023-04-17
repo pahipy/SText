@@ -28,11 +28,7 @@ namespace SText.Formats
         {
             this.path = path;
 
-            if (File.Exists(path))
-            {
-                ReopenStream();
-            }
-            else
+            if (!File.Exists(path))
             {
                 fileStream = File.Create(path);
                 isReadOnly = false;
@@ -94,6 +90,8 @@ namespace SText.Formats
             if (!File.Exists(path))
                 fileStream = File.Create(path);
 
+            ReopenStream();
+
             fileStream.Position = 0;
 
             data = Crypt.EncryptStringToBytes(text, key, Encoding);
@@ -109,7 +107,7 @@ namespace SText.Formats
                 bw.Write(data);
             }
 
-            ReopenStream();
+            fileStream.Close();
 
             code = 0;
         }
@@ -122,6 +120,7 @@ namespace SText.Formats
                 return null;
             }
 
+            ReopenStream();
             fileStream.Position = 0;
 
             using (BinaryReader br = new BinaryReader(fileStream))
@@ -148,14 +147,16 @@ namespace SText.Formats
             }
                 
             code = 0;
-            ReopenStream();
+
+            fileStream.Close();
+
             return text;
         }
 
         public void CloseFile()
         {
             if (File.Exists(path))
-                fileStream.Close();
+                fileStream?.Close();
         }
 
         public int OpenAgain()

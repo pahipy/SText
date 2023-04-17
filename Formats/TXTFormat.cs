@@ -16,11 +16,7 @@ namespace SText.Formats
 
             if (path is not null)
             {
-                if (File.Exists(path))
-                {
-                    ReopenStream();
-                }
-                else
+                if (!File.Exists(path))
                 {
                     fs = File.Create(path);
                     isReadOnly = false;
@@ -62,6 +58,7 @@ namespace SText.Formats
 
         public string ReadFile()
         {
+            ReopenStream();
             fs.Position = 0;
 
             string content;
@@ -71,13 +68,15 @@ namespace SText.Formats
                 content = tr.ReadToEnd();
             }
 
-            ReopenStream();
+            fs.Close();
 
             return content;
         }
 
         public void WriteFile(string content)
         {
+            ReopenStream();
+
             if (isReadOnly)
                 return;
 
@@ -90,7 +89,7 @@ namespace SText.Formats
                 bw.Write(fileEncoding.GetBytes(content));
             }
 
-            ReopenStream();
+            fs.Close();
         }
 
         public static Encoding GetEncoding(string path)
@@ -112,8 +111,7 @@ namespace SText.Formats
 
         public void CloseFile()
         {
-            if (fs is not null)
-                fs.Close();
+            fs?.Close();
 
             fs = null;
         }
