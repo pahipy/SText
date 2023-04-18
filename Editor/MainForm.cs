@@ -734,7 +734,7 @@ namespace SText.Editor
                                 DialogManager.ShowWarningDialogWithText(ex.Message);
                                 return false;
                             }
-                            
+
                             isReadOnly = txtsFile.IsReadOnly;
                         }
                         else if (setPasswordDialog.ShowDialog() == DialogResult.OK)
@@ -749,7 +749,7 @@ namespace SText.Editor
                                 DialogManager.ShowWarningDialogWithText(ex.Message);
                                 return false;
                             }
-                            
+
                             isReadOnly = txtsFile.IsReadOnly;
                         }
                         else
@@ -769,12 +769,13 @@ namespace SText.Editor
                         try
                         {
                             txtFile.WriteFile(Content);
-                        }catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             DialogManager.ShowWarningDialogWithText(ex.Message);
                             return false;
                         }
-                        
+
                         isReadOnly = txtFile.IsReadOnly;
                     }
 
@@ -951,11 +952,12 @@ namespace SText.Editor
                     File.Delete(FileName);
                     SaveFileAndUpdateHash(oldFile);
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 DialogManager.ShowWarningDialogWithText(ex.Message);
             }
-            
+
         }
 
         private DialogResult SaveFileIfItChanged()
@@ -985,7 +987,7 @@ namespace SText.Editor
             }
 
             Tools_EncryptAdnDecrypt.Enabled = !(txtsFile is null && txtFile is null);
-                
+
 
             Tools_EncryptAdnDecrypt.Text = lableText;
         }

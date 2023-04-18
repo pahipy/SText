@@ -75,13 +75,6 @@
             StatusBar_File = new ToolStripStatusLabel();
             EncodingMenuButton = new ToolStripDropDownButton();
             DropDownEncodingMenu = new ContextMenuStrip(components);
-            UTF8_MenuItem = new ToolStripMenuItem();
-            UTF16_MenuItem = new ToolStripMenuItem();
-            UTF32_MenuItem = new ToolStripMenuItem();
-            ASCII_MenuItem = new ToolStripMenuItem();
-            ANSIEuro_MenuItem = new ToolStripMenuItem();
-            ANSICyrillic_MenuItem = new ToolStripMenuItem();
-            KOI8R_MenuItem = new ToolStripMenuItem();
             ContentPanel = new Panel();
             PrintDoc = new System.Drawing.Printing.PrintDocument();
             MainMenu.SuspendLayout();
@@ -441,41 +434,6 @@
             DropDownEncodingMenu.ShowItemToolTips = false;
             DropDownEncodingMenu.Size = new Size(61, 4);
             // 
-            // UTF8_MenuItem
-            // 
-            UTF8_MenuItem.Name = "UTF8_MenuItem";
-            UTF8_MenuItem.Size = new Size(32, 19);
-            // 
-            // UTF16_MenuItem
-            // 
-            UTF16_MenuItem.Name = "UTF16_MenuItem";
-            UTF16_MenuItem.Size = new Size(32, 19);
-            // 
-            // UTF32_MenuItem
-            // 
-            UTF32_MenuItem.Name = "UTF32_MenuItem";
-            UTF32_MenuItem.Size = new Size(32, 19);
-            // 
-            // ASCII_MenuItem
-            // 
-            ASCII_MenuItem.Name = "ASCII_MenuItem";
-            ASCII_MenuItem.Size = new Size(32, 19);
-            // 
-            // ANSIEuro_MenuItem
-            // 
-            ANSIEuro_MenuItem.Name = "ANSIEuro_MenuItem";
-            ANSIEuro_MenuItem.Size = new Size(32, 19);
-            // 
-            // ANSICyrillic_MenuItem
-            // 
-            ANSICyrillic_MenuItem.Name = "ANSICyrillic_MenuItem";
-            ANSICyrillic_MenuItem.Size = new Size(32, 19);
-            // 
-            // KOI8R_MenuItem
-            // 
-            KOI8R_MenuItem.Name = "KOI8R_MenuItem";
-            KOI8R_MenuItem.Size = new Size(32, 19);
-            // 
             // ContentPanel
             // 
             ContentPanel.Dock = DockStyle.Fill;
@@ -501,7 +459,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = MainMenu;
             Margin = new Padding(4, 3, 4, 3);
-            MinimumSize = new Size(200, 100);
+            MinimumSize = new Size(400, 100);
             Name = "MainForm";
             StartPosition = FormStartPosition.Manual;
             Text = "SText";
