@@ -63,12 +63,16 @@ namespace SText.Editor
             }
             catch { }
 
-
-            ContentViewer.Inner.MouseWheel += (s, e) =>
+            ContentViewer.Inner.PreviewMouseWheel += (s, e) =>
             {
                 double newsize = e.Delta / 100d + ContentViewer.Inner.FontSize;
                 if (newsize > 5 && newsize < 75 && FontSizeChangeByMouseWheelAct)
                 {
+                    if (ContentViewer.Inner.FontSize < newsize)
+                        ContentViewer.Inner.LineDown();
+                    else
+                        ContentViewer.Inner.LineUp();
+
                     ContentViewer.Inner.FontSize = newsize;
                 }
                 FontSizeChangeByMouseWheelAct = false;
