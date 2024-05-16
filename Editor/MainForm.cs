@@ -213,6 +213,7 @@ namespace SText.Editor
             Settings.CurrentTheme = ThemeSelector.CurrentTheme;
             Settings.ShowStatusBar = ShowStatusBar;
             Settings.WordWrap = WordWrap;
+            Settings.OnTop = TopMost;
             Settings.FontSize = ContentViewer.Font.Size;
             Settings.FontFamily = ContentViewer.Font.FontFamily.Name;
             Settings.FontStyle = (int)ContentViewer.Font.Style;
@@ -234,6 +235,7 @@ namespace SText.Editor
             ThemeSelector.CurrentTheme = Settings.CurrentTheme;
             ShowStatusBar = Settings.ShowStatusBar;
             WordWrap = Settings.WordWrap;
+            TopMost = Settings.OnTop; alwaysOnTop_MenuItem.Checked = Settings.OnTop;
             ContentViewer.Font = new Font(Settings.FontFamily, Settings.FontSize, (FontStyle)Settings.FontStyle);
             this.WindowState = (FormWindowState)Settings.WindowState;
             this.Location = new Point(Settings.WindowPosition.X, Settings.WindowPosition.Y);
@@ -1002,13 +1004,18 @@ namespace SText.Editor
 
             if (txtsFile is not null && txtFile is null)
             {
-                lableText = "Dencrypt current file";
+                lableText = "Decrypt current file";
             }
 
             Tools_EncryptAdnDecrypt.Enabled = !(txtsFile is null && txtFile is null);
 
 
             Tools_EncryptAdnDecrypt.Text = lableText;
+        }
+
+        private void alwaysOnTop_MenuItem_Click(object sender, EventArgs e)
+        {
+            this.TopMost = ((ToolStripMenuItem)sender).Checked;
         }
     }
 }

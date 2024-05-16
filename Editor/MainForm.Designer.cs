@@ -55,6 +55,7 @@
             fontToolStripMenuItem = new ToolStripMenuItem();
             viewToolStripMenuItem = new ToolStripMenuItem();
             ShowStatusBar_MenuItem = new ToolStripMenuItem();
+            alwaysOnTop_MenuItem = new ToolStripMenuItem();
             Theme_MenuItem = new ToolStripMenuItem();
             DefaultTheme_MenuItem = new ToolStripMenuItem();
             DarkTheme_MenuItem = new ToolStripMenuItem();
@@ -259,7 +260,7 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowStatusBar_MenuItem, Theme_MenuItem });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowStatusBar_MenuItem, alwaysOnTop_MenuItem, Theme_MenuItem });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(44, 24);
             viewToolStripMenuItem.Text = "View";
@@ -270,15 +271,24 @@
             ShowStatusBar_MenuItem.CheckOnClick = true;
             ShowStatusBar_MenuItem.CheckState = CheckState.Checked;
             ShowStatusBar_MenuItem.Name = "ShowStatusBar_MenuItem";
-            ShowStatusBar_MenuItem.Size = new Size(126, 22);
+            ShowStatusBar_MenuItem.Size = new Size(180, 22);
             ShowStatusBar_MenuItem.Text = "Status Bar";
             ShowStatusBar_MenuItem.Click += ShowStatusBar_MenuItem_Click;
+            // 
+            // alwaysOnTop_MenuItem
+            // 
+            alwaysOnTop_MenuItem.CheckOnClick = true;
+            alwaysOnTop_MenuItem.Name = "alwaysOnTop_MenuItem";
+            alwaysOnTop_MenuItem.ShortcutKeys = Keys.F2;
+            alwaysOnTop_MenuItem.Size = new Size(180, 22);
+            alwaysOnTop_MenuItem.Text = "Always on top";
+            alwaysOnTop_MenuItem.Click += alwaysOnTop_MenuItem_Click;
             // 
             // Theme_MenuItem
             // 
             Theme_MenuItem.DropDownItems.AddRange(new ToolStripItem[] { DefaultTheme_MenuItem, DarkTheme_MenuItem, BlueTheme_MenuItem, ClassicalDarkTheme_MenuItem });
             Theme_MenuItem.Name = "Theme_MenuItem";
-            Theme_MenuItem.Size = new Size(126, 22);
+            Theme_MenuItem.Size = new Size(180, 22);
             Theme_MenuItem.Text = "Theme";
             // 
             // DefaultTheme_MenuItem
@@ -530,6 +540,7 @@
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem Tools_MenuItem;
         private ToolStripMenuItem Tools_EncryptAdnDecrypt;
+        private ToolStripMenuItem alwaysOnTop_MenuItem;
     }
 }
 

@@ -99,6 +99,7 @@ namespace SText.Conf
 
             Settings.ShowStatusBar = (bool)obj["SText"]["ShowStatusBar"];
             Settings.WordWrap = (bool)obj["SText"]["WordWrap"];
+            Settings.OnTop = (bool)(obj["SText"]["OnTop"] ?? false);
             Settings.FontSize = (float)obj["SText"]["FontSize"];
             Settings.FontFamily = (string)obj["SText"]["FontFamily"];
             Settings.FontStyle = (int)obj["SText"]["FontStyle"];
@@ -132,6 +133,7 @@ namespace SText.Conf
                 new JProperty("Theme", (int)Settings.CurrentTheme),
                 new JProperty("ShowStatusBar", Settings.ShowStatusBar),
                 new JProperty("WordWrap", Settings.WordWrap),
+                new JProperty("OnTop", Settings.OnTop),
                 new JProperty("FontSize", Settings.FontSize),
                 new JProperty("FontFamily", Settings.FontFamily),
                 new JProperty("FontStyle", Settings.FontStyle),
@@ -158,6 +160,7 @@ namespace SText.Conf
     {
         public Theme CurrentTheme;
         public bool ShowStatusBar;
+        public bool OnTop;
         public bool WordWrap;
         public float FontSize;
         public string FontFamily;
