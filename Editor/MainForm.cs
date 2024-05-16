@@ -866,6 +866,18 @@ namespace SText.Editor
             }
 
             DropDownEncodingMenu.Items.AddRange(menuItems);
+
+            DropDownEncodingMenu.MouseWheel += (s, e) =>
+            {
+                if (e.Delta > 0)
+                {
+                    Keyboard.KeyUp();
+                }
+                else
+                {
+                    Keyboard.KeyDown();
+                }
+            };
         }
 
         private void ContentViewer_TextChanged(object sender, EventArgs e)
