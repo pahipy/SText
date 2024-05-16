@@ -621,24 +621,39 @@ namespace SText.Editor
                             else
                                 openPasswordDialog.StartPosition = FormStartPosition.CenterParent;
 
-                            if (openPasswordDialog.ShowDialog() == DialogResult.OK)
-                            {
-                                txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
-                                cont = txtsFile.ReadFile();
-                                isReadOnly = txtsFile.IsReadOnly;
-                                if (autodetectEncoding)
-                                    FileEncoding = txtsFile.Encoding;
+                            int tries = 3;
 
-                                if (txtsFile.Code == 1)
+                            for (int i = 1; i <= tries; i++)
+                            {
+                                if (openPasswordDialog.ShowDialog() == DialogResult.OK)
                                 {
-                                    DialogManager.ShowWarningDialogWithText("Wrong password!");
-                                    txtsFile.CloseFile();
-                                    txtsFile = null;
-                                    return 1;
+
+
+                                    txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
+                                    cont = txtsFile.ReadFile();
+                                    isReadOnly = txtsFile.IsReadOnly;
+                                    if (autodetectEncoding)
+                                        FileEncoding = txtsFile.Encoding;
+
+                                    if (txtsFile.Code == 0)
+                                        return txtsFile.Code;
+
+                                    if (txtsFile.Code == 1)
+                                    {
+                                        DialogManager.ShowWarningDialogWithText("Wrong password!");
+                                        txtsFile.CloseFile();
+                                        txtsFile = null;
+
+                                        if (i == tries)
+                                        {
+                                            DialogManager.ShowWarningDialogWithText($"You had {tries} tries maximum.");
+                                            return 1;
+                                        }
+                                    }
                                 }
+                                else
+                                    return 1;
                             }
-                            else
-                                return 1;
 
                             return 0;
                         };
