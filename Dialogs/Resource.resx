@@ -121,6 +121,12 @@
   <data name="forkme_light_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Media\forkme_light_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="github_mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\github-mark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="github_mark_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\github-mark-white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="help_circle_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Media\help_circle_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -128,6 +134,6 @@
     <value>Media\help_circle_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="STextIcon_Big" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Media\STextIcon_Big.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Resources\STextIcon_Big.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

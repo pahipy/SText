@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dialogs {
+namespace SText.Dialogs {
     using System;
     
     
@@ -66,6 +66,26 @@ namespace Dialogs {
         internal static System.Drawing.Bitmap forkme_light_background {
             get {
                 object obj = ResourceManager.GetObject("forkme_light_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap github_mark {
+            get {
+                object obj = ResourceManager.GetObject("github_mark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap github_mark_white {
+            get {
+                object obj = ResourceManager.GetObject("github_mark_white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
