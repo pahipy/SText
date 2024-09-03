@@ -45,8 +45,7 @@ namespace SText.Dialogs
             Author.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
             LicenseLable.ForeColor = ThemeSelector.CurrentColorSchema.ControlFontColor;
             panel1.BackColor = ThemeSelector.CurrentColorSchema.ToolPanelColor;
-            ForkMe.BackgroundImage = ThemeSelector.CurrentTheme == Theme.Dark
-                || ThemeSelector.CurrentTheme == Theme.ClassicalDark ? Resources.help_circle_dark : Resources.github_mark;
+            ForkMe.BackgroundImage = ThemeSelector.CurrentTheme == Theme.Dark ? Resources.help_circle_dark : Resources.github_mark;
         }
 
         private void AboutDialog_KeyDown(object sender, KeyEventArgs e)

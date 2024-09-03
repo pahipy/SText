@@ -9,12 +9,12 @@ namespace SText.Conf
 {
     public static class ThemeSelector
     {
-        public static Theme CurrentTheme = Theme.Default;
+        public static Theme CurrentTheme = Theme.Light;
         private static ColorSchema[] colors = new ColorSchema[]
         {
             new ColorSchema()
-            {   //Default theme
-                ThemeName= "Default",
+            {   //Light theme
+                ThemeName= "Light",
                 StatusBarColor = Color.FromArgb(240, 240, 240),
                 StatusBarFontColor = Color.FromArgb(0, 0, 0),
                 ControlColor = Color.FromArgb(255, 255, 255),
@@ -26,8 +26,8 @@ namespace SText.Conf
                 MenuItemSelectedFontColor = Color.Black,
                 ToolPanelColor = Color.FromArgb(228, 244, 255),
                 ToolPanelFontColor = Color.Black,
-                ButtonColor = Color.FromArgb(118, 163, 230),
-                ButtonFontColor = Color.Black,
+                ButtonColor = Color.FromArgb(44, 67, 156),
+                ButtonFontColor = Color.White,
                 TextFieldColor = Color.White,
                 TextFieldFontColor = Color.Black,
                 ScrollBarThumbColor = System.Windows.Media.Color.FromRgb(205, 205, 205),
@@ -55,51 +55,7 @@ namespace SText.Conf
                 ScrollBarThumbColor = System.Windows.Media.Color.FromRgb(70, 70, 70),
                 ScrollBarBackgroundColor = System.Windows.Media.Color.FromRgb(40, 40, 40),
                 ScrollBarGlyphColor = System.Windows.Media.Color.FromRgb(203, 203, 203)
-            },
-            new ColorSchema()
-            {   //Blue theme
-                ThemeName = "Blue",
-                StatusBarColor = Color.FromArgb(179, 208, 255),
-                StatusBarFontColor = Color.FromArgb(0, 0, 0),
-                ControlColor = Color.FromArgb(255, 255, 255),
-                ControlFontColor = Color.Black,
-                MenuColor =  Color.FromArgb(35, 139, 255),
-                MenuFontColor = Color.White,
-                MenuSeparatorColor = System.Windows.Media.Color.FromRgb(215, 215, 235),
-                MenuItemSelectedColor = Color.FromArgb(25, 59, 181),
-                MenuItemSelectedFontColor = Color.White,
-                ToolPanelColor = Color.FromArgb(228, 244, 255),
-                ToolPanelFontColor = Color.Black,
-                ButtonColor = Color.FromArgb(118, 163, 230),
-                ButtonFontColor = Color.Black,
-                TextFieldColor = Color.FromArgb(231, 236, 255),
-                TextFieldFontColor = Color.FromArgb(0, 0, 0),
-                ScrollBarThumbColor = System.Windows.Media.Color.FromRgb(35, 139, 255),
-                ScrollBarBackgroundColor = System.Windows.Media.Color.FromRgb(221, 226, 245),
-                ScrollBarGlyphColor = System.Windows.Media.Color.FromRgb(0, 0, 0)
-            },
-            new ColorSchema()
-            {   //Classical Dark theme
-                ThemeName = "Classical Dark",
-                StatusBarColor = Color.FromArgb(25, 60, 149),
-                StatusBarFontColor = Color.FromArgb(255, 255, 255),
-                ControlColor = Color.FromArgb(52, 52, 52),
-                ControlFontColor = Color.FromArgb(235, 235, 235),
-                MenuColor = Color.FromArgb(52, 52, 52),
-                MenuFontColor= Color.White,
-                MenuSeparatorColor = System.Windows.Media.Color.FromRgb(213, 213, 213),
-                MenuItemSelectedColor = Color.FromArgb(25, 59, 181),
-                MenuItemSelectedFontColor = Color.White,
-                ToolPanelColor = Color.FromArgb(38, 35, 54),
-                ToolPanelFontColor = Color.FromArgb(235, 235, 235),
-                ButtonColor = Color.FromArgb(44, 67, 156),
-                ButtonFontColor = Color.White,
-                TextFieldColor = Color.FromArgb(66, 66, 66),
-                TextFieldFontColor = Color.FromArgb(213, 213, 213),
-                ScrollBarThumbColor = System.Windows.Media.Color.FromRgb(86, 86, 86),
-                ScrollBarBackgroundColor = System.Windows.Media.Color.FromRgb(52, 52, 52),
-                ScrollBarGlyphColor = System.Windows.Media.Color.FromRgb(213, 213, 213)
-            },
+            }
         };
 
         public static ColorSchema[] ColorCollection { get => colors; }
@@ -131,9 +87,7 @@ namespace SText.Conf
 
     public enum Theme
     {
-        Default = 0,
-        Dark = 1,
-        Blue = 2,
-        ClassicalDark = 3
+        Light = 0,
+        Dark = 1
     }
 }

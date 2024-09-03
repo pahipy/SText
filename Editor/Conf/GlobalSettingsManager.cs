@@ -94,8 +94,7 @@ namespace SText.Conf
             
             JObject obj = (JObject)JsonConvert.DeserializeObject(json);
 
-            Settings.CurrentTheme = (int)obj["SText"]["Theme"] == 0 ? Theme.Default :
-                (int)obj["SText"]["Theme"] == 1 ? Theme.Dark : (int)obj["SText"]["Theme"] == 2 ? Theme.Blue : Theme.ClassicalDark;
+            Settings.CurrentTheme = (int)obj["SText"]["Theme"] == 0 ? Theme.Light : Theme.Dark;
 
             Settings.ShowStatusBar = (bool)obj["SText"]["ShowStatusBar"];
             Settings.WordWrap = (bool)obj["SText"]["WordWrap"];

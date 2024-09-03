@@ -20,7 +20,7 @@ namespace SText.Editor
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
         {
-            e.TextColor = ThemeSelector.CurrentTheme == Theme.Default ? Color.Black : Color.White;
+            e.TextColor = ThemeSelector.CurrentTheme == Theme.Light ? Color.Black : Color.White;
             if (e.Item.Selected || e.ToolStrip.Focused)
                 e.TextColor = ThemeSelector.CurrentColorSchema.MenuItemSelectedFontColor;
 

@@ -36,7 +36,7 @@ namespace SText.Editor
 
             FileEncoding = Encoding.UTF8;
             ShowStatusBar = true;
-            ThemeSelector.CurrentTheme = Theme.Default;
+            ThemeSelector.CurrentTheme = Theme.Light;
 
             LoadSettingsToStruct();
 
@@ -494,7 +494,7 @@ namespace SText.Editor
             {
                 case "DefaultTheme_MenuItem":
                     {
-                        ThemeSelector.CurrentTheme = Theme.Default;
+                        ThemeSelector.CurrentTheme = Theme.Light;
                         break;
                     }
 
@@ -503,18 +503,7 @@ namespace SText.Editor
                         ThemeSelector.CurrentTheme = Theme.Dark;
                         break;
                     }
-
-                case "BlueTheme_MenuItem":
-                    {
-                        ThemeSelector.CurrentTheme = Theme.Blue;
-                        break;
-                    }
-
-                case "ClassicalDarkTheme_MenuItem":
-                    {
-                        ThemeSelector.CurrentTheme = Theme.ClassicalDark;
-                        break;
-                    }
+            
             }
 
             ApplyTheme();
@@ -563,10 +552,8 @@ namespace SText.Editor
 
             switch (ThemeSelector.CurrentTheme)
             {
-                case Theme.Default: DefaultTheme_MenuItem.Checked = true; break;
+                case Theme.Light: DefaultTheme_MenuItem.Checked = true; break;
                 case Theme.Dark: DarkTheme_MenuItem.Checked = true; break;
-                case Theme.Blue: BlueTheme_MenuItem.Checked = true; break;
-                case Theme.ClassicalDark: ClassicalDarkTheme_MenuItem.Checked = true; break;
             }
         }
 

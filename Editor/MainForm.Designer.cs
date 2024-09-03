@@ -59,8 +59,6 @@
             Theme_MenuItem = new ToolStripMenuItem();
             DefaultTheme_MenuItem = new ToolStripMenuItem();
             DarkTheme_MenuItem = new ToolStripMenuItem();
-            BlueTheme_MenuItem = new ToolStripMenuItem();
-            ClassicalDarkTheme_MenuItem = new ToolStripMenuItem();
             Tools_MenuItem = new ToolStripMenuItem();
             Tools_EncryptAdnDecrypt = new ToolStripMenuItem();
             debugToolStripMenuItem = new ToolStripMenuItem();
@@ -84,7 +82,7 @@
             // 
             // MainMenu
             // 
-            MainMenu.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            MainMenu.Font = new Font("Segoe UI", 9F);
             MainMenu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, formatToolStripMenuItem, viewToolStripMenuItem, Tools_MenuItem, debugToolStripMenuItem, helpToolStripMenuItem1 });
             MainMenu.Location = new Point(0, 0);
             MainMenu.Name = "MainMenu";
@@ -286,7 +284,7 @@
             // 
             // Theme_MenuItem
             // 
-            Theme_MenuItem.DropDownItems.AddRange(new ToolStripItem[] { DefaultTheme_MenuItem, DarkTheme_MenuItem, BlueTheme_MenuItem, ClassicalDarkTheme_MenuItem });
+            Theme_MenuItem.DropDownItems.AddRange(new ToolStripItem[] { DefaultTheme_MenuItem, DarkTheme_MenuItem });
             Theme_MenuItem.Name = "Theme_MenuItem";
             Theme_MenuItem.Size = new Size(180, 22);
             Theme_MenuItem.Text = "Theme";
@@ -294,33 +292,18 @@
             // DefaultTheme_MenuItem
             // 
             DefaultTheme_MenuItem.Name = "DefaultTheme_MenuItem";
-            DefaultTheme_MenuItem.Size = new Size(146, 22);
+            DefaultTheme_MenuItem.Size = new Size(180, 22);
             DefaultTheme_MenuItem.Tag = "0";
-            DefaultTheme_MenuItem.Text = "Default";
+            DefaultTheme_MenuItem.Text = "Light";
             DefaultTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
             // DarkTheme_MenuItem
             // 
             DarkTheme_MenuItem.Name = "DarkTheme_MenuItem";
-            DarkTheme_MenuItem.Size = new Size(146, 22);
+            DarkTheme_MenuItem.Size = new Size(180, 22);
             DarkTheme_MenuItem.Tag = "1";
             DarkTheme_MenuItem.Text = "Dark";
             DarkTheme_MenuItem.Click += MenuTheme_Events_Click;
-            // 
-            // BlueTheme_MenuItem
-            // 
-            BlueTheme_MenuItem.Name = "BlueTheme_MenuItem";
-            BlueTheme_MenuItem.Size = new Size(146, 22);
-            BlueTheme_MenuItem.Tag = "2";
-            BlueTheme_MenuItem.Text = "Blue";
-            BlueTheme_MenuItem.Click += MenuTheme_Events_Click;
-            // 
-            // ClassicalDarkTheme_MenuItem
-            // 
-            ClassicalDarkTheme_MenuItem.Name = "ClassicalDarkTheme_MenuItem";
-            ClassicalDarkTheme_MenuItem.Size = new Size(146, 22);
-            ClassicalDarkTheme_MenuItem.Text = "Classical Dark";
-            ClassicalDarkTheme_MenuItem.Click += MenuTheme_Events_Click;
             // 
             // Tools_MenuItem
             // 
@@ -396,7 +379,7 @@
             StatusBar.AutoSize = false;
             StatusBar.BackgroundImageLayout = ImageLayout.None;
             StatusBar.Dock = DockStyle.Bottom;
-            StatusBar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            StatusBar.Font = new Font("Segoe UI", 9F);
             StatusBar.GripStyle = ToolStripGripStyle.Hidden;
             StatusBar.Items.AddRange(new ToolStripItem[] { StatusBar_Theme, StatusBar_File, EncodingMenuButton });
             StatusBar.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
@@ -514,7 +497,6 @@
         private System.Windows.Forms.ToolStripMenuItem About_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem DefaultTheme_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem DarkTheme_MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem BlueTheme_MenuItem;
         private System.Windows.Forms.ToolStrip StatusBar;
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_Theme;
         private System.Windows.Forms.ToolStripStatusLabel StatusBar_File;
@@ -535,7 +517,6 @@
         private ToolStripMenuItem KOI8R_MenuItem;
         private ToolStripMenuItem ShowSetPasswordDialog_DebugMenuItem;
         private ToolStripMenuItem ShowOpenPasswordDialog_DebugMenuItem;
-        private ToolStripMenuItem ClassicalDarkTheme_MenuItem;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem Tools_MenuItem;

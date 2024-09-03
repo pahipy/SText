@@ -87,12 +87,12 @@ namespace SText.Dialogs
 
             Theme theme = ThemeSelector.CurrentTheme;
 
-            if (theme == Theme.Default || theme == Theme.Blue)
+            if (theme == Theme.Light)
             {
                 Message.ForeColor = Color.FromArgb(0, 59, 209);
             }
 
-            if (theme == Theme.Dark || theme == Theme.ClassicalDark)
+            if (theme == Theme.Dark)
             {
                 ContentIcon.Image = Resources.help_circle_white;
             }
