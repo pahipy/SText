@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
             Content = new Label();
             Author = new Label();
             panel1 = new Panel();
@@ -44,7 +43,7 @@
             // 
             // Content
             // 
-            Content.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Content.Font = new Font("Segoe UI", 12F);
             Content.Location = new Point(94, 11);
             Content.Name = "Content";
             Content.Size = new Size(292, 57);
@@ -55,7 +54,7 @@
             // 
             Author.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             Author.AutoSize = true;
-            Author.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Author.Font = new Font("Segoe UI", 14.25F);
             Author.ForeColor = Color.Black;
             Author.Location = new Point(12, 110);
             Author.Name = "Author";
@@ -72,7 +71,7 @@
             panel1.Controls.Add(AdditionalContent);
             panel1.Controls.Add(Author);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            panel1.Font = new Font("Segoe UI", 9.75F);
             panel1.Location = new Point(0, 76);
             panel1.Name = "panel1";
             panel1.Size = new Size(460, 144);
@@ -91,9 +90,9 @@
             // ForkMe
             // 
             ForkMe.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ForkMe.BackgroundImage = (Image)resources.GetObject("ForkMe.BackgroundImage");
             ForkMe.BackgroundImageLayout = ImageLayout.Zoom;
             ForkMe.Cursor = Cursors.Hand;
+            ForkMe.Image = Resources.github_mark;
             ForkMe.Location = new Point(391, 69);
             ForkMe.Name = "ForkMe";
             ForkMe.Size = new Size(67, 72);
@@ -121,8 +120,8 @@
             // 
             // Picture
             // 
-            Picture.BackgroundImage = Resource.STextIcon_Big;
             Picture.BackgroundImageLayout = ImageLayout.Zoom;
+            Picture.Image = Resources.STextIcon_Big;
             Picture.Location = new Point(12, 6);
             Picture.Name = "Picture";
             Picture.Size = new Size(64, 64);
@@ -139,7 +138,7 @@
             Controls.Add(Picture);
             Controls.Add(panel1);
             Controls.Add(Content);
-            Font = new Font("Lucida Sans Unicode", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Lucida Sans Unicode", 9.75F);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
