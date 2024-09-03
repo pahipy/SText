@@ -19,9 +19,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
     <PackageReference Include="UDE.CSharp" Version="1.1.0" />
+    <PackageReference Include="WPF-UI" Version="3.0.5" />
   </ItemGroup>
 
   <ItemGroup>
