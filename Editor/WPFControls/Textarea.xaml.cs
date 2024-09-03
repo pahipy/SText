@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Brush = System.Windows.Media.Brush;
+using Color = System.Windows.Media.Color;
+using TextBox = System.Windows.Controls.TextBox;
+using FontFamily = System.Windows.Media.FontFamily;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace WPFControls
 {

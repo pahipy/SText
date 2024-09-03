@@ -94,7 +94,7 @@ namespace SText.Dialogs
 
             if (theme == Theme.Dark || theme == Theme.ClassicalDark)
             {
-                ContentIcon.Image = Resource.help_circle_white;
+                ContentIcon.Image = Dialogs.Resource.help_circle_white;
             }
 
         }

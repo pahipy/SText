@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
 	<UseWPF>true</UseWPF>
@@ -19,14 +19,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Conf\Conf.csproj" />
-    <ProjectReference Include="..\Dialogs\Dialogs.csproj" />
-    <ProjectReference Include="..\Formats\Formats.csproj" />
-    <ProjectReference Include="..\WPFControls\WPFControls.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+    <PackageReference Include="UDE.CSharp" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
