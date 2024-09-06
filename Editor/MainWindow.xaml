@@ -11,10 +11,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="47"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <ui:TitleBar Grid.Row="0" x:Name="Title" Title="SText"/>
         <Grid Grid.Row="1">
-            <ui:RichTextBox />
+            <ui:RichTextBox BorderThickness="0"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel VerticalAlignment="Center">
+                <Label>Theme: PerDark</Label>
+            </StackPanel>
         </Grid>
     </Grid>
 </ui:FluentWindow>
