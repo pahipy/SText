@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="ReactiveUI.SourceGenerators" Version="1.0.3" />
     <PackageReference Include="ReactiveUI.WPF" Version="20.1.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
     <PackageReference Include="UDE.CSharp" Version="1.1.0" />

@@ -62,7 +62,7 @@
                 <MenuItem Header="About SText" Command="{Binding About}"/>
             </MenuItem>
         </Menu>
-        <ui:RichTextBox Language="" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
+        <ui:RichTextBox DataContext="{Binding Content}" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
 
         <Grid Height="25" Grid.Row="3">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
