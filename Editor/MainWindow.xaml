@@ -7,16 +7,22 @@
         xmlns:local="clr-namespace:SText.Editor"
         xmlns:vm="clr-namespace:SText.Editor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <ui:FluentWindow.DataContext>
-        <vm:MainViewModel/>
-    </ui:FluentWindow.DataContext>
+        Title="SText" Height="450" Width="800"
+        Loaded="MainWindow_Loaded"
+        Closing="FluentWindow_Closing">
     <ui:FluentWindow.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}" x:Key="BottomLables">
             <Setter Property="Margin" Value="10,0,0,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <RoutedUICommand x:Key="OpenFileCommand" Text="OpenFile" />
     </ui:FluentWindow.Resources>
+    <ui:FluentWindow.CommandBindings>
+        <CommandBinding Command="{StaticResource OpenFileCommand}" Executed="OpenFileCommand"/>
+    </ui:FluentWindow.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{StaticResource OpenFileCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -24,17 +30,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.Row="0" x:Name="Title" Title="SText"/>
+        <ui:TitleBar x:Name="TitleText" Grid.Row="0" Title="SText"/>
         <Menu Grid.Row="1">
             <MenuItem Header="File">
-                <MenuItem Header="New"/>
-                <MenuItem Header="Open"/>
-                <MenuItem Header="Save"/>
-                <MenuItem Header="Save As..."/>
+                <MenuItem x:Name="New_MenuItem" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
+                <MenuItem x:Name="Open_MenuItem" Header="Open" Click="MenuFile_Events_Click" InputGestureText="Ctrl+O"/>
+                <MenuItem x:Name="Save_MenuItem" Header="Save" Click="MenuFile_Events_Click" InputGestureText="Ctrl+S"/>
+                <MenuItem x:Name="SaveAs_MenuItem" Header="Save As..." Click="MenuFile_Events_Click" InputGestureText="Ctrl+Shift+S"/>
                 <Separator/>
-                <MenuItem Header="Print"/>
+                <MenuItem x:Name="Print_MenuItem" Header="Print" Click="MenuFile_Events_Click" InputGestureText="Ctrl+P"/>
                 <Separator/>
-                <MenuItem Header="Exit"/>
+                <MenuItem x:Name="Exit_MenuItem" Header="Exit" Click="MenuFile_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Undo"/>
@@ -48,28 +54,28 @@
                 <MenuItem Header="Date/Time"/>
             </MenuItem>
             <MenuItem Header="Format">
-                <MenuItem Header="Word Wrap" IsCheckable="True"/>
+                <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True"/>
                 <MenuItem Header="Font..."/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Status Bar" IsCheckable="True"/>
-                <MenuItem Header="Always on top" IsCheckable="True"/>
+                <MenuItem x:Name="alwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True"/>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Encrypt current file" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About SText" Command="{Binding About}"/>
+                <MenuItem Header="About SText"/>
             </MenuItem>
         </Menu>
-        <ui:RichTextBox DataContext="{Binding Content}" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
+        <TextBox x:Name="ContentViewer" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
 
         <Grid Height="25" Grid.Row="3">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Label Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
-                <Label Content="File: " Style="{StaticResource BottomLables}"/>
+                <Label x:Name="StatusBar_File" Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
-            <ComboBox HorizontalAlignment="Right" IsReadOnly="True"></ComboBox>
+            <ComboBox x:Name="DropDownEncodingMenu" HorizontalAlignment="Right"></ComboBox>
         </Grid>
     </Grid>
 </ui:FluentWindow>
