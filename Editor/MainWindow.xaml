@@ -7,19 +7,61 @@
         xmlns:local="clr-namespace:SText.Editor"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <ui:FluentWindow.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}" x:Key="BottomLables">
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </ui:FluentWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="47"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <ui:TitleBar Grid.Row="0" x:Name="Title" Title="SText"/>
-        <Grid Grid.Row="1">
-            <ui:RichTextBox BorderThickness="0"/>
-        </Grid>
-        <Grid Grid.Row="2">
-            <StackPanel VerticalAlignment="Center">
-                <Label>Theme: PerDark</Label>
+        <Menu Grid.Row="1">
+            <MenuItem Header="File">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Save As..."/>
+                <Separator/>
+                <MenuItem Header="Print"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo"/>
+                <MenuItem Header="Cut"/>
+                <MenuItem Header="Copy"/>
+                <MenuItem Header="Paste"/>
+                <MenuItem Header="Delete"/>
+                <MenuItem Header="Select All"/>
+                <MenuItem Header="Date/Time"/>
+            </MenuItem>
+            <MenuItem Header="Format">
+                <MenuItem Header="Word Wrap" IsCheckable="True"/>
+                <MenuItem Header="Font..."/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Status Bar" IsCheckable="True"/>
+                <MenuItem Header="Always on top" IsCheckable="True"/>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Encrypt current file" IsEnabled="False"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About SText"/>
+            </MenuItem>
+        </Menu>
+        <ui:RichTextBox Language="" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
+
+        <Grid Height="25" Grid.Row="3">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <Label Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
+                <Label Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
         </Grid>
     </Grid>
