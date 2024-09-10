@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:SText.Editor"
+        xmlns:vm="clr-namespace:SText.Editor"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <ui:FluentWindow.DataContext>
+        <vm:MainViewModel/>
+    </ui:FluentWindow.DataContext>
     <ui:FluentWindow.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}" x:Key="BottomLables">
             <Setter Property="Margin" Value="10,0,0,0"/>
@@ -55,7 +59,7 @@
                 <MenuItem Header="Encrypt current file" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About SText"/>
+                <MenuItem Header="About SText" Command="{Binding About}"/>
             </MenuItem>
         </Menu>
         <ui:RichTextBox Language="" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
