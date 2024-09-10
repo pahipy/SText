@@ -65,6 +65,7 @@
                 <Label Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
                 <Label Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
+            <ComboBox HorizontalAlignment="Right" IsReadOnly="True"></ComboBox>
         </Grid>
     </Grid>
 </ui:FluentWindow>
