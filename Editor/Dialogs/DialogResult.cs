@@ -13,6 +13,6 @@ namespace Editor.Dialogs
         Yes,
         No,
         Save,
-        DontSave
+        Abort
     }
 }
