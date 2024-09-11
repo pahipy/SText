@@ -15,13 +15,25 @@
             <Setter Property="Margin" Value="10,0,0,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <RoutedUICommand x:Key="NewFileCommand" Text="NewFile" />
         <RoutedUICommand x:Key="OpenFileCommand" Text="OpenFile" />
+        <RoutedUICommand x:Key="SaveFileCommand" Text="SaveFile" />
+        <RoutedUICommand x:Key="SaveAsFileCommand" Text="SaveAsFile" />
+        <RoutedUICommand x:Key="PrintFileCommand" Text="PrintFile" />
     </ui:FluentWindow.Resources>
     <ui:FluentWindow.CommandBindings>
+        <CommandBinding Command="{StaticResource NewFileCommand}" Executed="NewFileCommand"/>
         <CommandBinding Command="{StaticResource OpenFileCommand}" Executed="OpenFileCommand"/>
+        <CommandBinding Command="{StaticResource SaveFileCommand}" Executed="SaveFileCommand"/>
+        <CommandBinding Command="{StaticResource SaveAsFileCommand}" Executed="SaveAsFileCommand"/>
+        <CommandBinding Command="{StaticResource PrintFileCommand}" Executed="PrintFileCommand"/>
     </ui:FluentWindow.CommandBindings>
     <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource NewFileCommand}"/>
         <KeyBinding Key="O" Modifiers="Ctrl" Command="{StaticResource OpenFileCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{StaticResource SaveFileCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{StaticResource SaveAsFileCommand}"/>
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{StaticResource PrintFileCommand}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -43,15 +55,15 @@
                 <MenuItem x:Name="Exit_MenuItem" Header="Exit" Click="MenuFile_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo"/>
+                <MenuItem Header="Undo" InputGestureText="Ctrl+Z"/>
                 <Separator/>
-                <MenuItem Header="Cut"/>
-                <MenuItem Header="Copy"/>
-                <MenuItem Header="Paste"/>
-                <MenuItem Header="Delete"/>
+                <MenuItem Header="Cut" InputGestureText="Ctrl+X"/>
+                <MenuItem Header="Copy" InputGestureText="Ctrl+C"/>
+                <MenuItem Header="Paste" InputGestureText="Ctrl+V"/>
+                <MenuItem Header="Delete" InputGestureText="Delete"/>
                 <Separator/>
-                <MenuItem Header="Select All"/>
-                <MenuItem Header="Date/Time"/>
+                <MenuItem Header="Select All" InputGestureText="Ctrl+A"/>
+                <MenuItem Header="Date/Time" InputGestureText="F5"/>
             </MenuItem>
             <MenuItem Header="Format">
                 <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True"/>
@@ -59,10 +71,10 @@
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Status Bar" IsCheckable="True"/>
-                <MenuItem x:Name="alwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True"/>
+                <MenuItem x:Name="alwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2"/>
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem Header="Encrypt current file" IsEnabled="False"/>
+                <MenuItem Header="Encrypt current file" IsEnabled="False" InputGestureText="Ctrl+E"/>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About SText"/>

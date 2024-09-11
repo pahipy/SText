@@ -663,9 +663,28 @@ namespace SText.Editor
             }
         }
 
+        #region MenuFileCommands
+        private void NewFileCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuFile_Events_Click(New_MenuItem, e);
+        }
         private void OpenFileCommand(object sender, ExecutedRoutedEventArgs e)
         {
             MenuFile_Events_Click(Open_MenuItem, e);
         }
+        private void SaveFileCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuFile_Events_Click(Save_MenuItem, e);
+        }
+        private void SaveAsFileCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuFile_Events_Click(SaveAs_MenuItem, e);
+        }
+        private void PrintFileCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuFile_Events_Click(Print_MenuItem, e);
+        }
+
+        #endregion
     }
 }
