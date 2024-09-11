@@ -20,6 +20,7 @@
         <RoutedUICommand x:Key="SaveFileCommand" Text="SaveFile" />
         <RoutedUICommand x:Key="SaveAsFileCommand" Text="SaveAsFile" />
         <RoutedUICommand x:Key="PrintFileCommand" Text="PrintFile" />
+        <RoutedUICommand x:Key="DateTimeEditCommand" Text="PrintDateTime" />
     </ui:FluentWindow.Resources>
     <ui:FluentWindow.CommandBindings>
         <CommandBinding Command="{StaticResource NewFileCommand}" Executed="NewFileCommand"/>
@@ -27,6 +28,7 @@
         <CommandBinding Command="{StaticResource SaveFileCommand}" Executed="SaveFileCommand"/>
         <CommandBinding Command="{StaticResource SaveAsFileCommand}" Executed="SaveAsFileCommand"/>
         <CommandBinding Command="{StaticResource PrintFileCommand}" Executed="PrintFileCommand"/>
+        <CommandBinding Command="{StaticResource DateTimeEditCommand}" Executed="DateTimeEditCommand"/>
     </ui:FluentWindow.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource NewFileCommand}"/>
@@ -34,6 +36,7 @@
         <KeyBinding Key="S" Modifiers="Ctrl" Command="{StaticResource SaveFileCommand}"/>
         <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{StaticResource SaveAsFileCommand}"/>
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{StaticResource PrintFileCommand}"/>
+        <KeyBinding Key="F5" Command="{StaticResource DateTimeEditCommand}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -55,15 +58,15 @@
                 <MenuItem x:Name="Exit_MenuItem" Header="Exit" Click="MenuFile_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo" InputGestureText="Ctrl+Z"/>
+                <MenuItem x:Name="Undo_MenuItem" Header="Undo" InputGestureText="Ctrl+Z" Click="MenuEdit_Events_Click"/>
                 <Separator/>
-                <MenuItem Header="Cut" InputGestureText="Ctrl+X"/>
-                <MenuItem Header="Copy" InputGestureText="Ctrl+C"/>
-                <MenuItem Header="Paste" InputGestureText="Ctrl+V"/>
-                <MenuItem Header="Delete" InputGestureText="Delete"/>
+                <MenuItem x:Name="Cut_MenuItem" Header="Cut" InputGestureText="Ctrl+X" Click="MenuEdit_Events_Click"/>
+                <MenuItem x:Name="Copy_MenuItem" Header="Copy" InputGestureText="Ctrl+C" Click="MenuEdit_Events_Click"/>
+                <MenuItem x:Name="Paste_MenuItem" Header="Paste" InputGestureText="Ctrl+V" Click="MenuEdit_Events_Click"/>
+                <MenuItem x:Name="Delete_MenuItem" Header="Delete" InputGestureText="Delete" Click="MenuEdit_Events_Click"/>
                 <Separator/>
-                <MenuItem Header="Select All" InputGestureText="Ctrl+A"/>
-                <MenuItem Header="Date/Time" InputGestureText="F5"/>
+                <MenuItem x:Name="SelectAll_MenuItem" Header="Select All" InputGestureText="Ctrl+A" Click="MenuEdit_Events_Click"/>
+                <MenuItem x:Name="DateTime_MenuItem" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Format">
                 <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True"/>

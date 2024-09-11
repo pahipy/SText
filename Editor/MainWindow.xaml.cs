@@ -602,6 +602,74 @@ namespace SText.Editor
             }
         }
 
+        private void MenuEdit_Events_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ((MenuItem)sender).Name;
+
+            switch (name)
+            {
+                case "Undo_MenuItem":
+                    {
+                        ContentViewer.Undo();
+                        return;
+                    }
+
+                case "Cut_MenuItem":
+                    {
+                        ContentViewer.Cut();
+                        return;
+                    }
+
+                case "Copy_MenuItem":
+                    {
+                        ContentViewer.Copy();
+                        return;
+                    }
+
+                case "Paste_MenuItem":
+                    {
+                        ContentViewer.Paste();
+                        return;
+                    }
+
+                case "Delete_MenuItem":
+                    {
+                        try
+                        {
+                            int start = ContentViewer.SelectionStart;
+                            Content = Content.Remove(ContentViewer.SelectionStart, ContentViewer.SelectionLength);
+                            ContentViewer.Select(start, 0);
+                        }
+                        catch { }
+
+                        return;
+                    }
+
+                case "SelectAll_MenuItem":
+                    {
+                        ContentViewer.SelectAll();
+                        return;
+                    }
+
+                case "DateTime_MenuItem":
+                    {
+                        try
+                        {
+                            int start = ContentViewer.SelectionStart;
+                            DateTime dt = DateTime.Now;
+                            Content = Content.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
+                                + dt.ToShortDateString());
+
+                            ContentViewer.Select(start, 0);
+
+                        }
+                        catch { }
+
+                        return;
+                    }
+            }
+        }
+
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             contentHash = Content.GetHashCode();
@@ -709,5 +777,13 @@ namespace SText.Editor
         }
 
         #endregion
+
+#region MenuEditCommands
+        private void DateTimeEditCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuEdit_Events_Click(DateTime_MenuItem, e);
+        }
+        #endregion
+
     }
 }
