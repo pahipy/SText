@@ -21,6 +21,7 @@
         <RoutedUICommand x:Key="SaveAsFileCommand" Text="SaveAsFile" />
         <RoutedUICommand x:Key="PrintFileCommand" Text="PrintFile" />
         <RoutedUICommand x:Key="DateTimeEditCommand" Text="PrintDateTime" />
+        <RoutedUICommand x:Key="AlwaysOnTopCommand" Text="Topmost" />
     </ui:FluentWindow.Resources>
     <ui:FluentWindow.CommandBindings>
         <CommandBinding Command="{StaticResource NewFileCommand}" Executed="NewFileCommand"/>
@@ -29,6 +30,7 @@
         <CommandBinding Command="{StaticResource SaveAsFileCommand}" Executed="SaveAsFileCommand"/>
         <CommandBinding Command="{StaticResource PrintFileCommand}" Executed="PrintFileCommand"/>
         <CommandBinding Command="{StaticResource DateTimeEditCommand}" Executed="DateTimeEditCommand"/>
+        <CommandBinding Command="{StaticResource AlwaysOnTopCommand}" Executed="TopmostMenuItemCommand"/>
     </ui:FluentWindow.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource NewFileCommand}"/>
@@ -37,6 +39,7 @@
         <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{StaticResource SaveAsFileCommand}"/>
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{StaticResource PrintFileCommand}"/>
         <KeyBinding Key="F5" Command="{StaticResource DateTimeEditCommand}"/>
+        <KeyBinding Key="F2" Command="{StaticResource AlwaysOnTopCommand}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -73,8 +76,7 @@
                 <MenuItem x:Name="ChangeFont_MenuItem" Header="Font..." Click="ChangeFont_MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="View">
-                <MenuItem Header="Status Bar" IsCheckable="True"/>
-                <MenuItem x:Name="alwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2"/>
+                <MenuItem x:Name="AlwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2" Click="AlwaysOnTop_MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Encrypt current file" IsEnabled="False" InputGestureText="Ctrl+E"/>

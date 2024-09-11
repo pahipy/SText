@@ -221,7 +221,7 @@ namespace SText.Editor
             Settings = SettingsManager.Settings;
             ThemeSelector.CurrentTheme = Settings.CurrentTheme;
             WordWrap = Settings.WordWrap;
-            Topmost = Settings.OnTop; alwaysOnTop_MenuItem.IsChecked = Settings.OnTop;
+            Topmost = Settings.OnTop; AlwaysOnTop_MenuItem.IsChecked = Settings.OnTop;
             ContentViewer.FontFamily = new System.Windows.Media.FontFamily(Settings.FontFamily);
             ContentViewer.FontSize = Settings.FontSize * 96 / 72;
 
@@ -833,6 +833,17 @@ namespace SText.Editor
                 if (fd.Font.Strikeout) tdc.Add(TextDecorations.Strikethrough);
                 ContentViewer.TextDecorations = tdc;
             }
+        }
+
+        private void AlwaysOnTop_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = ((MenuItem)sender).IsChecked;
+        }
+
+        private void TopmostMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            AlwaysOnTop_MenuItem.IsChecked = !AlwaysOnTop_MenuItem.IsChecked;
+            AlwaysOnTop_MenuItem_Click(AlwaysOnTop_MenuItem, e);
         }
     }
 }
