@@ -80,6 +80,43 @@ namespace SText.Editor
 
             ContentViewer.TextChanged += (s, e) => { TitleText.Title = Title; };
 
+            ContentViewer.PreviewMouseWheel += (s, e) =>
+            {
+                double newsize = e.Delta / 100d + ContentViewer.FontSize;
+                if (newsize > 5 && newsize < 75 && FontSizeChangeByMouseWheelAct)
+                {
+                    if (ContentViewer.FontSize < newsize)
+                        ContentViewer.LineDown();
+                    else
+                        ContentViewer.LineUp();
+
+                    ContentViewer.FontSize = newsize;
+                }
+                FontSizeChangeByMouseWheelAct = false;
+            };
+
+            ContentViewer.KeyDown += (s, e) =>
+            {
+                FontSizeChangeByMouseWheelAct = e.Key == System.Windows.Input.Key.LeftCtrl;
+            };
+
+            ContentViewer.KeyUp += (s, e) =>
+            {
+                FontSizeChangeByMouseWheelAct = false;
+            };
+
+            ContentViewer.PreviewDragOver += (s, e) => e.Handled = true;
+
+            ContentViewer.Drop += (s, e) =>
+            {
+                if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop))
+                {
+                    string path = ((string[])e.Data.GetData(System.Windows.DataFormats.FileDrop))[0];
+                    if (File.Exists(path))
+                        OpenFile(false, path);
+                }
+            };
+
         }
 
         private System.Windows.Forms.OpenFileDialog openFileDialog;
