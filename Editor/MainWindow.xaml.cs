@@ -106,6 +106,21 @@ namespace SText.Editor
             }
         }
 
+        private System.Drawing.FontStyle FontStyleAsSystemDrawingFromContentViewer
+        {
+            get
+            {
+                switch (ContentViewer.FontStyle.ToString())
+                {
+                    case "Normal": return System.Drawing.FontStyle.Regular;
+                    case "Italic" or "Oblique": return System.Drawing.FontStyle.Italic;
+                    
+                }
+
+                return System.Drawing.FontStyle.Regular;
+            }
+        }
+
         private int contentHash = -1;
 
         private string fileName = ProgramSets.UntitledFileName;
@@ -561,19 +576,23 @@ namespace SText.Editor
                         return;
                     }
 
-               /* case "Print_MenuItem":
+                case "Print_MenuItem":
                     {
-                        System.Windows.Forms.PrintDialog pd = new System.Windows.Forms.PrintDialog();
-                        if (pd.ShowDialog() == DialogResult.OK)
+                        var pd = new System.Windows.Controls.PrintDialog();
+                        if (pd.ShowDialog() == true)
                         {
-                            PrintDoc.PrinterSettings = pd.PrinterSettings;
+                            FlowDocument flowDocument = new FlowDocument();
 
-                            PrintDoc.DocumentName = File.Exists(FileName) ? new FileInfo(FileName).Name : ProgramSets.UntitledFileName;
+                            flowDocument.PagePadding = new Thickness(50);
+                            flowDocument.Blocks.Add(new Paragraph(new Run(ContentViewer.Text)));
 
-                            PrintDoc.Print();
+                            string fileName = File.Exists(FileName) ? new FileInfo(FileName).Name : ProgramSets.UntitledFileName;
+
+                            pd.PrintDocument((((IDocumentPaginatorSource)flowDocument).DocumentPaginator), fileName);
+
                         }
                         return;
-                    }*/
+                    }
 
                 case "Exit_MenuItem":
                     {
@@ -592,6 +611,10 @@ namespace SText.Editor
 
         private void FluentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            LoadSettingsToStruct();
+            SettingsManager.Settings = Settings;
+            SettingsManager.SaveConfig();
+
             SaveDialog s = new SaveDialog(FileName, saveFileDialog);
 
             if (contentHash != Content.GetHashCode())
