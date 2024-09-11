@@ -845,5 +845,74 @@ namespace SText.Editor
             AlwaysOnTop_MenuItem.IsChecked = !AlwaysOnTop_MenuItem.IsChecked;
             AlwaysOnTop_MenuItem_Click(AlwaysOnTop_MenuItem, e);
         }
+
+        private void EncryptionMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (FileName is null)
+                return;
+
+            if (!File.Exists(FileName))
+                return;
+
+            DialogResult res = SaveFileIfItChanged();
+
+            if (res == System.Windows.Forms.DialogResult.Cancel) return;
+            if (res == System.Windows.Forms.DialogResult.Abort)
+                Content = oldContent;
+
+            string oldFile = FileName;
+
+            if (txtsFile is null)
+            {
+                txtFile?.CloseFile();
+                txtFile = null;
+
+                FileName = System.IO.Path.ChangeExtension(FileName, ".txts");
+
+            }
+            else
+            {
+
+                Content = txtsFile.ReadFile();
+
+                txtsFile.CloseFile();
+                txtsFile = null;
+
+                FileName = System.IO.Path.ChangeExtension(FileName, ".txt");
+            }
+
+            try
+            {
+                if (SaveFileAndUpdateHash(FileName))
+                {
+                    File.Delete(oldFile);
+                }
+                else
+                {
+                    File.Delete(FileName);
+                    SaveFileAndUpdateHash(oldFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                DialogManager.ShowWarningDialogWithText(ex.Message);
+            }
+
+        }
+        private void ToolsMemuItem_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            string lableText = "Encrypt current file";
+
+
+            if (txtsFile is not null && txtFile is null)
+            {
+                lableText = "Decrypt current file";
+            }
+
+            EncryptionMenuItem.IsEnabled = !(txtsFile is null && txtFile is null);
+
+
+            EncryptionMenuItem.Header = lableText;
+        }
     }
 }
