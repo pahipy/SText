@@ -90,12 +90,12 @@
         </Menu>
         <TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
 
-        <Grid Height="25" Grid.Row="3">
+        <Grid Height="35" Grid.Row="3">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Label Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
                 <Label x:Name="StatusBar_File" Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
-            <ComboBox x:Name="DropDownEncodingMenu" HorizontalAlignment="Right"></ComboBox>
+            <ComboBox x:Name="DropDownEncodingMenu" VerticalContentAlignment="Center" HorizontalAlignment="Right"></ComboBox>
         </Grid>
     </Grid>
 </ui:FluentWindow>

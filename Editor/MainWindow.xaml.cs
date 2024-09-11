@@ -143,7 +143,12 @@ namespace SText.Editor
             set
             {
                 fileEncoding = value;
-                DropDownEncodingMenu.Text = fileEncoding.EncodingName;
+                //DropDownEncodingMenu.Text = fileEncoding.EncodingName;
+                foreach (ComboBoxItem cbi in DropDownEncodingMenu.Items)
+                {
+                    if (int.Parse(cbi.Tag.ToString()) == value.CodePage)
+                        DropDownEncodingMenu.SelectedItem = cbi;
+                }
             }
         }
 
@@ -782,17 +787,17 @@ namespace SText.Editor
         private void SetEncodingMenuItems()
         {
             EncodingInfo[] allEnc = Encoding.GetEncodings();
-            MenuItem[] menuItems = new MenuItem[allEnc.Length];
+            ComboBoxItem[] menuItems = new ComboBoxItem[allEnc.Length];
 
             for (int i = 0; i < allEnc.Length; i++)
             {
-                menuItems[i] = new MenuItem();
+                menuItems[i] = new ComboBoxItem();
                 menuItems[i].Name = $"encodingMenuItem{i}";
-                menuItems[i].Header = allEnc[i].Name;
+                menuItems[i].Content = allEnc[i].Name;
                 menuItems[i].Tag = allEnc[i].CodePage;
-                menuItems[i].Click += (s, e) =>
+                menuItems[i].Selected += (s, e) =>
                 {
-                    int code = (int)((MenuItem)s).Tag;
+                    int code = (int)((ComboBoxItem)s).Tag;
                     Encoding enc = FileEncoding;
                     enc = Encoding.GetEncoding(code);
 
