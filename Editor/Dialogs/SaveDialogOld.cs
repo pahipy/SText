@@ -11,9 +11,9 @@ using SText.Conf;
 
 namespace SText.Dialogs
 {
-    public partial class SaveDialog : Form
+    public partial class SaveDialogOld : Form
     {
-        public SaveDialog(string fname)
+        public SaveDialogOld(string fname)
         {
             InitializeComponent();
             this.Text = ProgramSets.ProgramName;
@@ -23,7 +23,7 @@ namespace SText.Dialogs
             ApplyTheme();
         }
 
-        public SaveDialog(string fname, SaveFileDialog dialog) : this(fname)
+        public SaveDialogOld(string fname, SaveFileDialog dialog) : this(fname)
         {
             fileDialog = dialog;
         }

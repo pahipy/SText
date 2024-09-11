@@ -21,7 +21,10 @@ using System.Windows.Shapes;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using MenuItem = System.Windows.Controls.MenuItem;
+using Microsoft.Win32;
 
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace SText.Editor
 {
@@ -80,7 +83,7 @@ namespace SText.Editor
         }
 
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private SaveFileDialog saveFileDialog;
 
         private FontDialog fd = new FontDialog();
         private SettingsTemplate Settings;
@@ -453,7 +456,7 @@ namespace SText.Editor
         {
             try
             {
-                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (saveFileDialog.ShowDialog() ?? false)
                 {
                     SaveFileAndUpdateHash(saveFileDialog.FileName);
                 }
