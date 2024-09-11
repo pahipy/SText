@@ -110,6 +110,11 @@ namespace SText.Editor
         {
             get
             {
+                switch (ContentViewer.FontWeight.ToString())
+                {
+                    case "Bold": return System.Drawing.FontStyle.Bold;
+                }
+
                 switch (ContentViewer.FontStyle.ToString())
                 {
                     case "Normal": return System.Drawing.FontStyle.Regular;
@@ -118,6 +123,17 @@ namespace SText.Editor
                 }
 
                 return System.Drawing.FontStyle.Regular;
+            }
+        }
+
+        private System.Drawing.Font FontAsSystemDrawingFromContentViewer
+        {
+            get
+            {
+                System.Drawing.Font font = new Font(ContentViewer.FontFamily.Source, 
+                    (float)(ContentViewer.FontSize / 96 * 72), FontStyleAsSystemDrawingFromContentViewer);
+
+                return font;
             }
         }
 
@@ -184,9 +200,10 @@ namespace SText.Editor
             Settings.ShowStatusBar = true;
             Settings.WordWrap = WordWrap;
             Settings.OnTop = Topmost;
-            Settings.FontSize = (float)ContentViewer.FontSize;
-            Settings.FontFamily = ContentViewer.FontFamily.Source;
-            Settings.FontStyle = ContentViewer.FontStyle == FontStyles.Normal ? 0 : 1;
+
+            Settings.FontSize = FontAsSystemDrawingFromContentViewer.Size;
+            Settings.FontFamily = FontAsSystemDrawingFromContentViewer.FontFamily.Name;
+            Settings.FontStyle = (int)FontStyleAsSystemDrawingFromContentViewer;
 
             if (WindowState != WindowState.Minimized)
                 Settings.WindowState = (int)this.WindowState;
@@ -206,8 +223,15 @@ namespace SText.Editor
             WordWrap = Settings.WordWrap;
             Topmost = Settings.OnTop; alwaysOnTop_MenuItem.IsChecked = Settings.OnTop;
             ContentViewer.FontFamily = new System.Windows.Media.FontFamily(Settings.FontFamily);
-            ContentViewer.FontSize = Settings.FontSize;
-            ContentViewer.FontStyle = Settings.FontStyle == 0 ? FontStyles.Normal : FontStyles.Italic;
+            ContentViewer.FontSize = Settings.FontSize * 96 / 72;
+
+            switch (Settings.FontStyle)
+            {
+                case 0: ContentViewer.FontStyle = FontStyles.Normal; break;
+                case 1: ContentViewer.FontStyle = FontStyles.Italic; break;
+                case 2: ContentViewer.FontWeight = FontWeights.Bold; break;
+            }
+
             this.WindowState = (WindowState)Settings.WindowState;
             this.Left = Settings.WindowPosition.X;
             this.Top = Settings.WindowPosition.Y;
@@ -789,6 +813,26 @@ namespace SText.Editor
         {
             var item = (MenuItem)sender;
             WordWrap = item.IsChecked;
+        }
+
+        private void ChangeFont_MenuItem_Click(object sender, RoutedEventArgs e)
+        { 
+            FontDialog fd = new FontDialog();
+
+            fd.Font = FontAsSystemDrawingFromContentViewer;
+
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ContentViewer.FontFamily = new System.Windows.Media.FontFamily(fd.Font.Name);
+                ContentViewer.FontSize = fd.Font.Size * 96.0 / 72.0;
+                ContentViewer.FontWeight = fd.Font.Bold ? FontWeights.Bold : FontWeights.Regular;
+                ContentViewer.FontStyle = fd.Font.Italic ? FontStyles.Italic : FontStyles.Normal;
+
+                TextDecorationCollection tdc = new TextDecorationCollection();
+                if (fd.Font.Underline) tdc.Add(TextDecorations.Underline);
+                if (fd.Font.Strikeout) tdc.Add(TextDecorations.Strikethrough);
+                ContentViewer.TextDecorations = tdc;
+            }
         }
     }
 }

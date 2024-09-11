@@ -70,7 +70,7 @@
             </MenuItem>
             <MenuItem Header="Format">
                 <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True" Click="WordWrap_MenuItem_Click"/>
-                <MenuItem Header="Font..."/>
+                <MenuItem x:Name="ChangeFont_MenuItem" Header="Font..." Click="ChangeFont_MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Status Bar" IsCheckable="True"/>
