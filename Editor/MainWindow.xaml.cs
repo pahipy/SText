@@ -269,9 +269,9 @@ namespace SText.Editor
             {
                 SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
-                switch (saveDialog.ShowDialog())
+                switch (saveDialog.ShowSDialog())
                 {
-                    case System.Windows.Forms.DialogResult.OK:
+                    case SDialogResult.Save:
                         {
                             if (!File.Exists(FileName))
                                 FileName = saveDialog.FileName;
@@ -281,8 +281,8 @@ namespace SText.Editor
                             NewFile();
                             break;
                         }
-                    case System.Windows.Forms.DialogResult.Cancel: return;
-                    case System.Windows.Forms.DialogResult.Abort: NewFile(true); return;
+                    case SDialogResult.Cancel: return;
+                    case SDialogResult.Abort: NewFile(true); return;
                 }
             }
         }
@@ -307,9 +307,9 @@ namespace SText.Editor
             {
                 SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
 
-                switch (saveDialog.ShowDialog())
+                switch (saveDialog.ShowSDialog())
                 {
-                    case System.Windows.Forms.DialogResult.OK:
+                    case SDialogResult.Save:
                         {
                             if (!File.Exists(FileName))
                                 FileName = saveDialog.FileName;
@@ -319,8 +319,8 @@ namespace SText.Editor
                             OpenFile(false, path);
                             break;
                         }
-                    case System.Windows.Forms.DialogResult.Cancel: return;
-                    case System.Windows.Forms.DialogResult.Abort: OpenFile(true, path); return;
+                    case SDialogResult.Cancel: return;
+                    case SDialogResult.Abort: OpenFile(true, path); return;
                 }
 
             }
@@ -557,20 +557,20 @@ namespace SText.Editor
 
         }
 
-        private DialogResult SaveFileIfItChanged()
+        private SDialogResult SaveFileIfItChanged()
         {
             if (contentHash != Content.GetHashCode())
             {
                 SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
-                DialogResult res = saveDialog.ShowDialog();
+                SDialogResult res = saveDialog.ShowSDialog();
 
-                if (res == System.Windows.Forms.DialogResult.OK)
+                if (res == SDialogResult.Save)
                     SaveFile();
 
                 return res;
             }
 
-            return System.Windows.Forms.DialogResult.Ignore;
+            return SDialogResult.Ignore;
         }
 
         private void MenuFile_Events_Click(object sender, RoutedEventArgs e)
@@ -715,9 +715,9 @@ namespace SText.Editor
 
             if (contentHash != Content.GetHashCode())
             {
-                switch (s.ShowDialog())
+                switch (s.ShowSDialog())
                 {
-                    case System.Windows.Forms.DialogResult.OK:
+                    case SDialogResult.Save:
                         {
                             if (!File.Exists(FileName))
                                 FileName = s.FileName;
@@ -727,13 +727,13 @@ namespace SText.Editor
                             break;
                         }
 
-                    case System.Windows.Forms.DialogResult.Cancel:
+                    case SDialogResult.Cancel:
                         {
                             e.Cancel = true;
                             break;
                         }
 
-                    case System.Windows.Forms.DialogResult.Abort:
+                    case SDialogResult.Abort:
                         {
                             e.Cancel = false;
                             break;
@@ -858,10 +858,10 @@ namespace SText.Editor
             if (!File.Exists(FileName))
                 return;
 
-            DialogResult res = SaveFileIfItChanged();
+            SDialogResult res = SaveFileIfItChanged();
 
-            if (res == System.Windows.Forms.DialogResult.Cancel) return;
-            if (res == System.Windows.Forms.DialogResult.Abort)
+            if (res == SDialogResult.Cancel) return;
+            if (res == SDialogResult.Abort)
                 Content = oldContent;
 
             string oldFile = FileName;

@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace SText.Dialogs
 {
-    public enum DialogResult
+    public enum SDialogResult
     {
         OK,
         Cancel,
         Yes,
         No,
         Save,
-        Abort
+        Abort,
+        Ignore
     }
 }

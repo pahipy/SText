@@ -1,12 +1,43 @@
-﻿<Window x:Class="Editor.Dialogs.SaveDialog"
+﻿<ui:FluentWindow  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="SText.Dialogs.SaveDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Editor.Dialogs"
+        xmlns:local="clr-namespace:SText.Dialogs"
         mc:Ignorable="d"
-        Title="SaveDialog" Height="450" Width="800">
+                  MinHeight="0"
+                  MinWidth="0"
+        WindowStartupLocation="CenterOwner"
+        Title="SaveDialog" Height="150" Width="447"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ui:TitleBar x:Name="Header" Grid.Row="0"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Width="48" Height="48"/>
+            <Label x:Name="Message" Grid.Column="1" Content="Do you want to save changes to"
+                   HorizontalContentAlignment="Left" HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+        <DockPanel Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ui:Button x:Name="SaveButton" Grid.Column="0" Content="Save" Width="120" HorizontalAlignment="Center" Click="ActionButtons_Click"/>
+                <ui:Button x:Name="AbortButton" Grid.Column="1" Content="Don't save" Width="120" HorizontalAlignment="Center" Click="ActionButtons_Click"/>
+                <ui:Button x:Name="CancelButton" Grid.Column="2" Content="Cancel" Width="120" HorizontalAlignment="Center" Click="ActionButtons_Click"/>
+            </Grid>
+        </DockPanel>
     </Grid>
-</Window>
+</ui:FluentWindow>

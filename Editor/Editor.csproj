@@ -19,11 +19,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MainForm.cs" />
+    <Compile Remove="MainForm.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="App.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="App.xaml" />
+    <None Include="MainForm.cs" />
+    <None Include="MainForm.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
