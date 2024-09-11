@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -913,6 +914,12 @@ namespace SText.Editor
 
 
             EncryptionMenuItem.Header = lableText;
+        }
+
+        private void About_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AboutDialog about = new AboutDialog("1.3.91");
+            about.ShowDialog();
         }
     }
 }
