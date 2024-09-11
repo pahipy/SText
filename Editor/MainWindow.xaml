@@ -69,7 +69,7 @@
                 <MenuItem x:Name="DateTime_MenuItem" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Format">
-                <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True"/>
+                <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True" Click="WordWrap_MenuItem_Click"/>
                 <MenuItem Header="Font..."/>
             </MenuItem>
             <MenuItem Header="View">

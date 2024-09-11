@@ -785,5 +785,10 @@ namespace SText.Editor
         }
         #endregion
 
+        private void WordWrap_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem)sender;
+            WordWrap = item.IsChecked;
+        }
     }
 }
