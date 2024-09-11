@@ -15,7 +15,7 @@ namespace SText.Formats
 
         private byte[] hash;
         private int encodingCode; //std codepage number
-        private int dataSize;
+        private uint dataSize;
         private byte[] data;
 
         #endregion
@@ -93,10 +93,10 @@ namespace SText.Formats
             ReopenStream();
 
             fileStream.Position = 0;
-
+            
             data = Crypt.EncryptStringToBytes(text, key, Encoding);
             hash = Crypt.GetSHA256Hash(text, Encoding);
-            dataSize = data.Length;
+            dataSize = (uint)data.Length;
 
             using (BinaryWriter bw = new BinaryWriter(fileStream))
             {
@@ -135,8 +135,8 @@ namespace SText.Formats
                     
                 hash = br.ReadBytes(HASH_SIZE);
                 this.Encoding = Encoding.GetEncoding(br.ReadInt32());
-                dataSize = br.ReadInt32();
-                data = br.ReadBytes(dataSize);
+                dataSize = br.ReadUInt32();
+                data = br.ReadBytes((int)dataSize);
             }
 
             string text = Crypt.DecryptStringFromBytes(data, key, this.Encoding);
