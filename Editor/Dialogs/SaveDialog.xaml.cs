@@ -31,7 +31,7 @@ namespace SText.Dialogs
         {
             InitializeComponent();
 
-            Header.Title = ProgramSets.ProgramName;
+            Header.Content = ProgramSets.ProgramName;
 
             Message.Content += " " + (File.Exists(FileName) ? new FileInfo(FileName).Name : FileName) + "?";
             inputFileName = FileName;

@@ -16,7 +16,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <ui:TitleBar x:Name="Header" Grid.Row="0"/>
+        <!--<ui:TitleBar x:Name="Header" Grid.Row="0"/>-->
+        <Grid Height="40" Grid.Row="0">
+            <Label x:Name="Header" Margin="15,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="SText"/>
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>
