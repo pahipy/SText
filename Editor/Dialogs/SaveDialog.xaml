@@ -37,9 +37,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ui:Button x:Name="SaveButton" Grid.Column="0" Content="Save" Width="120" HorizontalAlignment="Center" Click="ActionButtons_Click"/>
+                <ui:Button x:Name="SaveButton" Grid.Column="0" Content="Save" Width="120" HorizontalAlignment="Right" Click="ActionButtons_Click"/>
                 <ui:Button x:Name="AbortButton" Grid.Column="1" Content="Don't save" Width="120" HorizontalAlignment="Center" Click="ActionButtons_Click"/>
-                <ui:Button x:Name="CancelButton" Grid.Column="2" Content="Cancel" Width="120" HorizontalAlignment="Center" Click="ActionButtons_Click"/>
+                <ui:Button x:Name="CancelButton" Grid.Column="2" Content="Cancel" Width="120" HorizontalAlignment="Left" Click="ActionButtons_Click"/>
             </Grid>
         </DockPanel>
     </Grid>
