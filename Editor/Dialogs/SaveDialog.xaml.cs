@@ -27,7 +27,7 @@ namespace SText.Dialogs
     /// </summary>
     public partial class SaveDialog : FluentWindow
     {
-        public SaveDialog(string FileName)
+        public SaveDialog(FluentWindow Owner, string FileName)
         {
             InitializeComponent();
 
@@ -35,8 +35,9 @@ namespace SText.Dialogs
 
             Message.Content += " " + (File.Exists(FileName) ? new FileInfo(FileName).Name : FileName) + "?";
             inputFileName = FileName;
+            this.Owner = Owner;
         }
-        public SaveDialog(string FileName, SaveFileDialog Dialog) : this(FileName)
+        public SaveDialog(FluentWindow Owner, string FileName, SaveFileDialog Dialog) : this(Owner, FileName)
         {
             fileDialog = Dialog;
         }

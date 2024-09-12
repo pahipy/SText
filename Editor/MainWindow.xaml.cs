@@ -309,7 +309,7 @@ namespace SText.Editor
             }
             else
             {
-                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
+                SaveDialog saveDialog = new SaveDialog(this, FileName, saveFileDialog);
 
                 switch (saveDialog.ShowSDialog())
                 {
@@ -347,7 +347,7 @@ namespace SText.Editor
             }
             else
             {
-                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
+                SaveDialog saveDialog = new SaveDialog(this, FileName, saveFileDialog);
 
                 switch (saveDialog.ShowSDialog())
                 {
@@ -603,7 +603,7 @@ namespace SText.Editor
         {
             if (contentHash != Content.GetHashCode())
             {
-                SaveDialog saveDialog = new SaveDialog(FileName, saveFileDialog);
+                SaveDialog saveDialog = new SaveDialog(this, FileName, saveFileDialog);
                 SDialogResult res = saveDialog.ShowSDialog();
 
                 if (res == SDialogResult.Save)
@@ -753,7 +753,7 @@ namespace SText.Editor
             SettingsManager.Settings = Settings;
             SettingsManager.SaveConfig();
 
-            SaveDialog s = new SaveDialog(FileName, saveFileDialog);
+            SaveDialog s = new SaveDialog(this, FileName, saveFileDialog);
 
             if (contentHash != Content.GetHashCode())
             {
