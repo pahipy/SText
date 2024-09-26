@@ -13,7 +13,7 @@
 
     <ui:FluentWindow.Resources>
         <ResourceDictionary>
-            <BitmapImage x:Key="QuestionImage" UriSource="./Media/help_circle_white.png"/>
+            <!--<BitmapImage x:Key="QuestionImage"/>-->
         </ResourceDictionary>
     </ui:FluentWindow.Resources>
     <Grid>
@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="64"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="QuestionIcon" Grid.Column="0" Width="48" Height="48" Source="{StaticResource QuestionImage}"/>
+            <Image x:Name="QuestionIcon" Grid.Column="0" Width="48" Height="48"/>
             <Label x:Name="Message" Grid.Column="1" Content="Do you want to save changes to"
                    HorizontalContentAlignment="Left" HorizontalAlignment="Left" 
                    VerticalAlignment="Center" VerticalContentAlignment="Center"/>
