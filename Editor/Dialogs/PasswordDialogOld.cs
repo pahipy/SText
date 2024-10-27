@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace SText.Dialogs
 {
-    public partial class PasswordDialog : Form
+    public partial class PasswordDialogOld : Form
     {
-        public PasswordDialog()
+        public PasswordDialogOld()
         {
             InitializeComponent();
         }
 
-        public PasswordDialog(bool SetPasswordMode) : this()
+        public PasswordDialogOld(bool SetPasswordMode) : this()
         {
             setPasswordMode = SetPasswordMode;
             if (!SetPasswordMode)

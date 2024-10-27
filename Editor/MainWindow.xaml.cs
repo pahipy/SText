@@ -383,15 +383,15 @@ namespace SText.Editor
                         {
 
                             if (!appWindowIsShown)
-                                openPasswordDialog.StartPosition = FormStartPosition.CenterScreen;
+                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                             else
-                                openPasswordDialog.StartPosition = FormStartPosition.CenterParent;
+                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
                             int tries = 3;
 
                             for (int i = 1; i <= tries; i++)
                             {
-                                if (openPasswordDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                if (openPasswordDialog.ShowSDialog() == SDialogResult.OK)
                                 {
 
 
@@ -541,7 +541,7 @@ namespace SText.Editor
 
                             isReadOnly = txtsFile.IsReadOnly;
                         }
-                        else if (setPasswordDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        else if (setPasswordDialog.ShowSDialog() == SDialogResult.OK)
                         {
                             txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
                             try

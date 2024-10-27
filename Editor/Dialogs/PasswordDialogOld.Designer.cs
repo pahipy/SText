@@ -1,6 +1,6 @@
 ﻿namespace SText.Dialogs
 {
-    partial class PasswordDialog
+    partial class PasswordDialogOld
     {
         /// <summary>
         /// Required designer variable.
