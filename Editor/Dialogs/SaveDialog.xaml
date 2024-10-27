@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SText.Dialogs"
+        xmlns:ic="clr-namespace:FluentIcons.WPF;assembly=FluentIcons.WPF"
         mc:Ignorable="d"
                   MinHeight="0"
                   MinWidth="0"
@@ -31,7 +32,7 @@
                 <ColumnDefinition Width="64"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="QuestionIcon" Grid.Column="0" Width="48" Height="48"/>
+            <ic:SymbolIcon Symbol="Question" FontSize="32" Margin="15,0,0,5" Grid.Column="0" Width="48" Height="48"/>
             <Label x:Name="Message" Grid.Column="1" Content="Do you want to save changes to"
                    HorizontalContentAlignment="Left" HorizontalAlignment="Left" 
                    VerticalAlignment="Center" VerticalContentAlignment="Center"/>

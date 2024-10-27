@@ -36,7 +36,6 @@ namespace SText.Dialogs
             Message.Content += " " + (File.Exists(FileName) ? new FileInfo(FileName).Name : FileName) + "?";
             inputFileName = FileName;
             this.Owner = Owner;
-            this.Loaded += (s,e) => QuestionIcon.Source = Tools.BitmapConverter.BitmapToBitmapImage(SText.Resources.help_circle_white);
         }
         public SaveDialog(FluentWindow Owner, string FileName, SaveFileDialog Dialog) : this(Owner, FileName)
         {
