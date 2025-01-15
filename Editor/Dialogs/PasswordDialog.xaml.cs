@@ -41,6 +41,8 @@ namespace SText.Dialogs
 
             this.Passwd.PasswordChanged += (s, e) => OK.IsEnabled = IsCorrectPassword;
             this.RetypedPasswd.PasswordChanged += (s, e) => OK.IsEnabled = IsCorrectPassword;
+
+            this.Activated += (s, e) => Passwd.Focus();
         }
 
         public PasswordDialog(FluentWindow Owner, bool SetPasswordMode) : this(Owner)

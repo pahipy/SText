@@ -10,6 +10,7 @@
                   MinWidth="0"
         WindowStartupLocation="CenterOwner"
         Title="SaveDialog" Height="150" Width="447"
+        ShowInTaskbar="False"
         ResizeMode="NoResize">
 
     <ui:FluentWindow.Resources>
