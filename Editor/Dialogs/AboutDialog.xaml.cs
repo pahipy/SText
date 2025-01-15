@@ -39,7 +39,6 @@ namespace SText.Dialogs
             };
 
             AppImage.Source = Tools.BitmapConverter.BitmapToBitmapImage(SText.Resources.STextIcon_Big, ImageFormat.Png);
-            //SText.Resources.STextIcon_Big
         }
 
         private void OkayButton_Click(object sender, RoutedEventArgs e)

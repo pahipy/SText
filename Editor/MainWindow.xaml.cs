@@ -25,6 +25,7 @@ using Microsoft.Win32;
 
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using System.Drawing.Imaging;
 
 namespace SText.Editor
 {
@@ -46,6 +47,8 @@ namespace SText.Editor
             openFileDialog.RestoreDirectory = true;
             saveFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
             saveFileDialog.RestoreDirectory = true;
+
+            AppIcon.Source = Tools.BitmapConverter.BitmapToBitmapImage(SText.Resources.STextIcon_Big, ImageFormat.Png);
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             SetEncodingMenuItems();

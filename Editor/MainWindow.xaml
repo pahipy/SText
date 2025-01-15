@@ -51,7 +51,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ui:TitleBar x:Name="TitleText" Grid.Row="0" Title="SText"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="AppIcon" Grid.Column="0" Width="20" Height="20" Margin="10,0,0,0"/>
+            <ui:TitleBar x:Name="TitleText" Grid.Column="1" Title="SText"/>
+        </Grid>
+        
         <Menu Grid.Row="1">
             <MenuItem Header="File">
                 <MenuItem x:Name="New_MenuItem" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
