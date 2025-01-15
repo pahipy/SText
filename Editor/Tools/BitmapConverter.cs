@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Drawing.Imaging;
 
 namespace SText.Tools
 {
@@ -21,17 +22,21 @@ namespace SText.Tools
             }
         }
 
-        public static BitmapImage BitmapToBitmapImage(Bitmap bitmap)
+        public static BitmapImage BitmapToBitmapImage(Bitmap bitmap, ImageFormat format)
         {
-            using (MemoryStream memStream = new MemoryStream(BitmapToByteArray(bitmap)))
+            using (var ms = new MemoryStream())
             {
-                BitmapImage image = new BitmapImage();
+                bitmap.Save(ms, format);
+                ms.Seek(0, SeekOrigin.Begin);
+                var image = new BitmapImage();
                 image.BeginInit();
-                image.StreamSource = memStream;
+                image.StreamSource = ms;
+                image.CacheOption = BitmapCacheOption.OnLoad;
                 image.EndInit();
-                image.Freeze();
+
                 return image;
             }
         }
+
     }
 }

@@ -967,7 +967,7 @@ namespace SText.Editor
 
         private void About_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            AboutDialog about = new AboutDialog("1.3.91");
+            AboutDialog about = new AboutDialog(this);
             about.ShowDialog();
         }
     }
