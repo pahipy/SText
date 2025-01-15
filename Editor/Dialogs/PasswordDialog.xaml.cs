@@ -35,7 +35,6 @@ namespace SText.Dialogs
             if (!SetPasswordMode)
             {
                 RetypedPasswd.Visibility = Visibility.Hidden;
-                RetypedPasswdLabel.Visibility = Visibility.Hidden;
                 Height -= RetypedPasswd.Height;
             }
         }
