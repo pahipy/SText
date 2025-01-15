@@ -133,7 +133,6 @@ namespace SText.Editor
         private PasswordDialog openPasswordDialog;
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
-        private ElementHost host = new ElementHost();
         private string oldContent = "";
 
         private Encoding fileEncoding;
@@ -217,7 +216,7 @@ namespace SText.Editor
                     title = $"{FileName} - {ProgramSets.ProgramName}";
 
                 if (Content.GetHashCode() != contentHash)
-                    title = $"*{title}";
+                    title = $"• {title}";
 
                 return title;
             }
