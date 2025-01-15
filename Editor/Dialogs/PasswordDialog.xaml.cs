@@ -28,6 +28,18 @@ namespace SText.Dialogs
             this.Owner = Owner;
             Passwd.Text = "";
             RetypedPasswd.Text = "";
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.Key == Key.Escape)
+                    CancelAndClose();
+
+                if (e.Key == Key.Enter && IsCorrectPassword)
+                    OKAndClose();
+            };
+
+            this.Passwd.PasswordChanged += (s, e) => OK.IsEnabled = IsCorrectPassword;
+            this.RetypedPasswd.PasswordChanged += (s, e) => OK.IsEnabled = IsCorrectPassword;
         }
 
         public PasswordDialog(FluentWindow Owner, bool SetPasswordMode) : this(Owner)
@@ -40,13 +52,19 @@ namespace SText.Dialogs
             }
         }
 
+        private const int MinimumPasswordLength = 4;
         private bool setPasswordMode = true;
         private SDialogResult sDialogResult = SDialogResult.Cancel;
         public SDialogResult SDialogResult { get => sDialogResult; }
+        private bool IsCorrectPassword
+        {
+            get => Password == RetypedPasswd.Password && !ContainsSpaces(Password)
+                && Password.Length >= MinimumPasswordLength || !setPasswordMode;
+        }
 
         public string Password
         {
-            get => Passwd.Text;
+            get => Passwd.Password;
         }
         public SDialogResult ShowSDialog()
         {
@@ -76,27 +94,6 @@ namespace SText.Dialogs
 
         private void OKAndClose()
         {
-            if (setPasswordMode)
-            {
-                if (Passwd.Text != RetypedPasswd.Text)
-                {
-                    DialogManager.ShowWarningDialogWithText("Fields don't match!");
-                    return;
-                }
-            }
-
-            if (Passwd.Text.Length < 4)
-            {
-                DialogManager.ShowWarningDialogWithText("Password must contain not less than 4 symbols");
-                return;
-            }
-
-            if (ContainsSpaces(Passwd.Text))
-            {
-                DialogManager.ShowWarningDialogWithText("Password shouldn't contain spaces");
-                return;
-            }
-
             sDialogResult = SDialogResult.OK;
             Close();
         }
