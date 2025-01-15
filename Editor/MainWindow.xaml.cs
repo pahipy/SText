@@ -373,6 +373,8 @@ namespace SText.Editor
 
             try
             {
+                openPasswordDialog = new PasswordDialog(this, false);
+
                 if (path is not null && File.Exists(path))
                 {
                     string cont = "";
@@ -513,6 +515,8 @@ namespace SText.Editor
 
             try
             {
+                setPasswordDialog = new PasswordDialog(this);
+
                 if (path is not null)
                 {
                     if (!File.Exists(path))
@@ -591,7 +595,7 @@ namespace SText.Editor
 
                 return false;
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 DialogManager.ShowWarningDialogWithText(ex.Message);
                 return false;
@@ -745,8 +749,6 @@ namespace SText.Editor
             contentHash = Content.GetHashCode();
             FileName = FileName;
             ContentViewer.Focus();
-            setPasswordDialog = new PasswordDialog(this);
-            openPasswordDialog = new PasswordDialog(this, false);
         }
 
         private void FluentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
