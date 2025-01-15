@@ -22,14 +22,15 @@ namespace SText.Dialogs
     /// </summary>
     public partial class PasswordDialog : FluentWindow
     {
-        public PasswordDialog()
+        public PasswordDialog(FluentWindow Owner)
         {
             InitializeComponent();
+            this.Owner = Owner;
             Passwd.Text = "";
             RetypedPasswd.Text = "";
         }
 
-        public PasswordDialog(bool SetPasswordMode) : this()
+        public PasswordDialog(FluentWindow Owner, bool SetPasswordMode) : this(Owner)
         {
             setPasswordMode = SetPasswordMode;
             if (!SetPasswordMode)

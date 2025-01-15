@@ -129,8 +129,8 @@ namespace SText.Editor
         private bool isDebug = true;
         private TXTSFormat txtsFile;
         private TXTFormat txtFile;
-        private PasswordDialog setPasswordDialog = new PasswordDialog();
-        private PasswordDialog openPasswordDialog = new PasswordDialog(false);
+        private PasswordDialog setPasswordDialog;
+        private PasswordDialog openPasswordDialog;
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
         private ElementHost host = new ElementHost();
@@ -745,6 +745,8 @@ namespace SText.Editor
             contentHash = Content.GetHashCode();
             FileName = FileName;
             ContentViewer.Focus();
+            setPasswordDialog = new PasswordDialog(this);
+            openPasswordDialog = new PasswordDialog(this, false);
         }
 
         private void FluentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
