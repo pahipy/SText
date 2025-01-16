@@ -305,6 +305,7 @@ namespace SText.Editor
                         ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
                         ThemeDark_MenuItem.IsChecked = false;
                         ThemeLight_MenuItem.IsChecked = true;
+                        StatusBar_Theme.Content = "Theme: Light";
                         break;
                     }
 
@@ -317,6 +318,7 @@ namespace SText.Editor
                         ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                         ThemeLight_MenuItem.IsChecked = false;
                         ThemeDark_MenuItem.IsChecked = true;
+                        StatusBar_Theme.Content = "Theme: Dark";
                         break;
                     }
             }

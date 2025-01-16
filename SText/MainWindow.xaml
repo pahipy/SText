@@ -117,10 +117,10 @@
         </avalonEdit:TextEditor>
         <Grid Height="35" Grid.Row="3">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <Label Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
+                <Label x:Name="StatusBar_Theme" Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
                 <Label x:Name="StatusBar_File" Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
-            <ComboBox x:Name="DropDownEncodingMenu" VerticalContentAlignment="Center" HorizontalAlignment="Right"></ComboBox>
+            <ComboBox x:Name="DropDownEncodingMenu" VerticalContentAlignment="Center" MinWidth="120" HorizontalAlignment="Right"></ComboBox>
         </Grid>
     </Grid>
 </ui:FluentWindow>
