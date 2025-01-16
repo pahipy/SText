@@ -74,7 +74,7 @@ namespace SText.Editor
             catch { }
 
             FileEncoding = Encoding.UTF8;
-            ThemeSelector.CurrentTheme = Theme.Light;
+            CurrentTheme = Theme.Light;
 
             LoadSettingsToStruct();
 
@@ -245,10 +245,48 @@ namespace SText.Editor
             set => ContentViewer.WordWrap = value;
         }
 
+        private Theme _currentTheme;
+        private Theme CurrentTheme
+        {
+            get => _currentTheme;
+            set
+            {
+                _currentTheme = value;
+
+                switch (value)
+                {
+                    case Theme.Light:
+                        {
+                            ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                            ApplicationThemeManager.Apply(this);
+                            ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                            ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                            ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                            ThemeDark_MenuItem.IsChecked = false;
+                            ThemeLight_MenuItem.IsChecked = true;
+                            StatusBar_Theme.Content = "Theme: Light";
+                            break;
+                        }
+
+                    case Theme.Dark:
+                        {
+                            ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                            ApplicationThemeManager.Apply(this);
+                            ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                            ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(25, 25, 25));
+                            ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                            ThemeLight_MenuItem.IsChecked = false;
+                            ThemeDark_MenuItem.IsChecked = true;
+                            StatusBar_Theme.Content = "Theme: Dark";
+                            break;
+                        }
+                }
+            }
+        }
 
         private void LoadSettingsToStruct()
         {
-            Settings.CurrentTheme = ThemeSelector.CurrentTheme;
+            Settings.CurrentTheme = CurrentTheme;
             Settings.ShowStatusBar = true;
             Settings.WordWrap = WordWrap;
             Settings.OnTop = Topmost;
@@ -271,7 +309,7 @@ namespace SText.Editor
         private void ApplySettings()
         {
             Settings = SettingsManager.Settings;
-            ThemeSelector.CurrentTheme = Settings.CurrentTheme;
+            CurrentTheme = Settings.CurrentTheme;
             WordWrap = Settings.WordWrap;
             Topmost = Settings.OnTop; AlwaysOnTop_MenuItem.IsChecked = Settings.OnTop;
             ContentViewer.FontFamily = new System.Windows.Media.FontFamily(Settings.FontFamily);
@@ -289,39 +327,7 @@ namespace SText.Editor
             this.Top = Settings.WindowPosition.Y;
             this.Width = Settings.WindowSize.Width;
             this.Height = Settings.WindowSize.Height;
-            ApplyTheme();
-        }
-
-        private void ApplyTheme()
-        { 
-            switch (ThemeSelector.CurrentTheme)
-            {
-                case Theme.Light:
-                    {
-                        ApplicationThemeManager.Apply(ApplicationTheme.Light);
-                        ApplicationThemeManager.Apply(this);
-                        ApplicationThemeManager.Apply(ApplicationTheme.Light);
-                        ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-                        ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
-                        ThemeDark_MenuItem.IsChecked = false;
-                        ThemeLight_MenuItem.IsChecked = true;
-                        StatusBar_Theme.Content = "Theme: Light";
-                        break;
-                    }
-
-                case Theme.Dark:
-                    {
-                        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
-                        ApplicationThemeManager.Apply(this);
-                        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
-                        ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(25, 25, 25));
-                        ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-                        ThemeLight_MenuItem.IsChecked = false;
-                        ThemeDark_MenuItem.IsChecked = true;
-                        StatusBar_Theme.Content = "Theme: Dark";
-                        break;
-                    }
-            }
+            CurrentTheme = Settings.CurrentTheme;
         }
 
         private void NewFile(bool dontSaveFile = false)
@@ -1018,9 +1024,8 @@ namespace SText.Editor
             sndr.IsChecked = true;
             string name = sndr.Name;
             
-            ThemeSelector.CurrentTheme = name == "ThemeLight_MenuItem" ? Theme.Light : Theme.Dark;
+            CurrentTheme = name == "ThemeLight_MenuItem" ? Theme.Light : Theme.Dark;
 
-            ApplyTheme();
         }
 
         private void ContextMenuItems_Click(object sender, RoutedEventArgs e)

@@ -7,13 +7,6 @@ using System.Drawing;
 
 namespace SText.Conf
 {
-    public static class ThemeSelector
-    {
-        public static Theme CurrentTheme = Theme.Light;
-
-        
-    }
-
     public enum Theme
     {
         Light = 0,
