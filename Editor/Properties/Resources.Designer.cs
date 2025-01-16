@@ -111,6 +111,16 @@ namespace SText {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] pahipy_head_mushroom {
+            get {
+                object obj = ResourceManager.GetObject("pahipy_head_mushroom", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap STextIcon_Big {

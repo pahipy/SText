@@ -39,6 +39,8 @@ namespace SText.Dialogs
             };
 
             AppImage.Source = Tools.BitmapConverter.BitmapToBitmapImage(SText.Resources.STextIcon_Big, ImageFormat.Png);
+
+            AuothorLogo.Source = Tools.BitmapConverter.ByteArrayToBitmapImage(SText.Resources.pahipy_head_mushroom);
         }
 
         private void OkayButton_Click(object sender, RoutedEventArgs e)

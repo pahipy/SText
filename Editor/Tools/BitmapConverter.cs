@@ -13,12 +13,27 @@ namespace SText.Tools
 {
     public static class BitmapConverter
     {
-        public static byte[] BitmapToByteArray(Bitmap bitmap)
+        public static byte[] BitmapToByteArray(Bitmap bitmap, ImageFormat format)
         {
             using (MemoryStream memStream = new MemoryStream())
             {
-                bitmap.Save(memStream, System.Drawing.Imaging.ImageFormat.Png);
+                bitmap.Save(memStream, format);
                 return memStream.ToArray();
+            }
+        }
+
+        public static BitmapImage ByteArrayToBitmapImage(byte[] bytes)
+        {
+            using (var ms = new MemoryStream(bytes))
+            {
+                ms.Seek(0, SeekOrigin.Begin);
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.StreamSource = ms;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+
+                return image;
             }
         }
 
