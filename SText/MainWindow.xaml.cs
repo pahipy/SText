@@ -234,12 +234,15 @@ namespace SText.Editor
 
         private bool WordWrap
         {
-            get => ContentViewer.TextWrapping == TextWrapping.Wrap;
+            /*get => ContentViewer.TextWrapping == TextWrapping.Wrap;
             set
             {
                 ContentViewer.TextWrapping = value ? TextWrapping.Wrap : TextWrapping.NoWrap;
                 WordWrap_MenuItem.IsChecked = value;
-            }
+            }*/
+
+            get => ContentViewer.WordWrap;
+            set => ContentViewer.WordWrap = value;
         }
 
 
@@ -298,6 +301,8 @@ namespace SText.Editor
                         ApplicationThemeManager.Apply(ApplicationTheme.Light);
                         ApplicationThemeManager.Apply(this);
                         ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                        ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                        ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
                         ThemeDark_MenuItem.IsChecked = false;
                         ThemeLight_MenuItem.IsChecked = true;
                         break;
@@ -308,6 +313,8 @@ namespace SText.Editor
                         ApplicationThemeManager.Apply(ApplicationTheme.Dark);
                         ApplicationThemeManager.Apply(this);
                         ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                        ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(25, 25, 25));
+                        ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                         ThemeLight_MenuItem.IsChecked = false;
                         ThemeDark_MenuItem.IsChecked = true;
                         break;
@@ -905,7 +912,7 @@ namespace SText.Editor
                 TextDecorationCollection tdc = new TextDecorationCollection();
                 if (fd.Font.Underline) tdc.Add(TextDecorations.Underline);
                 if (fd.Font.Strikeout) tdc.Add(TextDecorations.Strikethrough);
-                ContentViewer.TextDecorations = tdc;
+               // ContentViewer.TextDecorations = tdc;
             }
         }
 
@@ -1004,6 +1011,20 @@ namespace SText.Editor
             ThemeSelector.CurrentTheme = name == "ThemeLight_MenuItem" ? Theme.Light : Theme.Dark;
 
             ApplyTheme();
+        }
+
+        private void ContextMenuItems_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ((MenuItem)sender).Name;
+
+            switch (name)
+            {
+                case "Undo_ContextMenuItem": ContentViewer.Undo(); break;
+                case "Cut_ContextMenuItem": ContentViewer.Cut(); break;
+                case "Copy_ContextMenuItem": ContentViewer.Copy(); break;
+                case "Paste_ContextMenuItem": ContentViewer.Paste(); break;
+                case "SelectAll_ContextMenuItem": ContentViewer.SelectAll(); break;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:local="clr-namespace:SText.Editor"
         xmlns:vm="clr-namespace:SText.Editor"
         mc:Ignorable="d"
@@ -100,8 +101,20 @@
                 <MenuItem x:Name="About_MenuItem" Header="About SText" Click="About_MenuItem_Click"/>
             </MenuItem>
         </Menu>
-        <TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>
-
+        <!--<TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>-->
+        <avalonEdit:TextEditor x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" BorderThickness="0">
+            <avalonEdit:TextEditor.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="Undo_ContextMenuItem" Header="Undo" Click="ContextMenuItems_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="Cut_ContextMenuItem" Header="Cut" Click="ContextMenuItems_Click"/>
+                    <MenuItem x:Name="Copy_ContextMenuItem" Header="Copy" Click="ContextMenuItems_Click"/>
+                    <MenuItem x:Name="Paste_ContextMenuItem" Header="Paste" Click="ContextMenuItems_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="SelectAll_ContextMenuItem" Header="Select All" Click="ContextMenuItems_Click"/>
+                </ContextMenu>
+            </avalonEdit:TextEditor.ContextMenu>
+        </avalonEdit:TextEditor>
         <Grid Height="35" Grid.Row="3">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Label Content="Theme: Dark" Style="{StaticResource BottomLables}"/>
