@@ -36,6 +36,15 @@ namespace SText.Dialogs
             Message.Content += " " + (File.Exists(FileName) ? new FileInfo(FileName).Name : FileName) + "?";
             inputFileName = FileName;
             this.Owner = Owner;
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.Key == Key.Escape)
+                {
+                    dialogResult = SDialogResult.Cancel;
+                    Close();
+                }
+            };
         }
         public SaveDialog(FluentWindow Owner, string FileName, SaveFileDialog Dialog) : this(Owner, FileName)
         {
