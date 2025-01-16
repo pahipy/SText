@@ -403,30 +403,38 @@ namespace SText.Editor
         {
 
             try
-            {
-                openPasswordDialog = new PasswordDialog(this, false);
-
+            { 
                 if (path is not null && File.Exists(path))
                 {
                     string cont = "";
 
                     if (txtsFile is not null || TXTSFormat.IsTXTSFile(path))
                     {
+                        Action initAndGetOpenPassDlg = () =>
+                        {
+                            if (appWindowIsShown)
+                            {
+                                openPasswordDialog = new PasswordDialog(this, false);
+                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                            }
+                            else
+                            {
+                                openPasswordDialog = new PasswordDialog(null, false);
+                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            }
+                        };
+
                         Func<int> openTxts = () =>
                         {
-
-                            if (!appWindowIsShown)
-                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                            else
-                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-
+                            
                             int tries = 3;
 
                             for (int i = 1; i <= tries; i++)
                             {
+                                initAndGetOpenPassDlg();
+
                                 if (openPasswordDialog.ShowSDialog() == SDialogResult.OK)
                                 {
-
 
                                     txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
                                     cont = txtsFile.ReadFile();
