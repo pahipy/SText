@@ -307,7 +307,7 @@ namespace SText.Editor
                     {
                         ApplicationThemeManager.Apply(ApplicationTheme.Dark);
                         ApplicationThemeManager.Apply(this);
-                        ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
                         ThemeLight_MenuItem.IsChecked = false;
                         ThemeDark_MenuItem.IsChecked = true;
                         break;
