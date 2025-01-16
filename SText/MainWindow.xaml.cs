@@ -26,6 +26,7 @@ using Microsoft.Win32;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using System.Drawing.Imaging;
+using System.Xml.Linq;
 
 namespace SText.Editor
 {
@@ -289,8 +290,29 @@ namespace SText.Editor
         }
 
         private void ApplyTheme()
-        {
+        { 
+            switch (ThemeSelector.CurrentTheme)
+            {
+                case Theme.Light:
+                    {
+                        ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                        ApplicationThemeManager.Apply(this);
+                        ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                        ThemeDark_MenuItem.IsChecked = false;
+                        ThemeLight_MenuItem.IsChecked = true;
+                        break;
+                    }
 
+                case Theme.Dark:
+                    {
+                        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                        ApplicationThemeManager.Apply(this);
+                        ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                        ThemeLight_MenuItem.IsChecked = false;
+                        ThemeDark_MenuItem.IsChecked = true;
+                        break;
+                    }
+            }
         }
 
         private void NewFile(bool dontSaveFile = false)
@@ -971,6 +993,17 @@ namespace SText.Editor
         {
             AboutDialog about = new AboutDialog(this);
             about.ShowDialog();
+        }
+
+        private void ThemeItems_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var sndr = (MenuItem)sender;
+            sndr.IsChecked = true;
+            string name = sndr.Name;
+            
+            ThemeSelector.CurrentTheme = name == "ThemeLight_MenuItem" ? Theme.Light : Theme.Dark;
+
+            ApplyTheme();
         }
     }
 }

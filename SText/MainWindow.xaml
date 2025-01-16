@@ -88,6 +88,10 @@
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem x:Name="AlwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2" Click="AlwaysOnTop_MenuItem_Click"/>
+                <MenuItem Header="Theme">
+                    <MenuItem x:Name="ThemeLight_MenuItem" Header="Light" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
+                    <MenuItem x:Name="ThemeDark_MenuItem" Header="Dark" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem x:Name="ToolsMemuItem" Header="Tools" SubmenuOpened="ToolsMemuItem_SubmenuOpened">
                 <MenuItem x:Name="EncryptionMenuItem" Header="Encrypt current file" IsEnabled="False" InputGestureText="Ctrl+E" Click="EncryptionMenuItem_Click"/>
