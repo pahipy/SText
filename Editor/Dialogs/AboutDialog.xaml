@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:SText.Dialogs"
         mc:Ignorable="d"
         ShowInTaskbar="False"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         Title="AboutDialog" Height="350" Width="700">
     <Grid>
@@ -27,7 +28,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ui:Image x:Name="AppImage" Grid.Column="0"/>
+                <ui:Image x:Name="AppImage" Grid.Column="0" Width="200" Height="220"/>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
