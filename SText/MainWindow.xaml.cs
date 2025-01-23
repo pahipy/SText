@@ -299,7 +299,7 @@ namespace SText.Editor
                 Settings.WindowState = (int)this.WindowState;
 
             if (WindowState != WindowState.Maximized && WindowState != WindowState.Minimized)
-            {
+            { 
                 Settings.WindowPosition = new System.Drawing.Point((int)Left, (int)Top);
                 Settings.WindowSize = new System.Drawing.Size((int)Width, (int)Height);
             }
@@ -323,8 +323,12 @@ namespace SText.Editor
             }
 
             this.WindowState = (WindowState)Settings.WindowState;
-            this.Left = Settings.WindowPosition.X;
-            this.Top = Settings.WindowPosition.Y;
+            int left = Settings.WindowPosition.X < 0 ? -1 : Settings.WindowPosition.X;
+            int top = Settings.WindowPosition.Y < 0 ? -1 : Settings.WindowPosition.Y;
+            this.WindowStartupLocation = left < 0 && top < 0 ? WindowStartupLocation.CenterScreen
+                : WindowStartupLocation.Manual;
+            this.Left = left;
+            this.Top = top;
             this.Width = Settings.WindowSize.Width;
             this.Height = Settings.WindowSize.Height;
             CurrentTheme = Settings.CurrentTheme;
