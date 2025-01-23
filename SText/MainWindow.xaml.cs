@@ -220,7 +220,7 @@ namespace SText.Editor
                     title = $"{FileName} - {ProgramSets.ProgramName}";
 
                 if (Content.GetHashCode() != contentHash)
-                    title = $"• {title}";
+                    title = $"●{title}";
 
                 return title;
             }
