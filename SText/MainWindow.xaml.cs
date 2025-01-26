@@ -13,7 +13,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,7 +23,7 @@ using MenuItem = System.Windows.Controls.MenuItem;
 using Microsoft.Win32;
 
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
-using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using System.Drawing.Imaging;
 using System.Xml.Linq;
 using System.Diagnostics;
@@ -124,7 +123,7 @@ namespace SText.Editor
 
         }
 
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
 
         private FontDialog fd = new FontDialog();
@@ -384,7 +383,7 @@ namespace SText.Editor
                 {
                     OpenFileAndReadContent(path);
                 }
-                else if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                else if (openFileDialog.ShowDialog() ?? false)
                 {
                     OpenFileAndReadContent(openFileDialog.FileName);
                 }
