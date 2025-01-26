@@ -27,6 +27,7 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using System.Drawing.Imaging;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace SText.Editor
 {
@@ -1016,10 +1017,34 @@ namespace SText.Editor
             EncryptionMenuItem.Header = lableText;
         }
 
-        private void About_MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Help_MenuItems_Click(object sender, RoutedEventArgs e)
         {
-            AboutDialog about = new AboutDialog(this);
-            about.ShowDialog();
+            string name = ((MenuItem)sender).Name;
+
+            switch (name)
+            {
+                case "About_MenuItem":
+                    {
+                        AboutDialog about = new AboutDialog(this);
+                        about.ShowDialog();
+                        break;
+                    }
+
+                case "Github_MenuItem":
+                    {
+                        try
+                        {
+                            var uri = ProgramSets.GitHubLink;
+                            var psi = new ProcessStartInfo();
+                            psi.UseShellExecute = true;
+                            psi.FileName = uri;
+                            Process.Start(psi);
+                        }
+                        catch { }
+                        break;
+                    }
+            }
+            
         }
 
         private void ThemeItems_MenuItem_Click(object sender, RoutedEventArgs e)

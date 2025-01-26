@@ -98,7 +98,8 @@
                 <MenuItem x:Name="EncryptionMenuItem" Header="Encrypt current file" IsEnabled="False" InputGestureText="Ctrl+E" Click="EncryptionMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem x:Name="About_MenuItem" Header="About SText" Click="About_MenuItem_Click"/>
+                <MenuItem x:Name="Github_MenuItem" Header="GitHub Link..." Click="Help_MenuItems_Click"/>
+                <MenuItem x:Name="About_MenuItem" Header="About SText" Click="Help_MenuItems_Click"/>
             </MenuItem>
         </Menu>
         <!--<TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>-->
