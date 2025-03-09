@@ -19,6 +19,7 @@ namespace SText.Editor
                 if (i + pattern.Length >= Content.Length - 1)
                 {
                     ContentViewer.CaretOffset = 0;
+                    FindNext(ContentViewer.CaretOffset, pattern);
                     return ContentViewer.CaretOffset;
                 }
                 else
@@ -41,6 +42,7 @@ namespace SText.Editor
                 if (i - pattern.Length < pattern.Length)
                 {
                     ContentViewer.CaretOffset = Content.Length - 1;
+                    FindPrevious(ContentViewer.CaretOffset, pattern);
                     return ContentViewer.CaretOffset;
                 }
                 else
