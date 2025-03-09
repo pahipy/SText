@@ -22,7 +22,7 @@ namespace SText.Editor
             }
         }
 
-        private int FindNext(int startPosition = 0, string pattern = "")
+        private int FindNext(int startPosition = 0, string pattern = "", bool dontCallItself = false)
         {
             int end = 0;
 
@@ -30,7 +30,8 @@ namespace SText.Editor
                 if (i + pattern.Length >= Content.Length - 1)
                 {
                     ContentViewer.CaretOffset = 0;
-                    FindNext(ContentViewer.CaretOffset, pattern);
+                    if (!dontCallItself)
+                        FindNext(ContentViewer.CaretOffset, pattern, true);
                     return ContentViewer.CaretOffset;
                 }
                 else
@@ -45,7 +46,7 @@ namespace SText.Editor
             return end;
         }
 
-        private int FindPrevious(int startPosition = 0, string pattern = "")
+        private int FindPrevious(int startPosition = 0, string pattern = "", bool dontCallItself = false)
         {
             int end = 0;
 
@@ -53,7 +54,8 @@ namespace SText.Editor
                 if (i - pattern.Length < pattern.Length)
                 {
                     ContentViewer.CaretOffset = Content.Length - 1;
-                    FindPrevious(ContentViewer.CaretOffset, pattern);
+                    if (!dontCallItself)
+                        FindPrevious(ContentViewer.CaretOffset, pattern, true);
                     return ContentViewer.CaretOffset;
                 }
                 else
@@ -100,16 +102,18 @@ namespace SText.Editor
             ReplaceActivated = !ReplaceActivated;
         }
 
+        int foundReplacementPosition = 0;
         private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
         {
             string findPattern = SearchTextInput.Text,
                    replacePattern = ReplaceTextInput.Text;
 
             if (ContentViewer.SelectionLength == 0)
-                FindNext(ContentViewer.CaretOffset, findPattern);
+                foundReplacementPosition = FindNext(ContentViewer.CaretOffset, findPattern);
             else
             {
-
+                Content = Content.Remove(foundReplacementPosition - findPattern.Length + 1, findPattern.Length);
+                Content = Content.Insert(foundReplacementPosition - findPattern.Length + 1, replacePattern);
             }
 
 
