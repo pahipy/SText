@@ -60,7 +60,7 @@
             <Image x:Name="AppIcon" Grid.Column="0" Width="20" Height="20" Margin="10,0,0,0"/>
             <ui:TitleBar x:Name="TitleText" Grid.Column="1" Title="SText"/>
         </Grid>
-        
+
         <Menu Grid.Row="1">
             <MenuItem Header="File">
                 <MenuItem x:Name="New_MenuItem" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
@@ -103,6 +103,31 @@
             </MenuItem>
         </Menu>
         <!--<TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>-->
+        <DockPanel Grid.Row="2" Background="{ui:ThemeResource}" Panel.ZIndex="1" Height="40" Width="300" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="SearchTextInput" Grid.Column="0" Margin="35,0,0,0" Width="150" MinWidth="150" HorizontalAlignment="Left"/>
+                    <Button x:Name="FindPreviousButton" Grid.Column="1" Content="T" Margin="5,0,0,0" Click="FindPreviousButton_Click"/>
+                    <Button x:Name="FindNextButton" Grid.Column="2" Content="D" Margin="5,0,0,0" Click="FindNextButton_Click"/>
+                </Grid>
+                <Button Grid.Row="0" Grid.RowSpan="2" Content="!"/>
+                <Grid Visibility="Collapsed" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Margin="35,0,0,0" Width="150" MinWidth="150" HorizontalAlignment="Left"/>
+                </Grid>
+            </Grid>
+        </DockPanel>
         <avalonEdit:TextEditor x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" BorderThickness="0">
             <avalonEdit:TextEditor.ContextMenu>
                 <ContextMenu>
