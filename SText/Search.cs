@@ -70,18 +70,6 @@ namespace SText.Editor
             return end;
         }
 
-        private int FindCount(int start, int end, string str, string pattern)
-        {
-            int count = 0;
-
-            for (int i = start; i < end; i++)
-            {
-                count = pattern == str.Substring(i, str.Length - i) ? count++ : count;
-            }
-
-            return count;
-        }
-
         private void FindNextButton_Click(object sender, RoutedEventArgs e)
         {
             string pattern = SearchTextInput.Text;
