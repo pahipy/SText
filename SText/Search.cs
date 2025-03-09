@@ -11,6 +11,17 @@ namespace SText.Editor
 {
     public partial class MainWindow : FluentWindow
     {
+
+        private bool ReplaceActivated
+        {
+            get => ReplaceCatGrid.Visibility == Visibility.Visible;
+            set
+            {
+                ReplaceCatGrid.Visibility = value ? ReplaceCatGrid.Visibility = Visibility.Visible : ReplaceCatGrid.Visibility = Visibility.Collapsed;
+                SearchBox.Height = value ? SearchBox.Height * 2 : SearchBox.Height / 2;
+            }
+        }
+
         private int FindNext(int startPosition = 0, string pattern = "")
         {
             int end = 0;
@@ -83,6 +94,30 @@ namespace SText.Editor
 
             FindPrevious(ContentViewer.CaretOffset, pattern);
 
+        }
+        private void ToggleReplaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReplaceActivated = !ReplaceActivated;
+        }
+
+        private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            string findPattern = SearchTextInput.Text,
+                   replacePattern = ReplaceTextInput.Text;
+
+            if (ContentViewer.SelectionLength == 0)
+                FindNext(ContentViewer.CaretOffset, findPattern);
+            else
+            {
+
+            }
+
+
+        }
+
+        private void ReplaceAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            Content = Content.Replace(SearchTextInput.Text, ReplaceTextInput.Text);
         }
 
     }
