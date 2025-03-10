@@ -87,18 +87,18 @@
                 <ui:MenuItem x:Name="Exit_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowExit20}" Header="Exit" Click="MenuFile_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem x:Name="Undo_MenuItem" Header="Undo" InputGestureText="Ctrl+Z" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="Undo_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowUndo20}" Header="Undo" InputGestureText="Ctrl+Z" Click="MenuEdit_Events_Click"/>
                 <Separator/>
-                <MenuItem x:Name="Cut_MenuItem" Header="Cut" InputGestureText="Ctrl+X" Click="MenuEdit_Events_Click"/>
-                <MenuItem x:Name="Copy_MenuItem" Header="Copy" InputGestureText="Ctrl+C" Click="MenuEdit_Events_Click"/>
-                <MenuItem x:Name="Paste_MenuItem" Header="Paste" InputGestureText="Ctrl+V" Click="MenuEdit_Events_Click"/>
-                <MenuItem x:Name="Delete_MenuItem" Header="Delete" InputGestureText="Delete" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="Cut_MenuItem" Icon="{ui:SymbolIcon Symbol=Cut20}" Header="Cut" InputGestureText="Ctrl+X" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="Copy_MenuItem" Icon="{ui:SymbolIcon Symbol=Copy20}" Header="Copy" InputGestureText="Ctrl+C" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="Paste_MenuItem" Icon="{ui:SymbolIcon Symbol=ClipboardPaste20}" Header="Paste" InputGestureText="Ctrl+V" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="Delete_MenuItem" Icon="{ui:SymbolIcon Symbol=Delete20}" Header="Delete" InputGestureText="Delete" Click="MenuEdit_Events_Click"/>
                 <Separator/>
-                <MenuItem x:Name="ToggleFind_MenuItem" Header="Find" InputGestureText="Ctrl+F" Click="MenuEdit_Events_Click"/>
-                <MenuItem x:Name="ToggleReplace_MenuItem" Header="Replace" InputGestureText="Ctrl+H" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="ToggleFind_MenuItem" Icon="{ui:SymbolIcon Symbol=Search20}" Header="Find" InputGestureText="Ctrl+F" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="ToggleReplace_MenuItem" Icon="{ui:SymbolIcon Symbol=Insert20}" Header="Replace" InputGestureText="Ctrl+H" Click="MenuEdit_Events_Click"/>
                 <Separator/>
-                <MenuItem x:Name="SelectAll_MenuItem" Header="Select All" InputGestureText="Ctrl+A" Click="MenuEdit_Events_Click"/>
-                <MenuItem x:Name="DateTime_MenuItem" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="SelectAll_MenuItem" Icon="{ui:SymbolIcon Symbol=SelectAllOff20}" Header="Select All" InputGestureText="Ctrl+A" Click="MenuEdit_Events_Click"/>
+                <ui:MenuItem x:Name="DateTime_MenuItem" Icon="{ui:SymbolIcon Symbol=Timer20}" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Format">
                 <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True" Click="WordWrap_MenuItem_Click"/>
