@@ -77,14 +77,14 @@
 
         <Menu Grid.Row="1">
             <MenuItem Header="File">
-                <MenuItem x:Name="New_MenuItem" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
-                <MenuItem x:Name="Open_MenuItem" Header="Open" Click="MenuFile_Events_Click" InputGestureText="Ctrl+O"/>
-                <MenuItem x:Name="Save_MenuItem" Header="Save" Click="MenuFile_Events_Click" InputGestureText="Ctrl+S"/>
-                <MenuItem x:Name="SaveAs_MenuItem" Header="Save As..." Click="MenuFile_Events_Click" InputGestureText="Ctrl+Shift+S"/>
+                <ui:MenuItem x:Name="New_MenuItem" Icon="{ui:SymbolIcon Symbol=New20}" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
+                <ui:MenuItem x:Name="Open_MenuItem" Icon="{ui:SymbolIcon Symbol=Open20}" Header="Open" Click="MenuFile_Events_Click" InputGestureText="Ctrl+O"/>
+                <ui:MenuItem x:Name="Save_MenuItem" Icon="{ui:SymbolIcon Symbol=Save20}" Header="Save" Click="MenuFile_Events_Click" InputGestureText="Ctrl+S"/>
+                <ui:MenuItem x:Name="SaveAs_MenuItem" Icon="{ui:SymbolIcon Symbol=Save20}" Header="Save As..." Click="MenuFile_Events_Click" InputGestureText="Ctrl+Shift+S"/>
                 <Separator/>
-                <MenuItem x:Name="Print_MenuItem" Header="Print" Click="MenuFile_Events_Click" InputGestureText="Ctrl+P"/>
+                <ui:MenuItem x:Name="Print_MenuItem" Icon="{ui:SymbolIcon Symbol=Print20}" Header="Print" Click="MenuFile_Events_Click" InputGestureText="Ctrl+P"/>
                 <Separator/>
-                <MenuItem x:Name="Exit_MenuItem" Header="Exit" Click="MenuFile_Events_Click"/>
+                <ui:MenuItem x:Name="Exit_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowExit20}" Header="Exit" Click="MenuFile_Events_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem x:Name="Undo_MenuItem" Header="Undo" InputGestureText="Ctrl+Z" Click="MenuEdit_Events_Click"/>
