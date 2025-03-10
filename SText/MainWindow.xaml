@@ -176,8 +176,8 @@
         </avalonEdit:TextEditor>
         <Grid Height="35" Grid.Row="3">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <Label x:Name="StatusBar_Theme" Content="Theme: " Style="{StaticResource BottomLables}"/>
-                <Label x:Name="StatusBar_File" Content="File: " Style="{StaticResource BottomLables}"/>
+                <Label x:Name="StatusBar_Theme" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="Theme: " Style="{StaticResource BottomLables}"/>
+                <Label x:Name="StatusBar_File" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
             <ComboBox x:Name="DropDownEncodingMenu" VerticalContentAlignment="Center" MinWidth="120" HorizontalAlignment="Right"></ComboBox>
         </Grid>
