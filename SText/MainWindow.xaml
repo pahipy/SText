@@ -24,6 +24,12 @@
         <RoutedUICommand x:Key="DateTimeEditCommand" Text="PrintDateTime" />
         <RoutedUICommand x:Key="AlwaysOnTopCommand" Text="Topmost" />
         <RoutedUICommand x:Key="EncryptionCommand" Text="EncryptDecrypt" />
+        <RoutedUICommand x:Key="ToggleFindCommand" Text="Find"/>
+        <RoutedUICommand x:Key="ToggleReplaceCommand" Text="Replace"/>
+        <RoutedUICommand x:Key="FindPreviousCommand" Text="FindPrevious"/>
+        <RoutedUICommand x:Key="FindNextCommand" Text="FindNext"/>
+        <RoutedUICommand x:Key="ReplaceCommand" Text="Replace"/>
+        <RoutedUICommand x:Key="ReplaceAllCommand" Text="ReplaceAll"/>
     </ui:FluentWindow.Resources>
     <ui:FluentWindow.CommandBindings>
         <CommandBinding Command="{StaticResource NewFileCommand}" Executed="NewFileCommand"/>
@@ -34,6 +40,12 @@
         <CommandBinding Command="{StaticResource DateTimeEditCommand}" Executed="DateTimeEditCommand"/>
         <CommandBinding Command="{StaticResource AlwaysOnTopCommand}" Executed="TopmostMenuItemCommand"/>
         <CommandBinding Command="{StaticResource EncryptionCommand}" Executed="EncryptionMenuItem_Click"/>
+        <CommandBinding Command="{StaticResource ToggleFindCommand}" Executed="ToggleFindCommand"/>
+        <CommandBinding Command="{StaticResource ToggleReplaceCommand}" Executed="ToggleReplaceCommand"/>
+        <CommandBinding Command="{StaticResource FindPreviousCommand}" Executed="FindPreviousCommand"/>
+        <CommandBinding Command="{StaticResource FindNextCommand}" Executed="FindNextCommand"/>
+        <CommandBinding Command="{StaticResource ReplaceCommand}" Executed="ReplaceCommand"/>
+        <CommandBinding Command="{StaticResource ReplaceAllCommand}" Executed="ReplaceAllCommand"/>
     </ui:FluentWindow.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource NewFileCommand}"/>
@@ -44,6 +56,8 @@
         <KeyBinding Key="F5" Command="{StaticResource DateTimeEditCommand}"/>
         <KeyBinding Key="F2" Command="{StaticResource AlwaysOnTopCommand}"/>
         <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource EncryptionCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource ToggleFindCommand}"/>
+        <KeyBinding Key="H" Modifiers="Ctrl" Command="{StaticResource ToggleReplaceCommand}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -80,6 +94,9 @@
                 <MenuItem x:Name="Paste_MenuItem" Header="Paste" InputGestureText="Ctrl+V" Click="MenuEdit_Events_Click"/>
                 <MenuItem x:Name="Delete_MenuItem" Header="Delete" InputGestureText="Delete" Click="MenuEdit_Events_Click"/>
                 <Separator/>
+                <MenuItem x:Name="ToggleFind_MenuItem" Header="Find" InputGestureText="Ctrl+F" Click="MenuEdit_Events_Click"/>
+                <MenuItem x:Name="ToggleReplace_MenuItem" Header="Replace" InputGestureText="Ctrl+H" Click="MenuEdit_Events_Click"/>
+                <Separator/>
                 <MenuItem x:Name="SelectAll_MenuItem" Header="Select All" InputGestureText="Ctrl+A" Click="MenuEdit_Events_Click"/>
                 <MenuItem x:Name="DateTime_MenuItem" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
             </MenuItem>
@@ -103,7 +120,7 @@
             </MenuItem>
         </Menu>
         <!--<TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>-->
-        <DockPanel x:Name="SearchBox" Grid.Row="2" Background="{ui:ThemeResource}" Panel.ZIndex="1" Height="40" Width="300" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <DockPanel x:Name="SearchBox" Grid.Row="2" Visibility="Hidden" Background="{ui:ThemeResource}" Panel.ZIndex="1" Height="45" Width="300" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -115,20 +132,31 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SearchTextInput" Grid.Column="0" Margin="35,0,0,0" Width="150" MinWidth="150" HorizontalAlignment="Left"/>
-                    <Button x:Name="FindPreviousButton" Grid.Column="1" Content="T" Margin="5,0,0,0" Click="FindPreviousButton_Click"/>
-                    <Button x:Name="FindNextButton" Grid.Column="2" Content="D" Margin="5,0,0,0" Click="FindNextButton_Click"/>
+                    <ui:TextBox x:Name="SearchTextInput" Grid.Column="0" TabIndex="0" Margin="50,5,0,0"  Width="150" MinWidth="150" HorizontalAlignment="Left"
+                                TextChanged="SearchTextInput_TextChanged">
+                        <ui:TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Modifiers="Shift" Command="{StaticResource FindPreviousCommand}"/>
+                            <KeyBinding Key="Enter" Command="{StaticResource FindNextCommand}"/>
+                        </ui:TextBox.InputBindings>
+                    </ui:TextBox>
+                    <ui:Button x:Name="FindPreviousButton" Grid.Column="1" Icon="{ui:SymbolIcon Symbol=ArrowUp16}" Margin="5,5,0,0" Click="FindPreviousButton_Click"/>
+                    <ui:Button x:Name="FindNextButton" Grid.Column="2" Icon="{ui:SymbolIcon Symbol=ArrowDown16}" Margin="5,5,0,0" Click="FindNextButton_Click"/>
                 </Grid>
-                <Button x:Name="ToggleReplaceButton" Grid.Row="0" Grid.RowSpan="2" Content="!" Click="ToggleReplaceButton_Click"/>
+                <ui:Button x:Name="ToggleReplaceButton" Grid.Row="0" Grid.RowSpan="2" Icon="{ui:SymbolIcon Symbol=ToggleMultiple16}" Margin="5,5,0,0" Click="ToggleReplaceButton_Click"/>
                 <Grid x:Name="ReplaceCatGrid" Visibility="Collapsed" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="ReplaceTextInput" Grid.Column="0" Margin="35,0,0,0" Width="150" MinWidth="150" HorizontalAlignment="Left"/>
-                    <Button x:Name="ReplaceEnterButton" Grid.Column="1" Content="T" Margin="5,0,0,0" Click="ReplaceEnterButton_Click"/>
-                    <Button x:Name="ReplaceAllButton" Grid.Column="2" Content="D" Margin="5,0,0,0" Click="ReplaceAllButton_Click"/>
+                    <ui:TextBox x:Name="ReplaceTextInput" Grid.Column="0" TabIndex="1" Margin="50,8,0,0" Width="150" MinWidth="150" HorizontalAlignment="Left">
+                        <ui:TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{StaticResource ReplaceCommand}"/>
+                            <KeyBinding Key="Enter" Modifiers="Shift" Command="{StaticResource ReplaceAllCommand}"/>
+                        </ui:TextBox.InputBindings>
+                    </ui:TextBox>
+                    <ui:Button x:Name="ReplaceEnterButton" Grid.Column="1" Icon="{ui:SymbolIcon Symbol=ArrowCircleRight16}" Margin="5,8,0,0" Click="ReplaceEnterButton_Click"/>
+                    <ui:Button x:Name="ReplaceAllButton" Grid.Column="2" Icon="{ui:SymbolIcon Symbol=Circle16}" Margin="5,8,0,0" Click="ReplaceAllButton_Click"/>
                 </Grid>
             </Grid>
         </DockPanel>

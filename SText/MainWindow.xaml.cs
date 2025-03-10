@@ -121,6 +121,18 @@ namespace SText.Editor
                 }
             };
 
+            this.KeyDown += (s, e) =>
+            {
+                if (e.Key == Key.Escape)
+                {
+                    if (SearchBox.Visibility == Visibility.Visible)
+                    {
+                        SearchBox.Visibility = Visibility.Hidden;
+                        ContentViewer.Focus();
+                    }
+                }
+            };
+
         }
 
         private OpenFileDialog openFileDialog;
@@ -731,6 +743,9 @@ namespace SText.Editor
         {
             string name = ((MenuItem)sender).Name;
 
+            if (name == "ToggleFind_MenuItem" || name == "ToggleReplace_MenuItem")
+                SearchBox.Visibility = Visibility.Visible;
+
             switch (name)
             {
                 case "Undo_MenuItem":
@@ -792,9 +807,52 @@ namespace SText.Editor
 
                         return;
                     }
+
+                case "ToggleFind_MenuItem":
+                    {
+                        if (ContentViewer.SelectionLength > 0)
+                            SearchTextInput.Text = ContentViewer.SelectedText;
+
+                        SearchTextInput.Focus();
+
+                        ReplaceActivated = false;
+
+                        return;
+                    }
+
+                case "ToggleReplace_MenuItem":
+                    {
+                        ReplaceActivated = true;
+                        if (SearchTextInput.Text.Length < 1 || ContentViewer.SelectionLength > 0)
+                        {
+                            if (ContentViewer.SelectionLength > 0)
+                            {
+                                SearchTextInput.Text = ContentViewer.SelectedText;
+                                ReplaceTextInput.Focus();
+                                break;
+                            }
+
+                            SearchTextInput.Focus();
+                        }
+                        else
+                        {
+                            ReplaceTextInput.Focus();
+                        }
+
+                            return;
+                    }
             }
         }
 
+        private void ToggleFindCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuEdit_Events_Click(ToggleFind_MenuItem, e);
+        }
+
+        private void ToggleReplaceCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuEdit_Events_Click(ToggleReplace_MenuItem, e);
+        }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             contentHash = Content.GetHashCode();
@@ -1069,6 +1127,5 @@ namespace SText.Editor
                 case "SelectAll_ContextMenuItem": ContentViewer.SelectAll(); break;
             }
         }
-
     }
 }

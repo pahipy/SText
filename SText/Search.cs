@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Wpf.Ui.Controls;
 
 namespace SText.Editor
@@ -19,7 +21,7 @@ namespace SText.Editor
             set
             {
                 ReplaceCatGrid.Visibility = value ? ReplaceCatGrid.Visibility = Visibility.Visible : ReplaceCatGrid.Visibility = Visibility.Collapsed;
-                SearchBox.Height = value ? SearchBox.Height * 2 : SearchBox.Height / 2;
+                SearchBox.Height = value ? 90d : 45d;
             }
         }
 
@@ -73,25 +75,33 @@ namespace SText.Editor
 
         private void FindNextButton_Click(object sender, RoutedEventArgs e)
         {
-            string pattern = SearchTextInput.Text;
-
-            lastFoundPosition = FindNext(ContentViewer.CaretOffset, pattern);
-            
+            CallFindNext();
         }
 
         private void FindPreviousButton_Click(object sender, RoutedEventArgs e)
         {
+            CallFindPrevious();
+        }
+
+        private void CallFindNext()
+        {
+            string pattern = SearchTextInput.Text;
+
+            lastFoundPosition = FindNext(ContentViewer.CaretOffset, pattern);
+        }
+
+        private void CallFindPrevious()
+        {
             string pattern = SearchTextInput.Text;
 
             lastFoundPosition = FindPrevious(ContentViewer.CaretOffset, pattern);
-
         }
         private void ToggleReplaceButton_Click(object sender, RoutedEventArgs e)
         {
             ReplaceActivated = !ReplaceActivated;
         }
 
-        private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
+        private void CallReplace()
         {
             string findPattern = SearchTextInput.Text,
                    replacePattern = ReplaceTextInput.Text;
@@ -107,14 +117,46 @@ namespace SText.Editor
                 Content = Content.Insert(selStart, replacePattern);
                 ContentViewer.CaretOffset = caret;
             }
-
-
         }
 
-        private void ReplaceAllButton_Click(object sender, RoutedEventArgs e)
+        private void CallReplaceAll()
         {
             Content = Content.Replace(SearchTextInput.Text, ReplaceTextInput.Text);
         }
 
+        private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            CallReplace();
+        }
+
+        private void ReplaceAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            CallReplaceAll();
+        }
+
+        private void SearchTextInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CallFindNext();
+        }
+
+        private void FindNextCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            CallFindNext();
+        }
+
+        private void FindPreviousCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            CallFindPrevious();
+        }
+
+        private void ReplaceCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            CallReplace();
+        }
+
+        private void ReplaceAllCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            CallReplaceAll();
+        }
     }
 }
