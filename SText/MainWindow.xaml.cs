@@ -219,7 +219,7 @@ namespace SText.Editor
             }
         }
 
-        private string Title
+        private new string Title
         {
             get
             {
@@ -233,6 +233,8 @@ namespace SText.Editor
 
                 if (Content.GetHashCode() != contentHash)
                     title = $"●{title}";
+
+                base.Title = title;
 
                 return title;
             }
