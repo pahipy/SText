@@ -12,6 +12,7 @@ namespace SText.Editor
     public partial class MainWindow : FluentWindow
     {
 
+        private int lastFoundPosition = 0;
         private bool ReplaceActivated
         {
             get => ReplaceCatGrid.Visibility == Visibility.Visible;
@@ -31,7 +32,7 @@ namespace SText.Editor
                 {
                     ContentViewer.CaretOffset = 0;
                     if (!dontCallItself)
-                        FindNext(ContentViewer.CaretOffset, pattern, true);
+                        return FindNext(ContentViewer.CaretOffset, pattern, true);
                     return ContentViewer.CaretOffset;
                 }
                 else
@@ -55,7 +56,7 @@ namespace SText.Editor
                 {
                     ContentViewer.CaretOffset = Content.Length - 1;
                     if (!dontCallItself)
-                        FindPrevious(ContentViewer.CaretOffset, pattern, true);
+                        return FindPrevious(ContentViewer.CaretOffset, pattern, true);
                     return ContentViewer.CaretOffset;
                 }
                 else
@@ -74,7 +75,7 @@ namespace SText.Editor
         {
             string pattern = SearchTextInput.Text;
 
-            FindNext(ContentViewer.CaretOffset, pattern);
+            lastFoundPosition = FindNext(ContentViewer.CaretOffset, pattern);
             
         }
 
@@ -82,7 +83,7 @@ namespace SText.Editor
         {
             string pattern = SearchTextInput.Text;
 
-            FindPrevious(ContentViewer.CaretOffset, pattern);
+            lastFoundPosition = FindPrevious(ContentViewer.CaretOffset, pattern);
 
         }
         private void ToggleReplaceButton_Click(object sender, RoutedEventArgs e)
@@ -90,18 +91,21 @@ namespace SText.Editor
             ReplaceActivated = !ReplaceActivated;
         }
 
-        int foundReplacementPosition = 0;
         private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
         {
             string findPattern = SearchTextInput.Text,
                    replacePattern = ReplaceTextInput.Text;
 
-            if (ContentViewer.SelectionLength == 0)
-                foundReplacementPosition = FindNext(ContentViewer.CaretOffset, findPattern);
+            int caret = ContentViewer.CaretOffset;
+
+            if (ContentViewer.SelectionLength == 0 || ContentViewer.SelectedText != findPattern)
+                lastFoundPosition = FindNext(ContentViewer.CaretOffset, findPattern);
             else
             {
-                Content = Content.Remove(foundReplacementPosition - findPattern.Length + 1, findPattern.Length);
-                Content = Content.Insert(foundReplacementPosition - findPattern.Length + 1, replacePattern);
+                int selStart = ContentViewer.SelectionStart;
+                Content = Content.Remove(selStart, ContentViewer.SelectionLength);
+                Content = Content.Insert(selStart, replacePattern);
+                ContentViewer.CaretOffset = caret;
             }
 
 
