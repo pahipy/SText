@@ -102,11 +102,11 @@
             </MenuItem>
             <MenuItem Header="Format">
                 <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True" Click="WordWrap_MenuItem_Click"/>
-                <MenuItem x:Name="ChangeFont_MenuItem" Header="Font..." Click="ChangeFont_MenuItem_Click"/>
+                <MenuItem x:Name="ChangeFont_MenuItem" Icon="{ui:SymbolIcon Symbol=TextFont20}" Header="Font..." Click="ChangeFont_MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem x:Name="AlwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2" Click="AlwaysOnTop_MenuItem_Click"/>
-                <MenuItem Header="Theme">
+                <MenuItem Icon="{ui:SymbolIcon Symbol=DarkTheme20}" Header="Theme">
                     <MenuItem x:Name="ThemeLight_MenuItem" Header="Light" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
                     <MenuItem x:Name="ThemeDark_MenuItem" Header="Dark" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
                 </MenuItem>
