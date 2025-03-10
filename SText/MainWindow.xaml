@@ -133,30 +133,31 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <ui:TextBox x:Name="SearchTextInput" Grid.Column="0" TabIndex="0" Margin="50,5,0,0"  Width="150" MinWidth="150" HorizontalAlignment="Left"
-                                TextChanged="SearchTextInput_TextChanged">
+                                TextChanged="SearchTextInput_TextChanged" PlaceholderText="Find">
                         <ui:TextBox.InputBindings>
                             <KeyBinding Key="Enter" Modifiers="Shift" Command="{StaticResource FindPreviousCommand}"/>
                             <KeyBinding Key="Enter" Command="{StaticResource FindNextCommand}"/>
                         </ui:TextBox.InputBindings>
                     </ui:TextBox>
-                    <ui:Button x:Name="FindPreviousButton" Grid.Column="1" Icon="{ui:SymbolIcon Symbol=ArrowUp16}" Margin="5,5,0,0" Click="FindPreviousButton_Click"/>
-                    <ui:Button x:Name="FindNextButton" Grid.Column="2" Icon="{ui:SymbolIcon Symbol=ArrowDown16}" Margin="5,5,0,0" Click="FindNextButton_Click"/>
+                    <ui:Button x:Name="FindPreviousButton" Grid.Column="1" ToolTip="Previous Match (Shift+Enter)" Icon="{ui:SymbolIcon Symbol=ArrowUp16}" Margin="5,5,0,0" Click="FindPreviousButton_Click"/>
+                    <ui:Button x:Name="FindNextButton" Grid.Column="2" ToolTip="Next Match (Enter)" Icon="{ui:SymbolIcon Symbol=ArrowDown16}" Margin="5,5,0,0" Click="FindNextButton_Click"/>
                 </Grid>
-                <ui:Button x:Name="ToggleReplaceButton" Grid.Row="0" Grid.RowSpan="2" Icon="{ui:SymbolIcon Symbol=ToggleMultiple16}" Margin="5,5,0,0" Click="ToggleReplaceButton_Click"/>
+                <ui:Button x:Name="ToggleReplaceButton" Grid.Row="0" ToolTip="Toggle Replace" Grid.RowSpan="2" Icon="{ui:SymbolIcon Symbol=ToggleMultiple16}" Margin="5,5,0,0" Click="ToggleReplaceButton_Click"/>
                 <Grid x:Name="ReplaceCatGrid" Visibility="Collapsed" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:TextBox x:Name="ReplaceTextInput" Grid.Column="0" TabIndex="1" Margin="50,8,0,0" Width="150" MinWidth="150" HorizontalAlignment="Left">
+                    <ui:TextBox x:Name="ReplaceTextInput" Grid.Column="0" TabIndex="1" Margin="50,8,0,0" Width="150" MinWidth="150"
+                                HorizontalAlignment="Left" PlaceholderText="Replace">
                         <ui:TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{StaticResource ReplaceCommand}"/>
                             <KeyBinding Key="Enter" Modifiers="Shift" Command="{StaticResource ReplaceAllCommand}"/>
                         </ui:TextBox.InputBindings>
                     </ui:TextBox>
-                    <ui:Button x:Name="ReplaceEnterButton" Grid.Column="1" Icon="{ui:SymbolIcon Symbol=ArrowCircleRight16}" Margin="5,8,0,0" Click="ReplaceEnterButton_Click"/>
-                    <ui:Button x:Name="ReplaceAllButton" Grid.Column="2" Icon="{ui:SymbolIcon Symbol=Circle16}" Margin="5,8,0,0" Click="ReplaceAllButton_Click"/>
+                    <ui:Button x:Name="ReplaceEnterButton" ToolTip="Replace (Enter)" Grid.Column="1" Icon="{ui:SymbolIcon Symbol=ArrowCircleRight16}" Margin="5,8,0,0" Click="ReplaceEnterButton_Click"/>
+                    <ui:Button x:Name="ReplaceAllButton" ToolTip="Replace All (Shift+Enter)" Grid.Column="2" Icon="{ui:SymbolIcon Symbol=Circle16}" Margin="5,8,0,0" Click="ReplaceAllButton_Click"/>
                 </Grid>
             </Grid>
         </DockPanel>
