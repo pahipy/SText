@@ -163,13 +163,13 @@
         <avalonEdit:TextEditor x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" BorderThickness="0">
             <avalonEdit:TextEditor.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="Undo_ContextMenuItem" Header="Undo" Click="ContextMenuItems_Click"/>
+                    <ui:MenuItem x:Name="Undo_ContextMenuItem" Icon="{ui:SymbolIcon Symbol=ArrowUndo24}" InputGestureText="Ctrl+Z" Header="Undo" Click="ContextMenuItems_Click"/>
                     <Separator/>
-                    <MenuItem x:Name="Cut_ContextMenuItem" Header="Cut" Click="ContextMenuItems_Click"/>
-                    <MenuItem x:Name="Copy_ContextMenuItem" Header="Copy" Click="ContextMenuItems_Click"/>
-                    <MenuItem x:Name="Paste_ContextMenuItem" Header="Paste" Click="ContextMenuItems_Click"/>
+                    <ui:MenuItem x:Name="Cut_ContextMenuItem" Header="Cut" Icon="{ui:SymbolIcon Symbol=Cut24}" InputGestureText="Ctrl+X" Click="ContextMenuItems_Click"/>
+                    <ui:MenuItem x:Name="Copy_ContextMenuItem" Header="Copy" Icon="{ui:SymbolIcon Symbol=Copy24}" InputGestureText="Ctrl+C" Click="ContextMenuItems_Click"/>
+                    <ui:MenuItem x:Name="Paste_ContextMenuItem" Header="Paste" Icon="{ui:SymbolIcon Symbol=ClipboardPaste24}" InputGestureText="Ctrl+V" Click="ContextMenuItems_Click"/>
                     <Separator/>
-                    <MenuItem x:Name="SelectAll_ContextMenuItem" Header="Select All" Click="ContextMenuItems_Click"/>
+                    <ui:MenuItem x:Name="SelectAll_ContextMenuItem" Header="Select All" Icon="{ui:SymbolIcon Symbol=SelectAllOff24}" InputGestureText="Ctrl+A" Click="ContextMenuItems_Click"/>
                 </ContextMenu>
             </avalonEdit:TextEditor.ContextMenu>
         </avalonEdit:TextEditor>
