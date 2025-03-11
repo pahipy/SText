@@ -266,15 +266,12 @@ namespace SText.Editor
 
         private bool WordWrap
         {
-            /*get => ContentViewer.TextWrapping == TextWrapping.Wrap;
+            get => ContentViewer.WordWrap;
             set
             {
-                ContentViewer.TextWrapping = value ? TextWrapping.Wrap : TextWrapping.NoWrap;
+                ContentViewer.WordWrap = value;
                 WordWrap_MenuItem.IsChecked = value;
-            }*/
-
-            get => ContentViewer.WordWrap;
-            set => ContentViewer.WordWrap = value;
+            }
         }
 
         private Theme _currentTheme;
