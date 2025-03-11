@@ -62,8 +62,8 @@ namespace SText.Dialogs
         public SDialogResult SDialogResult { get => sDialogResult; }
         private bool IsCorrectPassword
         {
-            get => Password == RetypedPasswd.Password && !ContainsSpaces(Password)
-                && Password.Length >= MinimumPasswordLength || !setPasswordMode;
+            get => (Password == RetypedPasswd.Password || !setPasswordMode) && !ContainsSpaces(Password)
+                && Password.Length >= MinimumPasswordLength;
         }
 
         public string Password
