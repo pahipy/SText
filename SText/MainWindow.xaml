@@ -186,7 +186,7 @@
                 <ComboBoxItem Content="LF"/>
                 <ComboBoxItem Content="CRLF"/>
             </ComboBox>
-            <ComboBox x:Name="DropDownEncodingMenu" VerticalContentAlignment="Center" MinWidth="120" HorizontalAlignment="Right"></ComboBox>
+            <ComboBox x:Name="DropDownEncodingMenu" ToolTip="Select Encoding" VerticalContentAlignment="Center" MinWidth="120" HorizontalAlignment="Right"></ComboBox>
         </Grid>
     </Grid>
 </ui:FluentWindow>
