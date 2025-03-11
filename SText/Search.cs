@@ -113,8 +113,7 @@ namespace SText.Editor
             else
             {
                 int selStart = ContentViewer.SelectionStart;
-                Content = Content.Remove(selStart, ContentViewer.SelectionLength);
-                Content = Content.Insert(selStart, replacePattern);
+                Content = Content.Remove(selStart, ContentViewer.SelectionLength).Insert(selStart, replacePattern);
                 ContentViewer.CaretOffset = caret;
             }
         }

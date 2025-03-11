@@ -258,10 +258,10 @@ namespace SText.Editor
             }
         }
 
-        private string Content
+        private new string Content
         {
-            get => ContentViewer.Text;
-            set => ContentViewer.Text = value;
+            get => ContentViewer.Document.Text;
+            set => ContentViewer.Document.Text = value;
         }
 
         private bool WordWrap
