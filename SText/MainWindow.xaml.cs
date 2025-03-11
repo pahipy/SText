@@ -133,6 +133,8 @@ namespace SText.Editor
                 }
             };
 
+            EndOfLineSequence.SelectedIndex = 0;
+            
         }
 
         private OpenFileDialog openFileDialog;
@@ -150,6 +152,22 @@ namespace SText.Editor
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
         private string oldContent = "";
+        private bool lockEndOfLineChange = true;
+
+        public EndOfLineType OfLineType
+        {
+            get => Content.Contains("\r\n") ? EndOfLineType.CRLF : EndOfLineType.LF;
+            set
+            {
+                if (Content != "")
+                {
+                    if (value == EndOfLineType.CRLF)
+                        Content = Content.Replace("\r\n", "\n").Replace("\n", "\r\n");
+                    else
+                        Content = Content.Replace("\r\n", "\n");
+                }
+            }
+        }
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -543,6 +561,12 @@ namespace SText.Editor
                     oldContent = cont;
                     contentHash = Content.GetHashCode();
                     FileName = path;
+
+                    lockEndOfLineChange = true;
+                    if (OfLineType == EndOfLineType.CRLF)
+                        EndOfLineSequence.SelectedIndex = 1;
+                    else
+                        EndOfLineSequence.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -581,6 +605,12 @@ namespace SText.Editor
             try
             {
                 setPasswordDialog = new PasswordDialog(this);
+
+                if (OfLineType == EndOfLineType.CRLF && EndOfLineSequence.SelectedIndex == 0)
+                    OfLineType = EndOfLineType.LF;
+
+                if (OfLineType == EndOfLineType.LF && EndOfLineSequence.SelectedIndex == 1)
+                    OfLineType = EndOfLineType.CRLF;
 
                 if (path is not null)
                 {
@@ -1130,5 +1160,16 @@ namespace SText.Editor
             }
         }
 
+        private void EndOfLineSequence_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lockEndOfLineChange)
+            {
+                lockEndOfLineChange = false;
+                return;
+            }
+
+            OfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
+
+        }
     }
 }

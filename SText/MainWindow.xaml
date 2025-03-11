@@ -181,6 +181,11 @@
                 <Label x:Name="StatusBar_Theme" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="Theme: " Style="{StaticResource BottomLables}"/>
                 <Label x:Name="StatusBar_File" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="File: " Style="{StaticResource BottomLables}"/>
             </StackPanel>
+            <ComboBox x:Name="EndOfLineSequence" ToolTip="Select End Of Line Sequence" VerticalAlignment="Center" MinWidth="120" Margin="125,0" 
+                      HorizontalAlignment="Right" SelectionChanged="EndOfLineSequence_SelectionChanged">
+                <ComboBoxItem Content="LF"/>
+                <ComboBoxItem Content="CRLF"/>
+            </ComboBox>
             <ComboBox x:Name="DropDownEncodingMenu" VerticalContentAlignment="Center" MinWidth="120" HorizontalAlignment="Right"></ComboBox>
         </Grid>
     </Grid>
