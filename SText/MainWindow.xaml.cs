@@ -1129,5 +1129,6 @@ namespace SText.Editor
                 case "SelectAll_ContextMenuItem": ContentViewer.SelectAll(); break;
             }
         }
+
     }
 }

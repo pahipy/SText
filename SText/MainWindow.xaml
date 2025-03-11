@@ -120,7 +120,7 @@
             </MenuItem>
         </Menu>
         <!--<TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>-->
-        <DockPanel x:Name="SearchBox" Grid.Row="2" Visibility="Hidden" Background="{ui:ThemeResource}" Panel.ZIndex="1" Height="45" Width="300" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <DockPanel x:Name="SearchBox" Grid.Row="2" Visibility="Hidden" Background="{ui:ThemeResource}" Panel.ZIndex="1" Height="45" Width="340" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -128,6 +128,7 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
@@ -141,6 +142,7 @@
                     </ui:TextBox>
                     <ui:Button x:Name="FindPreviousButton" Grid.Column="1" ToolTip="Previous Match (Shift+Enter)" Icon="{ui:SymbolIcon Symbol=ArrowUp16}" Margin="5,5,0,0" Click="FindPreviousButton_Click"/>
                     <ui:Button x:Name="FindNextButton" Grid.Column="2" ToolTip="Next Match (Enter)" Icon="{ui:SymbolIcon Symbol=ArrowDown16}" Margin="5,5,0,0" Click="FindNextButton_Click"/>
+                    <ui:Button x:Name="CloseFindButton" Grid.Column="3" ToolTip="Close (Escape)" Icon="{ui:SymbolIcon Symbol=CircleOff16}" Margin="5,5,0,0" Click="CloseFindButton_Click"/>
                 </Grid>
                 <ui:Button x:Name="ToggleReplaceButton" Grid.Row="0" ToolTip="Toggle Replace" Grid.RowSpan="2" Icon="{ui:SymbolIcon Symbol=ToggleMultiple16}" Margin="5,5,0,0" Click="ToggleReplaceButton_Click"/>
                 <Grid x:Name="ReplaceCatGrid" Visibility="Collapsed" Grid.Row="2">

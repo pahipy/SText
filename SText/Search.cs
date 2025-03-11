@@ -161,5 +161,10 @@ namespace SText.Editor
         {
             CallReplaceAll();
         }
+
+        private void CloseFindButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchBox.Visibility = Visibility.Hidden;
+        }
     }
 }
