@@ -53,6 +53,7 @@ namespace SText.Editor
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             SetEncodingMenuItems();
+            FileEncoding = Encoding.UTF8;
 
             try
             {
@@ -73,7 +74,6 @@ namespace SText.Editor
             }
             catch { }
 
-            FileEncoding = Encoding.UTF8;
             CurrentTheme = Theme.Light;
 
             LoadSettingsToStruct();
@@ -516,6 +516,7 @@ namespace SText.Editor
                 oldContent = cont;
                 contentHash = Content.GetHashCode();
                 FileName = path;
+                FileEncoding = TextFile.FileEncoding;
 
                 lockEndOfLineChange = true;
                 if (OfLineType == EndOfLineType.CRLF)

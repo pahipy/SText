@@ -22,7 +22,7 @@ namespace SText.Formats
             get => fileEncoding.GetString(_content);
         }
 
-        protected Encoding fileEncoding = Encoding.UTF8;
+        protected Encoding fileEncoding = null;
         public Encoding FileEncoding
         {
             get => fileEncoding;
@@ -47,7 +47,7 @@ namespace SText.Formats
                     _content = File.ReadAllBytes(path);
                     isReadOnly = new FileInfo(path).IsReadOnly;
 
-                    if (fileEncoding != Encoding.UTF8)
+                    if (fileEncoding is null)
                     {
                         Ude.CharsetDetector charsetDetector = new Ude.CharsetDetector();
                         charsetDetector.Feed(_content, 0, _content.Length);
@@ -56,6 +56,10 @@ namespace SText.Formats
                         if (charsetDetector.Charset is not null)
                         {
                             fileEncoding = Encoding.GetEncoding(charsetDetector.Charset);
+                        }
+                        else
+                        {
+                            fileEncoding = Encoding.UTF8;
                         }
                         
                     }
