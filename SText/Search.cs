@@ -135,7 +135,18 @@ namespace SText.Editor
 
         private void SearchTextInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int caret = FindNext(lastFoundPosition, SearchTextInput.Text);
+            int lps = 0;
+            if (ContentViewer.SelectionLength > 0)
+            {
+                int c = ContentViewer.CaretOffset - ContentViewer.SelectionLength;
+                lps = c < 0 ? ContentViewer.CaretOffset : c;
+            }
+            else
+            {
+                lps = lastFoundPosition;
+            }
+
+                int caret = FindNext(lps, SearchTextInput.Text);
 
             if (caret >= 0)
               ContentViewer.CaretOffset = caret;
