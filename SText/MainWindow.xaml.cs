@@ -55,25 +55,6 @@ namespace SText.Editor
             SetEncodingMenuItems();
             FileEncoding = Encoding.UTF8;
 
-            try
-            {
-                if (Environment.GetCommandLineArgs().Length > 1)
-                {
-                    string filename = "";
-                    string[] cmd = Environment.GetCommandLineArgs();
-
-                    for (int i = 1; i < cmd.Length; i++)
-                        filename += $"{cmd[i]} ";
-
-                    if (File.Exists(filename))
-                    {
-                        OpenFileAndReadContent(filename);
-                    }
-
-                }
-            }
-            catch { }
-
             CurrentTheme = Theme.Light;
 
             LoadSettingsToStruct();
@@ -834,6 +815,25 @@ namespace SText.Editor
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (Environment.GetCommandLineArgs().Length > 1)
+                {
+                    string filename = "";
+                    string[] cmd = Environment.GetCommandLineArgs();
+
+                    for (int i = 1; i < cmd.Length; i++)
+                        filename += $"{cmd[i]} ";
+
+                    if (File.Exists(filename))
+                    {
+                        OpenFileAndReadContent(filename);
+                    }
+
+                }
+            }
+            catch { }
+
             contentHash = Content.GetHashCode();
             FileName = FileName;
             ContentViewer.Focus();
