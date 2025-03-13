@@ -82,7 +82,10 @@ namespace SText.Editor
 
             ApplySettings();
 
-            ContentViewer.TextChanged += (s, e) => { TitleText.Title = Title; };
+            ContentViewer.TextChanged += (s, e) => 
+            { 
+                TitleText.Title = Title;
+            };
 
             ContentViewer.PreviewMouseWheel += (s, e) =>
             {
@@ -145,14 +148,15 @@ namespace SText.Editor
         private GlobalSettingsManager SettingsManager;
         private bool FontSizeChangeByMouseWheelAct = false;
         private bool isDebug = true;
-        private TXTSFormat txtsFile;
-        private TXTFormat txtFile;
+        private Format TextFile;
         private PasswordDialog setPasswordDialog;
         private PasswordDialog openPasswordDialog;
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
         private string oldContent = "";
         private bool lockEndOfLineChange = true;
+        private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
+        private bool undoRedoExecuted = false;
 
         public EndOfLineType OfLineType
         {
@@ -165,6 +169,8 @@ namespace SText.Editor
                         Content = Content.Replace("\r\n", "\n").Replace("\n", "\r\n");
                     else
                         Content = Content.Replace("\r\n", "\n");
+
+                    lastEndOfLineState = value;
                 }
             }
         }
@@ -261,7 +267,7 @@ namespace SText.Editor
         private new string Content
         {
             get => ContentViewer.Document.Text;
-            set => ContentViewer.Document.Text = value;
+            set => ContentViewer.Document.Text = value ?? "";
         }
 
         private bool WordWrap
@@ -369,14 +375,7 @@ namespace SText.Editor
             {
                 ContentViewer.Text = "";
                 contentHash = Content.GetHashCode();
-                if (txtFile is not null)
-                    txtFile.CloseFile();
-
-                if (txtsFile is not null)
-                    txtsFile.CloseFile();
-
-                txtFile = null;
-                txtsFile = null;
+                TextFile = null;
                 FileName = null;
             }
             else
@@ -442,129 +441,88 @@ namespace SText.Editor
 
         private void OpenFileAndReadContent(string path, bool autodetectEncoding = true)
         {
-
             try
-            { 
-                if (path is not null && File.Exists(path))
+            {
+                string cont = "";
+
+                if (TXTSFormat.IsTXTSFile(path))
                 {
-                    string cont = "";
-
-                    if (txtsFile is not null || TXTSFormat.IsTXTSFile(path))
+                    Action wnd = () =>
                     {
-                        Action initAndGetOpenPassDlg = () =>
+                        if (appWindowIsShown)
                         {
-                            if (appWindowIsShown)
-                            {
-                                openPasswordDialog = new PasswordDialog(this, false);
-                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                            }
-                            else
-                            {
-                                openPasswordDialog = new PasswordDialog(null, false);
-                                openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                            }
-                        };
-
-                        Func<int> openTxts = () =>
-                        {
-                            
-                            int tries = 3;
-
-                            for (int i = 1; i <= tries; i++)
-                            {
-                                initAndGetOpenPassDlg();
-
-                                if (openPasswordDialog.ShowSDialog() == SDialogResult.OK)
-                                {
-
-                                    txtsFile = new TXTSFormat(path, openPasswordDialog.Password);
-                                    cont = txtsFile.ReadFile();
-                                    isReadOnly = txtsFile.IsReadOnly;
-                                    if (autodetectEncoding)
-                                        FileEncoding = txtsFile.Encoding;
-
-                                    if (txtsFile.Code == 0)
-                                        return txtsFile.Code;
-
-                                    if (txtsFile.Code == 1)
-                                    {
-                                        DialogManager.ShowWarningDialogWithText("Wrong password!");
-                                        txtsFile.CloseFile();
-                                        txtsFile = null;
-
-                                        if (i == tries)
-                                        {
-                                            DialogManager.ShowWarningDialogWithText($"You had {tries} tries maximum.");
-                                            return 1;
-                                        }
-                                    }
-                                }
-                                else
-                                    return 1;
-                            }
-
-                            return 0;
-                        };
-
-                        if (txtsFile is not null)
-                        {
-                            if (txtsFile.Path != path)
-                            {
-                                txtsFile.CloseFile();
-                                txtsFile = null;
-
-                                if (!TXTSFormat.IsTXTSFile(path))
-                                {
-                                    OpenFileAndReadContent(path, autodetectEncoding);
-                                    return;
-                                }
-
-                                if (openTxts() == 1)
-                                    return;
-                            }
-                            else if (txtsFile.Password is not null)
-                            {
-                                cont = txtsFile.ReadFile();
-                                isReadOnly = txtsFile.IsReadOnly;
-                                if (autodetectEncoding)
-                                    FileEncoding = txtsFile.Encoding;
-                            }
-                            else
-                                return;
+                            openPasswordDialog = new PasswordDialog(this, false);
+                            openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                         }
                         else
                         {
-                            if (openTxts() == 1)
-                                return;
+                            openPasswordDialog = new PasswordDialog(null, false);
+                            openPasswordDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                         }
-                        if (autodetectEncoding)
-                            FileEncoding = txtsFile.Encoding;
-                    }
-                    else
+                    };
+
+                    int tries = 3;
+                    for (int i = 1; i <= tries; i++)
                     {
-                        if (txtFile is not null)
+                        if (TextFile is TXTSFormat && !autodetectEncoding)
                         {
-                            txtFile.CloseFile();
-                            txtFile = null;
+                            TextFile = new TXTSFormat(path, (TextFile as TXTSFormat).Password, FileEncoding);
+                            break;
                         }
-                        if (autodetectEncoding)
-                            FileEncoding = TXTFormat.GetEncoding(path);
-                        txtFile = new TXTFormat(path, fileEncoding);
-                        cont = txtFile.ReadFile();
-                        isReadOnly = txtFile.IsReadOnly;
+
+                        wnd();
+
+                        if (openPasswordDialog.ShowSDialog() == SDialogResult.OK)
+                        {
+                            if (autodetectEncoding)
+                                TextFile = new TXTSFormat(path, openPasswordDialog.Password);
+                            else
+                                TextFile = new TXTSFormat(path, openPasswordDialog.Password, fileEncoding);
+
+                            if ((TextFile as TXTSFormat).Code == 1)
+                            {
+                                DialogManager.ShowWarningDialogWithText("Wrong password!");
+                            }
+
+                            if ((TextFile as TXTSFormat).Code == 0)
+                            {
+                                //success
+                                break;
+                            }
+
+                            if (i == tries)
+                            {
+                                DialogManager.ShowDialogWithText($"You had {tries} only!");
+                                return;
+                            }
+
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-
-                    Content = cont;
-                    oldContent = cont;
-                    contentHash = Content.GetHashCode();
-                    FileName = path;
-
-                    lockEndOfLineChange = true;
-                    if (OfLineType == EndOfLineType.CRLF)
-                        EndOfLineSequence.SelectedIndex = 1;
-                    else
-                        EndOfLineSequence.SelectedIndex = 0;
                 }
+                else
+                {
+                    if (autodetectEncoding)
+                        TextFile = new TXTFormat(path);
+                    else
+                        TextFile = new TXTFormat(path, FileEncoding);
+                }
+
+                cont = TextFile.Content;
+                Content = cont;
+                oldContent = cont;
+                contentHash = Content.GetHashCode();
+                FileName = path;
+
+                lockEndOfLineChange = true;
+                if (OfLineType == EndOfLineType.CRLF)
+                    EndOfLineSequence.SelectedIndex = 1;
+                else
+                    EndOfLineSequence.SelectedIndex = 0;
+
             }
             catch (Exception ex)
             {
@@ -611,64 +569,55 @@ namespace SText.Editor
 
                 if (path is not null)
                 {
-                    if (!File.Exists(path))
-                        File.Create(path).Close();
-
-                    if (txtsFile is not null || new FileInfo(path).Extension.ToLower() == ".txts".ToLower())
+                    if (TextFile is TXTSFormat || new FileInfo(path).Extension.ToLower() == ".txts")
                     {
-                        if (txtsFile is not null)
+                        if (TextFile is TXTSFormat)
                         {
-                            if (txtsFile.Path != path)
+                            if (TextFile.Path != path)
                             {
-                                txtsFile.CloseFile();
-                                txtsFile = null;
+                                TextFile = null;
                                 return SaveFileAndUpdateHash(path);
                             }
 
                             try
                             {
-                                txtsFile.WriteFile(Content);
+                                TextFile.WriteFile(Content);
                             }
                             catch (Exception ex)
                             {
                                 DialogManager.ShowWarningDialogWithText(ex.Message);
                                 return false;
                             }
-
-                            isReadOnly = txtsFile.IsReadOnly;
                         }
                         else if (setPasswordDialog.ShowSDialog() == SDialogResult.OK)
                         {
-                            txtsFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
+                            TextFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
                             try
                             {
-                                txtsFile.WriteFile(Content);
+                                TextFile.WriteFile(Content);
                             }
                             catch (Exception ex)
                             {
                                 DialogManager.ShowWarningDialogWithText(ex.Message);
                                 return false;
                             }
-
-                            isReadOnly = txtsFile.IsReadOnly;
                         }
                         else
                             return false;
                     }
                     else
                     {
-                        if (txtFile is null)
-                            txtFile = new TXTFormat(path, fileEncoding);
+                        if (TextFile is null)
+                            TextFile = new TXTFormat(path, fileEncoding);
 
-                        if (txtFile is not null && txtFile.Path != path)
+                        if (TextFile is not null && TextFile.Path != path)
                         {
-                            txtFile.CloseFile();
-                            txtFile = new TXTFormat(path, fileEncoding);
+                            TextFile = new TXTFormat(path, fileEncoding);
                         }
 
                         try
                         {
-                            txtFile.WriteFile(Content);
+                            TextFile.WriteFile(Content);
                         }
                         catch (Exception ex)
                         {
@@ -676,9 +625,9 @@ namespace SText.Editor
                             return false;
                         }
 
-                        isReadOnly = txtFile.IsReadOnly;
                     }
 
+                    isReadOnly = TextFile.IsReadOnly;
                     contentHash = Content.GetHashCode();
                     oldContent = Content;
                     FileName = path;
@@ -947,14 +896,6 @@ namespace SText.Editor
                     {
                         SaveFileIfItChanged();
 
-                        if (txtFile is not null)
-                            txtFile.CloseFile();
-
-                        if (txtsFile is not null && txtsFile.Path == FileName)
-                        {
-                            txtsFile.Encoding = enc;
-                        }
-
                         FileEncoding = enc;
                         OpenFileAndReadContent(FileName, false);
 
@@ -1050,21 +991,15 @@ namespace SText.Editor
 
             string oldFile = FileName;
 
-            if (txtsFile is null)
+            if (TextFile is not TXTSFormat)
             {
-                txtFile?.CloseFile();
-                txtFile = null;
-
                 FileName = System.IO.Path.ChangeExtension(FileName, ".txts");
 
             }
             else
             {
 
-                Content = txtsFile.ReadFile();
-
-                txtsFile.CloseFile();
-                txtsFile = null;
+                Content = TextFile.Content;
 
                 FileName = System.IO.Path.ChangeExtension(FileName, ".txt");
             }
@@ -1092,12 +1027,12 @@ namespace SText.Editor
             string lableText = "Encrypt current file";
 
 
-            if (txtsFile is not null && txtFile is null)
+            if (TextFile is TXTSFormat)
             {
                 lableText = "Decrypt current file";
             }
 
-            EncryptionMenuItem.IsEnabled = !(txtsFile is null && txtFile is null);
+            EncryptionMenuItem.IsEnabled = !(TextFile is null);
 
 
             EncryptionMenuItem.Header = lableText;

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Pipes;
 
 namespace SText.Formats
 {
-    public class TXTSFormat : IFormat
+    public class TXTSFormat : Format
     {
         #region FileStruct
 
@@ -24,42 +25,62 @@ namespace SText.Formats
 
         private const int HASH_SIZE = 32; //sha256
 
-        public TXTSFormat(string path, string key)
+        public TXTSFormat(string path, string key) : base(path)
         {
             this.path = path;
-
-            if (!File.Exists(path))
-            {
-                fileStream = File.Create(path);
-                isReadOnly = false;
-            }
-
             this.key = key;
 
-            this.Encoding = Encoding.UTF8;
+            using (MemoryStream ms = new MemoryStream(_content))
+            {
+                using (BinaryReader br = new BinaryReader(ms))
+                {
+                    string head = br.ReadString();
+
+                    if (head != HEAD)
+                    {
+                        code = 2;
+                        return;
+                    }
+
+                    hash = br.ReadBytes(HASH_SIZE);
+                    this.FileEncoding = Encoding.GetEncoding(br.ReadInt32());
+                    dataSize = br.ReadUInt32();
+                    data = br.ReadBytes((int)dataSize);
+                }
+            }
+
+            decryptedContent = Crypt.DecryptStringFromBytes(data, key, this.FileEncoding);
+
+            if (!hash.SequenceEqual(Crypt.GetSHA256Hash(decryptedContent, FileEncoding)))
+            {
+                code = 1;
+                return;
+            }
+
+            code = 0;
+
         }
 
         public TXTSFormat(string path, string key, Encoding encoding) : this(path, key)
         {
-            this.Encoding = encoding;
+            this.FileEncoding = encoding;
         }
 
         private string key;
-        private Encoding enc;
-        public Encoding Encoding
+        public new Encoding FileEncoding
         {
-            get => enc;
+            get => fileEncoding;
             set
             {
                 if (value is not null)
                 {
-                    enc = value;
+                    fileEncoding = value;
                     encodingCode = value.CodePage;
                 }
             }
         }
 
-        private int code = 0; //0 - success, 1 hash sum is not equivalent, 2 - bad header, 3 file not exists
+        private int code = 0; //0 - success, 1 hash sum is not equivalent, 2 - bad header
         public int Code
         {
             get => code;
@@ -70,104 +91,43 @@ namespace SText.Formats
             get => key;
         }
 
-        private string path;
-        public string Path
+        private string decryptedContent;
+
+        public override string Content
         {
-            get => path;
+            get => decryptedContent;
         }
 
-        private bool isReadOnly;
-        public bool IsReadOnly
+        public override bool WriteFile(string content)
         {
-            get => isReadOnly;
-        }
-
-        private FileStream fileStream;
-
-
-        public void WriteFile(string text)
-        {
-            if (!File.Exists(path))
-                fileStream = File.Create(path);
-
-            ReopenStream();
-
-            fileStream.Position = 0;
+            if (isReadOnly)
+                return false;
             
-            data = Crypt.EncryptStringToBytes(text, key, Encoding);
-            hash = Crypt.GetSHA256Hash(text, Encoding);
+            data = Crypt.EncryptStringToBytes(content, key, FileEncoding);
+            hash = Crypt.GetSHA256Hash(content, FileEncoding);
             dataSize = (uint)data.Length;
 
-            using (BinaryWriter bw = new BinaryWriter(fileStream))
+            using (MemoryStream ms = new MemoryStream())
             {
-                bw.Write(HEAD);
-                bw.Write(hash);
-                bw.Write(encodingCode);
-                bw.Write(dataSize);
-                bw.Write(data);
-            }
-
-            fileStream.Close();
-
-            code = 0;
-        }
-
-        public string ReadFile()
-        {
-            if (!File.Exists(path))
-            {
-                code = 3;
-                return null;
-            }
-
-            ReopenStream();
-            fileStream.Position = 0;
-
-            using (BinaryReader br = new BinaryReader(fileStream))
-            {
-                string head = br.ReadString();
-
-                if (head != HEAD)
+                using (BinaryWriter bw = new BinaryWriter(ms))
                 {
-                    code = 2;
-                    return null;
+                    bw.Write(HEAD);
+                    bw.Write(hash);
+                    bw.Write(encodingCode);
+                    bw.Write(dataSize);
+                    bw.Write(data);
+
+                    _content = ms.ToArray();
                 }
-                    
-                hash = br.ReadBytes(HASH_SIZE);
-                this.Encoding = Encoding.GetEncoding(br.ReadInt32());
-                dataSize = br.ReadUInt32();
-                data = br.ReadBytes((int)dataSize);
             }
 
-            string text = Crypt.DecryptStringFromBytes(data, key, this.Encoding);
-            if (!hash.SequenceEqual(Crypt.GetSHA256Hash(text, Encoding)))
-            {
-                code = 1;
-                return null;
-            }
-                
             code = 0;
 
-            fileStream.Close();
+            base.WriteFile();
 
-            return text;
-        }
+            decryptedContent = content;
 
-        public void CloseFile()
-        {
-            if (File.Exists(path))
-                fileStream?.Close();
-        }
-
-        public int OpenAgain()
-        {
-            if (File.Exists(path))
-            {
-                ReopenStream();
-                return 0;
-            }
-
-            return 1;
+            return true;
         }
 
         public static bool IsTXTSFile(string path)
@@ -193,19 +153,6 @@ namespace SText.Formats
 
         }
 
-        private void ReopenStream()
-        {
-            try
-            {
-                fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
-                isReadOnly = false;
-            }
-            catch
-            {
-                fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-                isReadOnly = true;
-            }
-        }
 
     }
 }
