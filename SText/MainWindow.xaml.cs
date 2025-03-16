@@ -28,6 +28,7 @@ using System.Drawing.Imaging;
 using System.Xml.Linq;
 using System.Diagnostics;
 using ICSharpCode.AvalonEdit.Document;
+using Newtonsoft.Json.Linq;
 
 namespace SText.Editor
 {
@@ -66,6 +67,7 @@ namespace SText.Editor
 
             ContentViewer.TextChanged += (s, e) =>
             {
+                _content = ContentViewer.Text;
                 TitleText.Title = Title;
             };
 
@@ -168,6 +170,12 @@ namespace SText.Editor
         private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
         private string ShortFileName = ProgramSets.UntitledFileName;
 
+
+        private bool ContentChanged
+        {
+            get => Content.Length != oldContent.Length || !string.Equals(Content, oldContent);
+        }
+
         public EndOfLineType OfLineType
         {
             get => Content.Contains("\r\n") ? EndOfLineType.CRLF : EndOfLineType.LF;
@@ -236,8 +244,6 @@ namespace SText.Editor
             }
         }
 
-        private int contentHash = -1;
-
         private string fileName = ProgramSets.UntitledFileName;
         private string FileName
         {
@@ -266,7 +272,7 @@ namespace SText.Editor
                 string readonlystring = isReadOnly ? "[READ ONLY]" : "";
 
                 title = $"{ShortFileName} - {ProgramSets.ProgramName} {readonlystring}";
-
+                
                 if (Content.Length != oldContent.Length || !string.Equals(Content, oldContent))
                     title = $"●{title}";
 
@@ -276,10 +282,26 @@ namespace SText.Editor
             }
         }
 
+        private string _content = "";
         private new string Content
         {
-            get => ContentViewer.Document.Text;
-            set => ContentViewer.Document.Text = value ?? "";
+            get => _content;
+            set
+            {               
+                _content = value ?? "";
+                UpdateContentAsync();
+            }
+        }
+
+        private async void UpdateContentAsync()
+        {
+            await Task.Run(() =>
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    ContentViewer.Text = _content ?? "";
+                });
+            });
         }
 
         private bool WordWrap
@@ -383,11 +405,10 @@ namespace SText.Editor
 
         private void NewFile(bool dontSaveFile = false)
         {
-            if (Content.GetHashCode() == contentHash || dontSaveFile)
+            if (!ContentChanged || dontSaveFile)
             {
                 ContentViewer.Text = "";
                 oldContent = "";
-                contentHash = Content.GetHashCode();
                 TextFile = null;
                 FileName = null;
             }
@@ -416,7 +437,7 @@ namespace SText.Editor
         private void OpenFile(bool dontSaveFile = false, string path = null)
         {
 
-            if (Content.GetHashCode() == contentHash || dontSaveFile)
+            if (!ContentChanged || dontSaveFile)
             {
                 openFileDialog.FileName = null;
 
@@ -528,7 +549,7 @@ namespace SText.Editor
                 cont = TextFile.Content;
                 Content = cont;
                 oldContent = cont;
-                contentHash = Content.GetHashCode();
+
                 FileName = path;
                 lockEncodingChange = true;
                 FileEncoding = TextFile.FileEncoding;
@@ -645,7 +666,6 @@ namespace SText.Editor
 
                     isReadOnly = TextFile.IsReadOnly;
                     ShortFileName = new FileInfo(path).Name;
-                    contentHash = Content.GetHashCode();
                     oldContent = Content;
                     FileName = path;
                     return true;
@@ -663,7 +683,7 @@ namespace SText.Editor
 
         private SDialogResult SaveFileIfItChanged()
         {
-            if (contentHash != Content.GetHashCode())
+            if (ContentChanged)
             {
                 SaveDialog saveDialog = new SaveDialog(this, FileName, saveFileDialog);
                 SDialogResult res = saveDialog.ShowSDialog();
@@ -869,7 +889,6 @@ namespace SText.Editor
             }
             catch { }
 
-            contentHash = Content.GetHashCode();
             FileName = FileName;
             ContentViewer.Focus();
         }
@@ -882,7 +901,7 @@ namespace SText.Editor
 
             SaveDialog s = new SaveDialog(this, FileName, saveFileDialog);
 
-            if (contentHash != Content.GetHashCode())
+            if (ContentChanged)
             {
                 switch (s.ShowSDialog())
                 {
