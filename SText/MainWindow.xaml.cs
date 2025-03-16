@@ -27,6 +27,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using System.Drawing.Imaging;
 using System.Xml.Linq;
 using System.Diagnostics;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace SText.Editor
 {
@@ -63,15 +64,45 @@ namespace SText.Editor
 
             ApplySettings();
 
-            ContentViewer.TextChanged += (s, e) => 
-            { 
+            ContentViewer.TextChanged += (s, e) =>
+            {
                 TitleText.Title = Title;
+                textWasChanged = true;
+
+            };
+
+            ContentViewer.PreviewKeyDown += (s, e) =>
+            {
+                if (Keyboard.Modifiers == ModifierKeys.Control)
+                {
+                    if (e.Key == Key.Z || e.Key == Key.Y)
+                    {
+                        e.Handled = true;
+
+                        if (e.Key == Key.Z)
+                            ContentViewer.Undo();
+
+                        if (e.Key == Key.Y)
+                            ContentViewer.Redo();
+
+                        lockEndOfLineChange = true;
+
+                        if (EndOfLineSequence.SelectedIndex == 0 && OfLineType == EndOfLineType.CRLF)
+                            EndOfLineSequence.SelectedIndex = 1;
+
+                        if (EndOfLineSequence.SelectedIndex == 1 && OfLineType == EndOfLineType.LF)
+                            EndOfLineSequence.SelectedIndex = 0;
+
+                        lockEndOfLineChange = false;
+                        textWasChanged = false;
+                    }
+                }
             };
 
             ContentViewer.PreviewMouseWheel += (s, e) =>
             {
                 double newsize = e.Delta / 100d + ContentViewer.FontSize;
-                if (newsize > 5 && newsize < 75 && FontSizeChangeByMouseWheelAct)
+                if (newsize > 5 && newsize < 75 && LeftCtrlIsPressing)
                 {
                     if (ContentViewer.FontSize < newsize)
                         ContentViewer.LineDown();
@@ -80,17 +111,17 @@ namespace SText.Editor
 
                     ContentViewer.FontSize = newsize;
                 }
-                FontSizeChangeByMouseWheelAct = false;
+                LeftCtrlIsPressing = false;
             };
 
             ContentViewer.KeyDown += (s, e) =>
             {
-                FontSizeChangeByMouseWheelAct = e.Key == System.Windows.Input.Key.LeftCtrl;
+                LeftCtrlIsPressing = e.Key == System.Windows.Input.Key.LeftCtrl;
             };
 
             ContentViewer.KeyUp += (s, e) =>
             {
-                FontSizeChangeByMouseWheelAct = false;
+                LeftCtrlIsPressing = false;
             };
 
             ContentViewer.PreviewDragOver += (s, e) => e.Handled = true;
@@ -127,7 +158,7 @@ namespace SText.Editor
         private FontDialog fd = new FontDialog();
         private SettingsTemplate Settings;
         private GlobalSettingsManager SettingsManager;
-        private bool FontSizeChangeByMouseWheelAct = false;
+        private bool LeftCtrlIsPressing = false;
         private bool isDebug = true;
         private Format TextFile;
         private PasswordDialog setPasswordDialog;
@@ -136,8 +167,10 @@ namespace SText.Editor
         private bool isReadOnly = false;
         private string oldContent = "";
         private bool lockEndOfLineChange = true;
+        private bool lockEncodingChange = true;
         private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
         private bool undoRedoExecuted = false;
+        private bool textWasChanged = false;
 
         public EndOfLineType OfLineType
         {
@@ -146,11 +179,15 @@ namespace SText.Editor
             {
                 if (Content != "")
                 {
+                    int caret = ContentViewer.CaretOffset;
+
                     if (value == EndOfLineType.CRLF)
                         Content = Content.Replace("\r\n", "\n").Replace("\n", "\r\n");
                     else
                         Content = Content.Replace("\r\n", "\n");
 
+                    ContentViewer.CaretOffset = caret;
+                    ContentViewer.TextArea.Caret.BringCaretToView();
                     lastEndOfLineState = value;
                 }
             }
@@ -497,6 +534,7 @@ namespace SText.Editor
                 oldContent = cont;
                 contentHash = Content.GetHashCode();
                 FileName = path;
+                lockEncodingChange = true;
                 FileEncoding = TextFile.FileEncoding;
 
                 lockEndOfLineChange = true;
@@ -893,16 +931,16 @@ namespace SText.Editor
                     Encoding enc = FileEncoding;
                     enc = Encoding.GetEncoding(code);
 
-                    if (FileName != null && File.Exists(FileName))
+                    if (FileName is not null && File.Exists(FileName) && !lockEncodingChange)
                     {
                         SaveFileIfItChanged();
 
                         FileEncoding = enc;
                         OpenFileAndReadContent(FileName, false);
-
+                        
                     }
                     FileEncoding = enc;
-                   
+                    lockEncodingChange = false;
                 };
                 DropDownEncodingMenu.Items.Add(menuItems[i]);
             }
@@ -1103,6 +1141,6 @@ namespace SText.Editor
 
             OfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
 
-        }
+        }        
     }
 }
