@@ -67,8 +67,6 @@ namespace SText.Editor
             ContentViewer.TextChanged += (s, e) =>
             {
                 TitleText.Title = Title;
-                textWasChanged = true;
-
             };
 
             ContentViewer.PreviewKeyDown += (s, e) =>
@@ -94,7 +92,6 @@ namespace SText.Editor
                             EndOfLineSequence.SelectedIndex = 0;
 
                         lockEndOfLineChange = false;
-                        textWasChanged = false;
                     }
                 }
             };
@@ -169,8 +166,7 @@ namespace SText.Editor
         private bool lockEndOfLineChange = true;
         private bool lockEncodingChange = true;
         private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
-        private bool undoRedoExecuted = false;
-        private bool textWasChanged = false;
+        private string ShortFileName = ProgramSets.UntitledFileName;
 
         public EndOfLineType OfLineType
         {
@@ -255,6 +251,7 @@ namespace SText.Editor
                 else
                 {
                     fileName = ProgramSets.UntitledFileName;
+                    ShortFileName = ProgramSets.UntitledFileName;
                 }
                 TitleText.Title = Title;
                 StatusBar_File.Content = $"File: {FileName}";
@@ -268,12 +265,9 @@ namespace SText.Editor
                 string title = "";
                 string readonlystring = isReadOnly ? "[READ ONLY]" : "";
 
-                if (FileName != null && File.Exists(FileName))
-                    title = $"{new FileInfo(FileName).Name} - {ProgramSets.ProgramName} {readonlystring}";
-                else
-                    title = $"{FileName} - {ProgramSets.ProgramName}";
+                title = $"{ShortFileName} - {ProgramSets.ProgramName} {readonlystring}";
 
-                if (Content.GetHashCode() != contentHash)
+                if (Content.Length != oldContent.Length || !string.Equals(Content, oldContent))
                     title = $"●{title}";
 
                 base.Title = title;
@@ -392,6 +386,7 @@ namespace SText.Editor
             if (Content.GetHashCode() == contentHash || dontSaveFile)
             {
                 ContentViewer.Text = "";
+                oldContent = "";
                 contentHash = Content.GetHashCode();
                 TextFile = null;
                 FileName = null;
@@ -529,6 +524,7 @@ namespace SText.Editor
                         TextFile = new TXTFormat(path, FileEncoding);
                 }
 
+                ShortFileName = new FileInfo(path).Name;
                 cont = TextFile.Content;
                 Content = cont;
                 oldContent = cont;
@@ -648,6 +644,7 @@ namespace SText.Editor
                     }
 
                     isReadOnly = TextFile.IsReadOnly;
+                    ShortFileName = new FileInfo(path).Name;
                     contentHash = Content.GetHashCode();
                     oldContent = Content;
                     FileName = path;
