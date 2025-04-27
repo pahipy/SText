@@ -289,19 +289,8 @@ namespace SText.Editor
             set
             {               
                 _content = value ?? "";
-                UpdateContentAsync();
+                ContentViewer.Text = _content;
             }
-        }
-
-        private async void UpdateContentAsync()
-        {
-            await Task.Run(() =>
-            {
-                App.Current.Dispatcher.Invoke(() =>
-                {
-                    ContentViewer.Text = _content ?? "";
-                });
-            });
         }
 
         private bool WordWrap
