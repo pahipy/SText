@@ -1,11 +1,18 @@
-﻿using SText.Conf;
+﻿using ICSharpCode.AvalonEdit.Document;
+using Microsoft.Win32;
+using Newtonsoft.Json.Bson;
+using Newtonsoft.Json.Linq;
+using SText.Conf;
 using SText.Dialogs;
 using SText.Formats;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,18 +24,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using static System.Net.Mime.MediaTypeNames;
+using Font = System.Drawing.Font;
 using MenuItem = System.Windows.Controls.MenuItem;
-using Microsoft.Win32;
-
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using System.Drawing.Imaging;
-using System.Xml.Linq;
-using System.Diagnostics;
-using ICSharpCode.AvalonEdit.Document;
-using Newtonsoft.Json.Linq;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace SText.Editor
 {
@@ -60,14 +63,13 @@ namespace SText.Editor
             CurrentTheme = Theme.Light;
 
             LoadSettingsToStruct();
-
+            
             SettingsManager = new GlobalSettingsManager(ProgramSets.ConfigFileName, Settings);
 
             ApplySettings();
 
             ContentViewer.TextChanged += (s, e) =>
             {
-                _content = ContentViewer.Text;
                 TitleText.Title = Title;
             };
 
@@ -85,15 +87,15 @@ namespace SText.Editor
                         if (e.Key == Key.Y)
                             ContentViewer.Redo();
 
-                        lockEndOfLineChange = true;
+                        //lockEndOfLineChange = true;
 
-                        if (EndOfLineSequence.SelectedIndex == 0 && OfLineType == EndOfLineType.CRLF)
+                        if (EndOfLineSequence.SelectedIndex == 0 && SDocument.EndOfLineType == EndOfLineType.CRLF)
                             EndOfLineSequence.SelectedIndex = 1;
 
-                        if (EndOfLineSequence.SelectedIndex == 1 && OfLineType == EndOfLineType.LF)
+                        if (EndOfLineSequence.SelectedIndex == 1 && SDocument.EndOfLineType == EndOfLineType.LF)
                             EndOfLineSequence.SelectedIndex = 0;
 
-                        lockEndOfLineChange = false;
+                        //lockEndOfLineChange = false;
                     }
                 }
             };
@@ -148,7 +150,13 @@ namespace SText.Editor
             };
 
             EndOfLineSequence.SelectedIndex = 0;
-            
+
+            SDocument.SetDocument(ref ContentViewer);
+
+            ContentViewer.Document.UpdateFinished += (s, e) =>
+            {
+                this.TitleText.Title = Title;
+            };
         }
 
         private OpenFileDialog openFileDialog;
@@ -164,38 +172,11 @@ namespace SText.Editor
         private PasswordDialog openPasswordDialog;
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
-        private string oldContent = "";
-        private bool lockEndOfLineChange = true;
         private bool lockEncodingChange = true;
+        private bool lockDocumentSync = false;
         private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
         private string ShortFileName = ProgramSets.UntitledFileName;
 
-
-        private bool ContentChanged
-        {
-            get => Content.Length != oldContent.Length || !string.Equals(Content, oldContent);
-        }
-
-        public EndOfLineType OfLineType
-        {
-            get => Content.Contains("\r\n") ? EndOfLineType.CRLF : EndOfLineType.LF;
-            set
-            {
-                if (Content != "")
-                {
-                    int caret = ContentViewer.CaretOffset;
-
-                    if (value == EndOfLineType.CRLF)
-                        Content = Content.Replace("\r\n", "\n").Replace("\n", "\r\n");
-                    else
-                        Content = Content.Replace("\r\n", "\n");
-
-                    ContentViewer.CaretOffset = caret;
-                    ContentViewer.TextArea.Caret.BringCaretToView();
-                    lastEndOfLineState = value;
-                }
-            }
-        }
 
         private Encoding fileEncoding;
         private Encoding FileEncoding
@@ -273,7 +254,7 @@ namespace SText.Editor
 
                 title = $"{ShortFileName} - {ProgramSets.ProgramName} {readonlystring}";
                 
-                if (Content.Length != oldContent.Length || !string.Equals(Content, oldContent))
+                if (SDocument.IsChanged)
                     title = $"●{title}";
 
                 base.Title = title;
@@ -282,16 +263,6 @@ namespace SText.Editor
             }
         }
 
-        private string _content = "";
-        private new string Content
-        {
-            get => _content;
-            set
-            {               
-                _content = value ?? "";
-                ContentViewer.Text = _content;
-            }
-        }
 
         private bool WordWrap
         {
@@ -394,10 +365,10 @@ namespace SText.Editor
 
         private void NewFile(bool dontSaveFile = false)
         {
-            if (!ContentChanged || dontSaveFile)
+            if (!SDocument.IsChanged || dontSaveFile)
             {
-                ContentViewer.Text = "";
-                oldContent = "";
+                ContentViewer.Document.Lines.Clear();
+                ContentViewer.Document.RunUpdate();
                 TextFile = null;
                 FileName = null;
             }
@@ -426,7 +397,7 @@ namespace SText.Editor
         private void OpenFile(bool dontSaveFile = false, string path = null)
         {
 
-            if (!ContentChanged || dontSaveFile)
+            if (!SDocument.IsChanged || dontSaveFile)
             {
                 openFileDialog.FileName = null;
 
@@ -536,15 +507,14 @@ namespace SText.Editor
 
                 ShortFileName = new FileInfo(path).Name;
                 cont = TextFile.Content;
-                Content = cont;
-                oldContent = cont;
-
+                ContentViewer.Document.Remove(0, ContentViewer.Document.LineCount - 1);
+                ContentViewer.Document.Insert(0, cont);
+                ContentViewer.Document.UndoStack.ClearAll();
                 FileName = path;
                 lockEncodingChange = true;
                 FileEncoding = TextFile.FileEncoding;
 
-                lockEndOfLineChange = true;
-                if (OfLineType == EndOfLineType.CRLF)
+                if (SDocument.EndOfLineType == EndOfLineType.CRLF)
                     EndOfLineSequence.SelectedIndex = 1;
                 else
                     EndOfLineSequence.SelectedIndex = 0;
@@ -587,11 +557,7 @@ namespace SText.Editor
             {
                 setPasswordDialog = new PasswordDialog(this);
 
-                if (OfLineType == EndOfLineType.CRLF && EndOfLineSequence.SelectedIndex == 0)
-                    OfLineType = EndOfLineType.LF;
-
-                if (OfLineType == EndOfLineType.LF && EndOfLineSequence.SelectedIndex == 1)
-                    OfLineType = EndOfLineType.CRLF;
+                SDocument.EndOfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
 
                 if (path is not null)
                 {
@@ -607,7 +573,7 @@ namespace SText.Editor
 
                             try
                             {
-                                TextFile.WriteFile(Content);
+                                TextFile.WriteFile(ContentViewer.Document.Text);
                             }
                             catch (Exception ex)
                             {
@@ -620,7 +586,7 @@ namespace SText.Editor
                             TextFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
                             try
                             {
-                                TextFile.WriteFile(Content);
+                                TextFile.WriteFile(ContentViewer.Document.Text);
                             }
                             catch (Exception ex)
                             {
@@ -643,7 +609,7 @@ namespace SText.Editor
 
                         try
                         {
-                            TextFile.WriteFile(Content);
+                            TextFile.WriteFile(ContentViewer.Document.Text);
                         }
                         catch (Exception ex)
                         {
@@ -655,7 +621,6 @@ namespace SText.Editor
 
                     isReadOnly = TextFile.IsReadOnly;
                     ShortFileName = new FileInfo(path).Name;
-                    oldContent = Content;
                     FileName = path;
                     return true;
                 }
@@ -672,7 +637,7 @@ namespace SText.Editor
 
         private SDialogResult SaveFileIfItChanged()
         {
-            if (ContentChanged)
+            if (SDocument.IsChanged)
             {
                 SaveDialog saveDialog = new SaveDialog(this, FileName, saveFileDialog);
                 SDialogResult res = saveDialog.ShowSDialog();
@@ -781,7 +746,7 @@ namespace SText.Editor
                         try
                         {
                             int start = ContentViewer.SelectionStart;
-                            Content = Content.Remove(ContentViewer.SelectionStart, ContentViewer.SelectionLength);
+                            ContentViewer.Text = ContentViewer.Text.Remove(ContentViewer.SelectionStart, ContentViewer.SelectionLength);
                             ContentViewer.Select(start, 0);
                         }
                         catch { }
@@ -801,7 +766,7 @@ namespace SText.Editor
                         {
                             int start = ContentViewer.SelectionStart;
                             DateTime dt = DateTime.Now;
-                            Content = Content.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
+                            ContentViewer.Text = ContentViewer.Text.Insert(ContentViewer.SelectionStart, dt.ToShortTimeString() + " "
                                 + dt.ToShortDateString());
 
                             ContentViewer.Select(start, 0);
@@ -890,7 +855,7 @@ namespace SText.Editor
 
             SaveDialog s = new SaveDialog(this, FileName, saveFileDialog);
 
-            if (ContentChanged)
+            if (SDocument.IsChanged)
             {
                 switch (s.ShowSDialog())
                 {
@@ -1031,7 +996,11 @@ namespace SText.Editor
 
             if (res == SDialogResult.Cancel) return;
             if (res == SDialogResult.Abort)
-                Content = oldContent;
+            {
+          
+                /*Document.RollBack();
+                ContentViewer.Text = Document.StrContent;*/
+            }
 
             string oldFile = FileName;
 
@@ -1138,14 +1107,8 @@ namespace SText.Editor
 
         private void EndOfLineSequence_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lockEndOfLineChange)
-            {
-                lockEndOfLineChange = false;
-                return;
-            }
-
-            OfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
-
-        }        
+            SDocument.EndOfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
+            TitleText.Title = Title;
+        }
     }
 }

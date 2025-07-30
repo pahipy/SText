@@ -29,8 +29,8 @@ namespace SText.Editor
         {
             int end = 0;
 
-            for (int i = startPosition; i < Content.Length; i++)
-                if (i + pattern.Length >= Content.Length - 1)
+            for (int i = startPosition; i < ContentViewer.Text.Length; i++)
+                if (i + pattern.Length >= ContentViewer.Text.Length - 1)
                 {
                     ContentViewer.CaretOffset = 0;
                     if (!dontCallItself)
@@ -38,7 +38,7 @@ namespace SText.Editor
                     return ContentViewer.CaretOffset;
                 }
                 else
-                if (pattern == Content.Substring(i, pattern.Length))
+                if (pattern == ContentViewer.Text.Substring(i, pattern.Length))
                 {
                     ContentViewer.Select(i, pattern.Length);
                     ContentViewer.TextArea.Caret.BringCaretToView();
@@ -56,13 +56,13 @@ namespace SText.Editor
             for (int i = startPosition - 1; i > 0; i--)
                 if (i - pattern.Length < pattern.Length)
                 {
-                    ContentViewer.CaretOffset = Content.Length - 1;
+                    ContentViewer.CaretOffset = ContentViewer.Text.Length - 1;
                     if (!dontCallItself)
                         return FindPrevious(ContentViewer.CaretOffset, pattern, true);
                     return ContentViewer.CaretOffset;
                 }
                 else
-                if (pattern == Content.Substring(i - pattern.Length, pattern.Length))
+                if (pattern == ContentViewer.Text.Substring(i - pattern.Length, pattern.Length))
                 {
                     ContentViewer.Select(i - pattern.Length, pattern.Length);
                     ContentViewer.TextArea.Caret.BringCaretToView();
@@ -113,14 +113,14 @@ namespace SText.Editor
             else
             {
                 int selStart = ContentViewer.SelectionStart;
-                Content = Content.Remove(selStart, ContentViewer.SelectionLength).Insert(selStart, replacePattern);
+                Content = ContentViewer.Text.Remove(selStart, ContentViewer.SelectionLength).Insert(selStart, replacePattern);
                 ContentViewer.CaretOffset = caret;
             }
         }
 
         private void CallReplaceAll()
         {
-            Content = Content.Replace(SearchTextInput.Text, ReplaceTextInput.Text);
+            Content = ContentViewer.Text.Replace(SearchTextInput.Text, ReplaceTextInput.Text);
         }
 
         private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
