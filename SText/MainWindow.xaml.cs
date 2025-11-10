@@ -89,10 +89,10 @@ namespace SText.Editor
 
                         //lockEndOfLineChange = true;
 
-                        if (EndOfLineSequence.SelectedIndex == 0 && SDocument.EndOfLineType == EndOfLineType.CRLF)
+                        if (EndOfLineSequence.SelectedIndex == 0 && SDocumentText.EndOfLineType == EndOfLineType.CRLF)
                             EndOfLineSequence.SelectedIndex = 1;
 
-                        if (EndOfLineSequence.SelectedIndex == 1 && SDocument.EndOfLineType == EndOfLineType.LF)
+                        if (EndOfLineSequence.SelectedIndex == 1 && SDocumentText.EndOfLineType == EndOfLineType.LF)
                             EndOfLineSequence.SelectedIndex = 0;
 
                         //lockEndOfLineChange = false;
@@ -151,9 +151,18 @@ namespace SText.Editor
 
             EndOfLineSequence.SelectedIndex = 0;
 
-            SDocument.SetDocument(ref ContentViewer);
+            ContentViewer.Document.TextChanged += (s, e) =>
+            {
+                SDocumentText.SetText(ContentViewer.Document.Text);
+                
+            };
 
-            ContentViewer.Document.UpdateFinished += (s, e) =>
+            SDocumentText.TextChanged += (s, e) =>
+            {
+                this.TitleText.Title = Title;
+            };
+
+            SDocumentText.TextCommited += (s, e) =>
             {
                 this.TitleText.Title = Title;
             };
@@ -176,6 +185,7 @@ namespace SText.Editor
         private bool lockDocumentSync = false;
         private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
         private string ShortFileName = ProgramSets.UntitledFileName;
+        private SDocument SDocumentText = new SDocument("");
 
 
         private Encoding fileEncoding;
@@ -254,7 +264,7 @@ namespace SText.Editor
 
                 title = $"{ShortFileName} - {ProgramSets.ProgramName} {readonlystring}";
                 
-                if (SDocument.IsChanged)
+                if (SDocumentText.IsChanged)
                     title = $"●{title}";
 
                 base.Title = title;
@@ -365,10 +375,8 @@ namespace SText.Editor
 
         private void NewFile(bool dontSaveFile = false)
         {
-            if (!SDocument.IsChanged || dontSaveFile)
+            if (!SDocumentText.IsChanged || dontSaveFile)
             {
-                ContentViewer.Document.Lines.Clear();
-                ContentViewer.Document.RunUpdate();
                 TextFile = null;
                 FileName = null;
             }
@@ -397,7 +405,7 @@ namespace SText.Editor
         private void OpenFile(bool dontSaveFile = false, string path = null)
         {
 
-            if (!SDocument.IsChanged || dontSaveFile)
+            if (!SDocumentText.IsChanged || dontSaveFile)
             {
                 openFileDialog.FileName = null;
 
@@ -507,14 +515,14 @@ namespace SText.Editor
 
                 ShortFileName = new FileInfo(path).Name;
                 cont = TextFile.Content;
-                ContentViewer.Document.Remove(0, ContentViewer.Document.LineCount - 1);
-                ContentViewer.Document.Insert(0, cont);
-                ContentViewer.Document.UndoStack.ClearAll();
+                ContentViewer.Document.Text = cont;
+                SDocumentText.EndOfLineType = cont.Contains("\r\n") ? EndOfLineType.CRLF : EndOfLineType.LF;
+                SDocumentText.Commit();
                 FileName = path;
                 lockEncodingChange = true;
                 FileEncoding = TextFile.FileEncoding;
 
-                if (SDocument.EndOfLineType == EndOfLineType.CRLF)
+                if (SDocumentText.EndOfLineType == EndOfLineType.CRLF)
                     EndOfLineSequence.SelectedIndex = 1;
                 else
                     EndOfLineSequence.SelectedIndex = 0;
@@ -557,7 +565,7 @@ namespace SText.Editor
             {
                 setPasswordDialog = new PasswordDialog(this);
 
-                SDocument.EndOfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
+                SDocumentText.EndOfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
 
                 if (path is not null)
                 {
@@ -622,6 +630,7 @@ namespace SText.Editor
                     isReadOnly = TextFile.IsReadOnly;
                     ShortFileName = new FileInfo(path).Name;
                     FileName = path;
+                    SDocumentText.Commit();
                     return true;
                 }
 
@@ -637,7 +646,7 @@ namespace SText.Editor
 
         private SDialogResult SaveFileIfItChanged()
         {
-            if (SDocument.IsChanged)
+            if (SDocumentText.IsChanged)
             {
                 SaveDialog saveDialog = new SaveDialog(this, FileName, saveFileDialog);
                 SDialogResult res = saveDialog.ShowSDialog();
@@ -855,7 +864,7 @@ namespace SText.Editor
 
             SaveDialog s = new SaveDialog(this, FileName, saveFileDialog);
 
-            if (SDocument.IsChanged)
+            if (SDocumentText.IsChanged)
             {
                 switch (s.ShowSDialog())
                 {
@@ -1107,7 +1116,7 @@ namespace SText.Editor
 
         private void EndOfLineSequence_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SDocument.EndOfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
+            SDocumentText.EndOfLineType = EndOfLineSequence.SelectedIndex == 0 ? EndOfLineType.LF : EndOfLineType.CRLF;
             TitleText.Title = Title;
         }
     }

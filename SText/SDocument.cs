@@ -6,69 +6,134 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Windows.Controls;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 
 namespace SText.Editor
 {
-    public static class SDocument
+    public class SDocument
     {
 
-
-        private static EndOfLineType endOfLineType = EndOfLineType.LF;
-        public static EndOfLineType EndOfLineType
+        private EndOfLineType endOfLineType = EndOfLineType.LF;
+        public EndOfLineType EndOfLineType
         {
             get => endOfLineType;
-            set => endOfLineType = value;
-        }
-
-        private static EndOfLineType oldEndOfLineType = EndOfLineType.LF;
-
-        public static bool IsChanged
-        {
-            get
+            set
             {
-                if (origDocument.Count == currentDocument.Count && endOfLineType == oldEndOfLineType)
+                if (oldEndOfLineType != value)
                 {
-                    for (int i = 0, j = origDocument.Count() - 1;  i <= j && j > 0; i++, j--)
-                    {
-                        if (origDocument[i] != currentDocument[i] || origDocument[j] != currentDocument[j])
-                            return true;
-                    }
-                    return false;
+                    endOfLineType = value;
+                    SDocumentEventArgs e = new();
+                    OnTextChanged(e);
                 }
-
-                return true;
             }
         }
 
+        private EndOfLineType oldEndOfLineType = EndOfLineType.LF;
 
-        private static List<DocumentLine> origDocument = new List<DocumentLine>();
-        private static List<DocumentLine> currentDocument = new List<DocumentLine>();
+        private bool isChanged;
+        public bool IsChanged => isChanged;
 
-        public static void SetDocument(ref TextEditor editor)
+        public SDocument(string text)
         {
-            if (editor.Document.Lines.Count > 0)
+            InitContent(text);
+        }
+
+        public string this[int i]
+        {
+            get => currentDocument[i];
+            set
             {
-                endOfLineType = editor.Document.Lines[0].DelimiterLength > 1 ? EndOfLineType.CRLF : EndOfLineType.LF;
+                if (!currentDocument[i].Equals(value))
+                {
+                    currentDocument[i] = value.ReplaceLineEndings("");
+                    SDocumentEventArgs e = new();
+                    e.Line = i;
+                    OnTextChanged(e);
+                }
+            }
+        }
+
+        private static List<string> origDocument = new ();
+        private static List<string> currentDocument = new ();
+
+        private void InitContent(string text)
+        {
+            origDocument = new();
+            currentDocument = new();
+            oldEndOfLineType = text.Contains("\r\n") ? EndOfLineType.CRLF : EndOfLineType.LF;
+            endOfLineType = oldEndOfLineType;
+            origDocument = GetListFromString(text);
+            currentDocument.AddRange(origDocument);
+        }
+
+        private List<string> GetListFromString(string text)
+        {
+            List<string> list = new List<string>();
+            list.AddRange(text.ReplaceLineEndings("\n").Split('\n'));
+            return list;
+        }
+
+        public void SetText(string text)
+        {
+            //very bad code, temporary solution, need to remove in the future
+            List<string> buff = GetListFromString(text);
+            bool noEqual = false;
+            if (buff.Count == origDocument.Count)
+            {
+                for (int i = 0, j = buff.Count - 1; i <= j; i++, j--)
+                    if (!buff[i].Equals(origDocument[i]) || !buff[j].Equals(origDocument[j]))
+                    {
+                        noEqual = true;
+                        break;
+                    }
             }
             else
             {
-                endOfLineType = EndOfLineType.LF;
+                noEqual = true;
             }
 
-            oldEndOfLineType = endOfLineType;
-
-            editor.Document = new TextDocument(string.Empty);
-            origDocument.Clear();
-            origDocument.AddRange(editor.Document.Lines);
-            editor.Document.TextChanged += Document_TextChanged;
+            if (!noEqual)
+            {
+                OnTextCommited(EventArgs.Empty);
+                return;
+            }
+            currentDocument = buff;
+            SDocumentEventArgs e = new();
+            e.WholeTextWasChanged = true;
+            OnTextChanged(e);
         }
 
-        private static void Document_TextChanged(object? sender, EventArgs e)
+        public void Commit()
         {
-            currentDocument.Clear();
-            currentDocument.AddRange(((TextDocument)sender).Lines);
+            origDocument.Clear();
+            origDocument.AddRange(currentDocument);
+            oldEndOfLineType = endOfLineType;
+            OnTextCommited(EventArgs.Empty);
         }
+
+        public event EventHandler? TextChanged;
+        public event EventHandler? TextCommited;
+        
+        protected virtual void OnTextChanged(SDocumentEventArgs e)
+        {
+            isChanged = true;
+            TextChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnTextCommited(EventArgs e)
+        {
+            isChanged = false;
+            TextCommited?.Invoke(this, e);
+        }
+
+    }
+
+    public class SDocumentEventArgs : EventArgs
+    {
+        public int Line = -1;
+        public bool WholeTextWasChanged = false;
+        public bool SomethingWasChanged = true;
     }
 }
