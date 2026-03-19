@@ -16,6 +16,21 @@
             <Setter Property="Margin" Value="10,0,0,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="avalonEdit:TextEditor" x:Key="EditorStyle">
+            <Setter Property="ContextMenu">
+                <Setter.Value>
+                    <ContextMenu>
+                        <ui:MenuItem FontFamily="{ui:ThemeResource ResourceKey=MenuItem}" FontSize="{ui:ThemeResource ResourceKey=MenuItem}" FontStyle="{ui:ThemeResource ResourceKey=MenuItem}" FontStretch="{ui:ThemeResource ResourceKey=MenuItem}" FontWeight="{ui:ThemeResource ResourceKey=MenuItem}" x:Name="Undo_ContextMenuItem" Icon="{ui:SymbolIcon Symbol=ArrowUndo24}" InputGestureText="Ctrl+Z" Header="Undo" Command="{DynamicResource UndoContextMenuItem}"/>
+                        <Separator/>
+                        <ui:MenuItem FontFamily="{ui:ThemeResource ResourceKey=MenuItem}" FontSize="{ui:ThemeResource ResourceKey=MenuItem}" FontStyle="{ui:ThemeResource ResourceKey=MenuItem}" FontStretch="{ui:ThemeResource ResourceKey=MenuItem}" FontWeight="{ui:ThemeResource ResourceKey=MenuItem}" x:Name="Cut_ContextMenuItem" Header="Cut" Icon="{ui:SymbolIcon Symbol=Cut24}" InputGestureText="Ctrl+X" Command="{DynamicResource CutContextMenuItem}"/>
+                        <ui:MenuItem FontFamily="{ui:ThemeResource ResourceKey=MenuItem}" FontSize="{ui:ThemeResource ResourceKey=MenuItem}" FontStyle="{ui:ThemeResource ResourceKey=MenuItem}" FontStretch="{ui:ThemeResource ResourceKey=MenuItem}" FontWeight="{ui:ThemeResource ResourceKey=MenuItem}" x:Name="Copy_ContextMenuItem" Header="Copy" Icon="{ui:SymbolIcon Symbol=Copy24}" InputGestureText="Ctrl+C" Command="{DynamicResource CopyContextMenuItem}"/>
+                        <ui:MenuItem FontFamily="{ui:ThemeResource ResourceKey=MenuItem}" FontSize="{ui:ThemeResource ResourceKey=MenuItem}" FontStyle="{ui:ThemeResource ResourceKey=MenuItem}" FontStretch="{ui:ThemeResource ResourceKey=MenuItem}" FontWeight="{ui:ThemeResource ResourceKey=MenuItem}" x:Name="Paste_ContextMenuItem" Header="Paste" Icon="{ui:SymbolIcon Symbol=ClipboardPaste24}" InputGestureText="Ctrl+V" Command="{DynamicResource PasteContextMenuItem}"/>
+                        <Separator/>
+                        <ui:MenuItem FontFamily="{ui:ThemeResource ResourceKey=MenuItem}" FontSize="{ui:ThemeResource ResourceKey=MenuItem}" FontStyle="{ui:ThemeResource ResourceKey=MenuItem}" FontStretch="{ui:ThemeResource ResourceKey=MenuItem}" FontWeight="{ui:ThemeResource ResourceKey=MenuItem}" x:Name="SelectAll_ContextMenuItem" Header="Select All" Icon="{ui:SymbolIcon Symbol=SelectAllOff24}" InputGestureText="Ctrl+A" Command="{DynamicResource SelectAllContextMenuItem}"/>
+                    </ContextMenu>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <RoutedUICommand x:Key="NewFileCommand" Text="NewFile" />
         <RoutedUICommand x:Key="OpenFileCommand" Text="OpenFile" />
         <RoutedUICommand x:Key="SaveFileCommand" Text="SaveFile" />
@@ -30,6 +45,11 @@
         <RoutedUICommand x:Key="FindNextCommand" Text="FindNext"/>
         <RoutedUICommand x:Key="ReplaceCommand" Text="Replace"/>
         <RoutedUICommand x:Key="ReplaceAllCommand" Text="ReplaceAll"/>
+        <RoutedUICommand x:Key="UndoContextMenuItem" Text="Undo"/>
+        <RoutedUICommand x:Key="CutContextMenuItem" Text="Cut"/>
+        <RoutedUICommand x:Key="CopyContextMenuItem" Text="Copy"/>
+        <RoutedUICommand x:Key="PasteContextMenuItem" Text="Paste"/>
+        <RoutedUICommand x:Key="SelectAllContextMenuItem" Text="SelectAll"/>
     </ui:FluentWindow.Resources>
     <ui:FluentWindow.CommandBindings>
         <CommandBinding Command="{StaticResource NewFileCommand}" Executed="NewFileCommand"/>
@@ -46,6 +66,11 @@
         <CommandBinding Command="{StaticResource FindNextCommand}" Executed="FindNextCommand"/>
         <CommandBinding Command="{StaticResource ReplaceCommand}" Executed="ReplaceCommand"/>
         <CommandBinding Command="{StaticResource ReplaceAllCommand}" Executed="ReplaceAllCommand"/>
+        <CommandBinding Command="{StaticResource UndoContextMenuItem}" Executed="Undo_ContextMenuItemCommand"/>
+        <CommandBinding Command="{StaticResource CutContextMenuItem}" Executed="Cut_ContextMenuItemCommand"/>
+        <CommandBinding Command="{StaticResource CopyContextMenuItem}" Executed="Copy_ContextMenuItemCommand"/>
+        <CommandBinding Command="{StaticResource PasteContextMenuItem}" Executed="Paste_ContextMenuItemCommand"/>
+        <CommandBinding Command="{StaticResource SelectAllContextMenuItem}" Executed="SelectAll_ContextMenuItemCommand"/>
     </ui:FluentWindow.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource NewFileCommand}"/>
@@ -163,18 +188,7 @@
                 </Grid>
             </Grid>
         </DockPanel>
-        <avalonEdit:TextEditor x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" BorderThickness="0">
-            <avalonEdit:TextEditor.ContextMenu>
-                <ContextMenu>
-                    <ui:MenuItem x:Name="Undo_ContextMenuItem" Icon="{ui:SymbolIcon Symbol=ArrowUndo24}" InputGestureText="Ctrl+Z" Header="Undo" Click="ContextMenuItems_Click"/>
-                    <Separator/>
-                    <ui:MenuItem x:Name="Cut_ContextMenuItem" Header="Cut" Icon="{ui:SymbolIcon Symbol=Cut24}" InputGestureText="Ctrl+X" Click="ContextMenuItems_Click"/>
-                    <ui:MenuItem x:Name="Copy_ContextMenuItem" Header="Copy" Icon="{ui:SymbolIcon Symbol=Copy24}" InputGestureText="Ctrl+C" Click="ContextMenuItems_Click"/>
-                    <ui:MenuItem x:Name="Paste_ContextMenuItem" Header="Paste" Icon="{ui:SymbolIcon Symbol=ClipboardPaste24}" InputGestureText="Ctrl+V" Click="ContextMenuItems_Click"/>
-                    <Separator/>
-                    <ui:MenuItem x:Name="SelectAll_ContextMenuItem" Header="Select All" Icon="{ui:SymbolIcon Symbol=SelectAllOff24}" InputGestureText="Ctrl+A" Click="ContextMenuItems_Click"/>
-                </ContextMenu>
-            </avalonEdit:TextEditor.ContextMenu>
+        <avalonEdit:TextEditor x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" BorderThickness="0" Style="{StaticResource EditorStyle}">
         </avalonEdit:TextEditor>
         <Grid Height="35" Grid.Row="3">
             <DockPanel VerticalAlignment="Center">

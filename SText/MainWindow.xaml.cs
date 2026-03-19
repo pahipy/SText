@@ -956,6 +956,31 @@ namespace SText.Editor
         }
         #endregion
 
+        private void Undo_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Undo();
+        }
+
+        private void Cut_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Cut();
+        }
+
+        private void Copy_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Copy();
+        }
+
+        private void Paste_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Paste();
+        }
+
+        private void SelectAll_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.SelectAll();
+        }
+
         private void WordWrap_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var item = (MenuItem)sender;
