@@ -16,7 +16,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Height="40" Grid.Row="0">
-            <Label x:Name="Header" Margin="15,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="About SText"/>
+            <!--<Label x:Name="Header" Margin="15,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="About SText"/>-->
+            <ui:TitleBar x:Name="Header" CanMaximize="False" >
+                <ui:TitleBar.Header >
+                    <Label Margin="10,5,0,0" Content="About SText"/>
+                </ui:TitleBar.Header>
+            </ui:TitleBar>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
