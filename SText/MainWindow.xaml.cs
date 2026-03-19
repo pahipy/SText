@@ -950,41 +950,15 @@ namespace SText.Editor
         #endregion
 
 #region MenuEditCommands
-        private void DateTimeEditCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            MenuEdit_Events_Click(DateTime_MenuItem, e);
-        }
-        #endregion
-
-        private void Undo_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            ContentViewer.Undo();
-        }
-
-        private void Cut_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            ContentViewer.Cut();
-        }
-
-        private void Copy_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            ContentViewer.Copy();
-        }
-
-        private void Paste_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            ContentViewer.Paste();
-        }
-
-        private void SelectAll_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            ContentViewer.SelectAll();
-        }
-
         private void WordWrap_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var item = (MenuItem)sender;
             WordWrap = item.IsChecked;
+        }
+
+        private void DateTimeEditCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            MenuEdit_Events_Click(DateTime_MenuItem, e);
         }
 
         private void ChangeFont_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -1017,6 +991,38 @@ namespace SText.Editor
             AlwaysOnTop_MenuItem.IsChecked = !AlwaysOnTop_MenuItem.IsChecked;
             AlwaysOnTop_MenuItem_Click(AlwaysOnTop_MenuItem, e);
         }
+
+        #endregion
+
+        #region TextEditorMenuItems
+
+
+        private void Undo_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Undo();
+        }
+
+        private void Cut_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Cut();
+        }
+
+        private void Copy_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Copy();
+        }
+
+        private void Paste_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.Paste();
+        }
+
+        private void SelectAll_ContextMenuItemCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ContentViewer.SelectAll();
+        }
+
+#endregion
 
         private void EncryptionMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -1123,20 +1129,6 @@ namespace SText.Editor
             
             CurrentTheme = name == "ThemeLight_MenuItem" ? Theme.Light : Theme.Dark;
 
-        }
-
-        private void ContextMenuItems_Click(object sender, RoutedEventArgs e)
-        {
-            string name = ((MenuItem)sender).Name;
-
-            switch (name)
-            {
-                case "Undo_ContextMenuItem": ContentViewer.Undo(); break;
-                case "Cut_ContextMenuItem": ContentViewer.Cut(); break;
-                case "Copy_ContextMenuItem": ContentViewer.Copy(); break;
-                case "Paste_ContextMenuItem": ContentViewer.Paste(); break;
-                case "SelectAll_ContextMenuItem": ContentViewer.SelectAll(); break;
-            }
         }
 
         private void EndOfLineSequence_SelectionChanged(object sender, SelectionChangedEventArgs e)
