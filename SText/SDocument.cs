@@ -21,11 +21,15 @@ namespace SText.Editor
             get => endOfLineType;
             set
             {
-                if (oldEndOfLineType != value)
+                if (oldEndOfLineType != value || TextWasChanged())
                 {
                     endOfLineType = value;
                     SDocumentEventArgs e = new();
                     OnTextChanged(e);
+                }
+                else
+                {
+                    isChanged = false;
                 }
             }
         }
@@ -34,6 +38,11 @@ namespace SText.Editor
 
         private bool isChanged;
         public bool IsChanged => isChanged;
+
+        public string CurrentFullText
+        {
+            get => string.Join(endOfLineType == EndOfLineType.LF ? "\n" : "\r\n", currentDocument);
+        }
 
         public SDocument(string text)
         {
@@ -103,6 +112,22 @@ namespace SText.Editor
             SDocumentEventArgs e = new();
             e.WholeTextWasChanged = true;
             OnTextChanged(e);
+        }
+
+        private bool TextWasChanged()
+        {
+            if (currentDocument.Count == origDocument.Count)
+            {
+                for (int i = 0, j = currentDocument.Count - 1; i <= j; i++, j--)
+                    if (!currentDocument[i].Equals(origDocument[i]) || !currentDocument[j].Equals(origDocument[j]))
+                    {
+                        return true;
+                    }
+
+                return false;
+            }
+
+            return true;
         }
 
         public void Commit()

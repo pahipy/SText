@@ -87,15 +87,12 @@ namespace SText.Editor
                         if (e.Key == Key.Y)
                             ContentViewer.Redo();
 
-                        //lockEndOfLineChange = true;
-
                         if (EndOfLineSequence.SelectedIndex == 0 && SDocumentText.EndOfLineType == EndOfLineType.CRLF)
                             EndOfLineSequence.SelectedIndex = 1;
 
                         if (EndOfLineSequence.SelectedIndex == 1 && SDocumentText.EndOfLineType == EndOfLineType.LF)
                             EndOfLineSequence.SelectedIndex = 0;
 
-                        //lockEndOfLineChange = false;
                     }
                 }
             };
@@ -182,8 +179,6 @@ namespace SText.Editor
         private bool appWindowIsShown = false;
         private bool isReadOnly = false;
         private bool lockEncodingChange = true;
-        private bool lockDocumentSync = false;
-        private EndOfLineType lastEndOfLineState = EndOfLineType.LF;
         private string ShortFileName = ProgramSets.UntitledFileName;
         private SDocument SDocumentText = new SDocument("");
 
@@ -581,7 +576,7 @@ namespace SText.Editor
 
                             try
                             {
-                                TextFile.WriteFile(ContentViewer.Document.Text);
+                                TextFile.WriteFile(SDocumentText.CurrentFullText);
                             }
                             catch (Exception ex)
                             {
@@ -594,7 +589,7 @@ namespace SText.Editor
                             TextFile = new TXTSFormat(path, setPasswordDialog.Password, FileEncoding);
                             try
                             {
-                                TextFile.WriteFile(ContentViewer.Document.Text);
+                                TextFile.WriteFile(SDocumentText.CurrentFullText);
                             }
                             catch (Exception ex)
                             {
@@ -617,7 +612,7 @@ namespace SText.Editor
 
                         try
                         {
-                            TextFile.WriteFile(ContentViewer.Document.Text);
+                            TextFile.WriteFile(SDocumentText.CurrentFullText);
                         }
                         catch (Exception ex)
                         {
