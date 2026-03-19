@@ -539,7 +539,7 @@ namespace SText.Editor
         {
             if (File.Exists(FileName) && !isReadOnly)
             {
-                SaveFileAndUpdateHash(FileName);
+                SaveFileAndConfirm(FileName);
             }
             else SaveFileAs();
         }
@@ -550,7 +550,7 @@ namespace SText.Editor
             {
                 if (saveFileDialog.ShowDialog() ?? false)
                 {
-                    SaveFileAndUpdateHash(saveFileDialog.FileName);
+                    SaveFileAndConfirm(saveFileDialog.FileName);
                 }
 
                 saveFileDialog.FileName = null;
@@ -558,7 +558,7 @@ namespace SText.Editor
             catch { }
         }
 
-        private bool SaveFileAndUpdateHash(string path)
+        private bool SaveFileAndConfirm(string path)
         {
 
             try
@@ -576,7 +576,7 @@ namespace SText.Editor
                             if (TextFile.Path != path)
                             {
                                 TextFile = null;
-                                return SaveFileAndUpdateHash(path);
+                                return SaveFileAndConfirm(path);
                             }
 
                             try
@@ -1028,14 +1028,14 @@ namespace SText.Editor
 
             try
             {
-                if (SaveFileAndUpdateHash(FileName))
+                if (SaveFileAndConfirm(FileName))
                 {
                     File.Delete(oldFile);
                 }
                 else
                 {
                     File.Delete(FileName);
-                    SaveFileAndUpdateHash(oldFile);
+                    SaveFileAndConfirm(oldFile);
                 }
             }
             catch (Exception ex)
