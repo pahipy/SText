@@ -246,7 +246,7 @@ namespace SText.Editor
                     ShortFileName = ProgramSets.UntitledFileName;
                 }
                 TitleText.Title = Title;
-                StatusBar_File.Content = $"File: {FileName}";
+                StatusBar_File.Content = $"File: {ShortFileName}";
             }
         }
 
@@ -258,9 +258,15 @@ namespace SText.Editor
                 string readonlystring = isReadOnly ? "[READ ONLY]" : "";
 
                 title = $"{ShortFileName} - {ProgramSets.ProgramName} {readonlystring}";
-                
+                StatusBar_File.Content = $"{ShortFileName} {readonlystring}";
+
                 if (SDocumentText.IsChanged)
-                    title = $"●{title}";
+                {
+                    StatusBar_File.Content = $"● {StatusBar_File.Content}";
+                    title = $"● {title}";
+                }
+
+                StatusBar_File.Content = $"File: {StatusBar_File.Content}";
 
                 base.Title = title;
 

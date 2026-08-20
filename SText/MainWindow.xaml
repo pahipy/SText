@@ -108,54 +108,56 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="AppIcon" Grid.Column="0" Width="20" Height="20" Margin="10,0,0,0"/>
-            <ui:TitleBar x:Name="TitleText" Grid.Column="1" Title="SText"/>
+            <Image x:Name="AppIcon" Grid.Column="0" Width="20" Height="20" Margin="10,-4,0,0"/>
+            <ui:TitleBar x:Name="TitleText" Grid.Column="1" Padding="0,0,10,0">
+                <ui:TitleBar.Header>
+                    <Menu>
+                        <ui:MenuItem Header="File">
+                            <ui:MenuItem x:Name="New_MenuItem" Icon="{ui:SymbolIcon Symbol=New20}" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
+                            <ui:MenuItem x:Name="Open_MenuItem" Icon="{ui:SymbolIcon Symbol=Open20}" Header="Open" Click="MenuFile_Events_Click" InputGestureText="Ctrl+O"/>
+                            <ui:MenuItem x:Name="Save_MenuItem" Icon="{ui:SymbolIcon Symbol=Save20}" Header="Save" Click="MenuFile_Events_Click" InputGestureText="Ctrl+S"/>
+                            <ui:MenuItem x:Name="SaveAs_MenuItem" Icon="{ui:SymbolIcon Symbol=Save20}" Header="Save As..." Click="MenuFile_Events_Click" InputGestureText="Ctrl+Shift+S"/>
+                            <Separator/>
+                            <ui:MenuItem x:Name="Print_MenuItem" Icon="{ui:SymbolIcon Symbol=Print20}" Header="Print" Click="MenuFile_Events_Click" InputGestureText="Ctrl+P"/>
+                            <Separator/>
+                            <ui:MenuItem x:Name="Exit_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowExit20}" Header="Exit" Click="MenuFile_Events_Click"/>
+                        </ui:MenuItem>
+                        <ui:MenuItem Header="Edit">
+                            <ui:MenuItem x:Name="Undo_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowUndo20}" Header="Undo" InputGestureText="Ctrl+Z" Click="MenuEdit_Events_Click"/>
+                            <Separator/>
+                            <ui:MenuItem x:Name="Cut_MenuItem" Icon="{ui:SymbolIcon Symbol=Cut20}" Header="Cut" InputGestureText="Ctrl+X" Click="MenuEdit_Events_Click"/>
+                            <ui:MenuItem x:Name="Copy_MenuItem" Icon="{ui:SymbolIcon Symbol=Copy20}" Header="Copy" InputGestureText="Ctrl+C" Click="MenuEdit_Events_Click"/>
+                            <ui:MenuItem x:Name="Paste_MenuItem" Icon="{ui:SymbolIcon Symbol=ClipboardPaste20}" Header="Paste" InputGestureText="Ctrl+V" Click="MenuEdit_Events_Click"/>
+                            <ui:MenuItem x:Name="Delete_MenuItem" Icon="{ui:SymbolIcon Symbol=Delete20}" Header="Delete" InputGestureText="Delete" Click="MenuEdit_Events_Click"/>
+                            <Separator/>
+                            <ui:MenuItem x:Name="ToggleFind_MenuItem" Icon="{ui:SymbolIcon Symbol=Search20}" Header="Find" InputGestureText="Ctrl+F" Click="MenuEdit_Events_Click"/>
+                            <ui:MenuItem x:Name="ToggleReplace_MenuItem" Icon="{ui:SymbolIcon Symbol=Insert20}" Header="Replace" InputGestureText="Ctrl+H" Click="MenuEdit_Events_Click"/>
+                            <Separator/>
+                            <ui:MenuItem x:Name="SelectAll_MenuItem" Icon="{ui:SymbolIcon Symbol=SelectAllOff20}" Header="Select All" InputGestureText="Ctrl+A" Click="MenuEdit_Events_Click"/>
+                            <ui:MenuItem x:Name="DateTime_MenuItem" Icon="{ui:SymbolIcon Symbol=Timer20}" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
+                        </ui:MenuItem>
+                        <ui:MenuItem Header="Format">
+                            <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True" Click="WordWrap_MenuItem_Click"/>
+                            <MenuItem x:Name="ChangeFont_MenuItem" Icon="{ui:SymbolIcon Symbol=TextFont20}" Header="Font..." Click="ChangeFont_MenuItem_Click"/>
+                        </ui:MenuItem>
+                        <ui:MenuItem Header="View">
+                            <MenuItem x:Name="AlwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2" Click="AlwaysOnTop_MenuItem_Click"/>
+                            <MenuItem Icon="{ui:SymbolIcon Symbol=DarkTheme20}" Header="Theme">
+                                <MenuItem x:Name="ThemeLight_MenuItem" Header="Light" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
+                                <MenuItem x:Name="ThemeDark_MenuItem" Header="Dark" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
+                            </MenuItem>
+                        </ui:MenuItem>
+                        <ui:MenuItem x:Name="ToolsMemuItem" Header="Tools" SubmenuOpened="ToolsMemuItem_SubmenuOpened">
+                            <MenuItem x:Name="EncryptionMenuItem" Header="Encrypt current file" IsEnabled="False" InputGestureText="Ctrl+E" Click="EncryptionMenuItem_Click"/>
+                        </ui:MenuItem>
+                        <ui:MenuItem Header="Help">
+                            <MenuItem x:Name="Github_MenuItem" Header="GitHub Link..." Click="Help_MenuItems_Click"/>
+                            <MenuItem x:Name="About_MenuItem" Header="About SText" Click="Help_MenuItems_Click"/>
+                        </ui:MenuItem>
+                    </Menu>
+                </ui:TitleBar.Header>
+            </ui:TitleBar>
         </Grid>
-
-        <Menu Grid.Row="1">
-            <MenuItem Header="File">
-                <ui:MenuItem x:Name="New_MenuItem" Icon="{ui:SymbolIcon Symbol=New20}" Header="New" Click="MenuFile_Events_Click" InputGestureText="Ctrl+N"/>
-                <ui:MenuItem x:Name="Open_MenuItem" Icon="{ui:SymbolIcon Symbol=Open20}" Header="Open" Click="MenuFile_Events_Click" InputGestureText="Ctrl+O"/>
-                <ui:MenuItem x:Name="Save_MenuItem" Icon="{ui:SymbolIcon Symbol=Save20}" Header="Save" Click="MenuFile_Events_Click" InputGestureText="Ctrl+S"/>
-                <ui:MenuItem x:Name="SaveAs_MenuItem" Icon="{ui:SymbolIcon Symbol=Save20}" Header="Save As..." Click="MenuFile_Events_Click" InputGestureText="Ctrl+Shift+S"/>
-                <Separator/>
-                <ui:MenuItem x:Name="Print_MenuItem" Icon="{ui:SymbolIcon Symbol=Print20}" Header="Print" Click="MenuFile_Events_Click" InputGestureText="Ctrl+P"/>
-                <Separator/>
-                <ui:MenuItem x:Name="Exit_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowExit20}" Header="Exit" Click="MenuFile_Events_Click"/>
-            </MenuItem>
-            <MenuItem Header="Edit">
-                <ui:MenuItem x:Name="Undo_MenuItem" Icon="{ui:SymbolIcon Symbol=ArrowUndo20}" Header="Undo" InputGestureText="Ctrl+Z" Click="MenuEdit_Events_Click"/>
-                <Separator/>
-                <ui:MenuItem x:Name="Cut_MenuItem" Icon="{ui:SymbolIcon Symbol=Cut20}" Header="Cut" InputGestureText="Ctrl+X" Click="MenuEdit_Events_Click"/>
-                <ui:MenuItem x:Name="Copy_MenuItem" Icon="{ui:SymbolIcon Symbol=Copy20}" Header="Copy" InputGestureText="Ctrl+C" Click="MenuEdit_Events_Click"/>
-                <ui:MenuItem x:Name="Paste_MenuItem" Icon="{ui:SymbolIcon Symbol=ClipboardPaste20}" Header="Paste" InputGestureText="Ctrl+V" Click="MenuEdit_Events_Click"/>
-                <ui:MenuItem x:Name="Delete_MenuItem" Icon="{ui:SymbolIcon Symbol=Delete20}" Header="Delete" InputGestureText="Delete" Click="MenuEdit_Events_Click"/>
-                <Separator/>
-                <ui:MenuItem x:Name="ToggleFind_MenuItem" Icon="{ui:SymbolIcon Symbol=Search20}" Header="Find" InputGestureText="Ctrl+F" Click="MenuEdit_Events_Click"/>
-                <ui:MenuItem x:Name="ToggleReplace_MenuItem" Icon="{ui:SymbolIcon Symbol=Insert20}" Header="Replace" InputGestureText="Ctrl+H" Click="MenuEdit_Events_Click"/>
-                <Separator/>
-                <ui:MenuItem x:Name="SelectAll_MenuItem" Icon="{ui:SymbolIcon Symbol=SelectAllOff20}" Header="Select All" InputGestureText="Ctrl+A" Click="MenuEdit_Events_Click"/>
-                <ui:MenuItem x:Name="DateTime_MenuItem" Icon="{ui:SymbolIcon Symbol=Timer20}" Header="Date/Time" InputGestureText="F5" Click="MenuEdit_Events_Click"/>
-            </MenuItem>
-            <MenuItem Header="Format">
-                <MenuItem x:Name="WordWrap_MenuItem" Header="Word Wrap" IsCheckable="True" Click="WordWrap_MenuItem_Click"/>
-                <MenuItem x:Name="ChangeFont_MenuItem" Icon="{ui:SymbolIcon Symbol=TextFont20}" Header="Font..." Click="ChangeFont_MenuItem_Click"/>
-            </MenuItem>
-            <MenuItem Header="View">
-                <MenuItem x:Name="AlwaysOnTop_MenuItem" Header="Always on top" IsCheckable="True" InputGestureText="F2" Click="AlwaysOnTop_MenuItem_Click"/>
-                <MenuItem Icon="{ui:SymbolIcon Symbol=DarkTheme20}" Header="Theme">
-                    <MenuItem x:Name="ThemeLight_MenuItem" Header="Light" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
-                    <MenuItem x:Name="ThemeDark_MenuItem" Header="Dark" IsCheckable="True" Click="ThemeItems_MenuItem_Click"/>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem x:Name="ToolsMemuItem" Header="Tools" SubmenuOpened="ToolsMemuItem_SubmenuOpened">
-                <MenuItem x:Name="EncryptionMenuItem" Header="Encrypt current file" IsEnabled="False" InputGestureText="Ctrl+E" Click="EncryptionMenuItem_Click"/>
-            </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem x:Name="Github_MenuItem" Header="GitHub Link..." Click="Help_MenuItems_Click"/>
-                <MenuItem x:Name="About_MenuItem" Header="About SText" Click="Help_MenuItems_Click"/>
-            </MenuItem>
-        </Menu>
         <!--<TextBox x:Name="ContentViewer" AllowDrop="True" Grid.Row="2" AcceptsReturn="True" AcceptsTab="True" BorderThickness="0"/>-->
         <DockPanel x:Name="SearchBox" Style="{StaticResource SearchBoxStyle}" Grid.Row="2" Visibility="Hidden" Background="{ui:ThemeResource}" Panel.ZIndex="1" Height="45" Width="340" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Grid>
@@ -212,7 +214,7 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Label x:Name="StatusBar_Theme" Grid.Column="0" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="Theme: " Style="{StaticResource BottomLables}"/>
-                    <Label x:Name="StatusBar_File" Grid.Column="1" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="File: " Style="{StaticResource BottomLables}"/>
+                    <Label x:Name="StatusBar_File" Grid.Column="1" HorizontalAlignment="Right" Foreground="{Binding ElementName=About_MenuItem, Path=Foreground}" Content="" Style="{StaticResource BottomLables}"/>
                     <ComboBox x:Name="EndOfLineSequence" Grid.Column="2" ToolTip="Select End Of Line Sequence" Margin="5,0" VerticalContentAlignment="Center" MinWidth="120"
 HorizontalAlignment="Right" SelectionChanged="EndOfLineSequence_SelectionChanged">
                         <ComboBoxItem Content="LF"/>
