@@ -15,11 +15,15 @@
 	<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <Platforms>x64</Platforms>
 	<PublishReadyToRun>true</PublishReadyToRun>
-    <ApplicationIcon>Media\STextIcon_Big.ico</ApplicationIcon>
+    <ApplicationIcon>Media\STextIcon_Big2.1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Page Remove="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\STextIcon_Big2.1.ico" />
   </ItemGroup>
 
   <ItemGroup>
