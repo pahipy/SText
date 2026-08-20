@@ -9,7 +9,7 @@
         ShowInTaskbar="False"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        Title="AboutDialog" Height="350" Width="700">
+        Title="AboutDialog" Height="350" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -30,11 +30,11 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:Image x:Name="AppImage" Grid.Column="0" Width="200" Height="220"/>
-                <Grid Grid.Column="1">
+                <ui:Image x:Name="AppImage" Grid.Column="0" HorizontalAlignment="Left" Width="180" Height="200" Margin="45,0,0,35"/>
+                <Grid Grid.Column="1" Margin="90,0,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -50,7 +50,7 @@
                             <TextBlock FontSize="24" x:Name="AppVersion">Version</TextBlock>
                         </Label.Content>
                     </Label>
-                    <Label Grid.Row="2" Margin="0,0,10,0">
+                    <Label Grid.Row="2" Width="315">
                         <Label.Content>
                             <TextBlock TextWrapping="WrapWithOverflow">
                                 SText is an application which was made by pahipy with only one goal.
