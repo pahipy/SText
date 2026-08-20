@@ -1069,7 +1069,9 @@ namespace SText.Editor
             else
             {
 
-                Content = TextFile.Content;
+                ContentViewer.Document.Text = TextFile.Content;
+                SDocumentText.EndOfLineType = TextFile.Content.Contains("\r\n") ? EndOfLineType.CRLF : EndOfLineType.LF;
+                SDocumentText.Commit();
 
                 FileName = System.IO.Path.ChangeExtension(FileName, ".txt");
             }
