@@ -32,11 +32,11 @@
 
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
-    <PackageReference Include="FluentIcons.WPF" Version="2.0.321" />
+    <PackageReference Include="FluentIcons.WPF" Version="2.1.337" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.11" />
     <PackageReference Include="UDE.CSharp" Version="1.1.0" />
-    <PackageReference Include="WPF-UI" Version="4.2.0" />
+    <PackageReference Include="WPF-UI" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
