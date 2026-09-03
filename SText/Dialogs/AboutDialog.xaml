@@ -53,8 +53,8 @@
                     <Label Grid.Row="2" Width="315">
                         <Label.Content>
                             <TextBlock TextWrapping="WrapWithOverflow">
-                                SText is an application which was made by pahipy with only one goal.
-                                This goal is an idea that everyone can use programs that were written with ass-based hands.
+                                SText is an application created by pahipy for one purpose:
+                                to prove that anyone can use software made by people whose hands grow out of their asses.
                                 Remember: this app was created to be created!
                             </TextBlock>
                         </Label.Content>
