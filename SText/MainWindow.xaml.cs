@@ -378,7 +378,7 @@ namespace SText.Editor
             this.WindowState = (WindowState)Settings.WindowState;
             int left = Settings.WindowPosition.X < 0 ? -1 : Settings.WindowPosition.X;
             int top = Settings.WindowPosition.Y < 0 ? -1 : Settings.WindowPosition.Y;
-            this.WindowStartupLocation = left < 0 && top < 0 ? WindowStartupLocation.CenterScreen
+            this.WindowStartupLocation = left < 0 && top < 0 || Settings.IsFirstStart ? WindowStartupLocation.CenterScreen
                 : WindowStartupLocation.Manual;
             this.Left = left;
             this.Top = top;

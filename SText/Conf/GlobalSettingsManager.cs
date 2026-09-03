@@ -34,7 +34,9 @@ namespace SText.Conf
 
             try
             {
-                if (File.Exists(currentSettingPath))
+                Settings.IsFirstStart = !File.Exists(currentSettingPath);
+
+                if (!Settings.IsFirstStart)
                 {
                     LoadConfig();
                 }
@@ -167,6 +169,7 @@ namespace SText.Conf
         public int WindowState;
         public Point WindowPosition;
         public Size WindowSize;
+        public bool IsFirstStart;
     };
 
     
