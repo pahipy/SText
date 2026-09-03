@@ -55,7 +55,7 @@ namespace SText.Formats
 
                         if (charsetDetector.Charset is not null)
                         {
-                            fileEncoding = Encoding.GetEncoding(charsetDetector.Charset);
+                            fileEncoding = Encoding.GetEncoding(charsetDetector.Charset == "ASCII" ? "UTF-8" : charsetDetector.Charset);
                         }
                         else
                         {
