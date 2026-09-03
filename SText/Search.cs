@@ -113,14 +113,17 @@ namespace SText.Editor
             else
             {
                 int selStart = ContentViewer.SelectionStart;
-                Content = ContentViewer.Text.Remove(selStart, ContentViewer.SelectionLength).Insert(selStart, replacePattern);
+                ContentViewer.Text = ContentViewer.Text.Remove(selStart, ContentViewer.SelectionLength).Insert(selStart, replacePattern);
                 ContentViewer.CaretOffset = caret;
             }
         }
 
         private void CallReplaceAll()
         {
-            Content = ContentViewer.Text.Replace(SearchTextInput.Text, ReplaceTextInput.Text);
+            if (SearchTextInput.Text.Length < 1)
+                return;
+
+            ContentViewer.Text = ContentViewer.Text.Replace(SearchTextInput.Text, ReplaceTextInput.Text);
         }
 
         private void ReplaceEnterButton_Click(object sender, RoutedEventArgs e)
