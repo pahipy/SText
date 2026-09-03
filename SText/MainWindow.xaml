@@ -9,6 +9,7 @@
         xmlns:vm="clr-namespace:SText.Editor"
         mc:Ignorable="d"
         Title="SText" Height="450" Width="800"
+        MinHeight="300" MinWidth="520"
         Loaded="MainWindow_Loaded"
         Closing="FluentWindow_Closing">
     <ui:FluentWindow.Resources>
