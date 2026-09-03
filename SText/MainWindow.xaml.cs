@@ -43,7 +43,7 @@ namespace SText.Editor
         public MainWindow()
         {
             InitializeComponent();
-            ApplicationThemeManager.Apply(this);
+            ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.Mica);
 
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
@@ -299,9 +299,9 @@ namespace SText.Editor
                 {
                     case Theme.Light:
                         {
-                            ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                            ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.Mica);
                             ApplicationThemeManager.Apply(this);
-                            ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                            ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.Mica);
                             ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                             ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
                             hyperlinkColor = System.Windows.Media.Color.FromRgb(9, 40, 139);
@@ -313,9 +313,9 @@ namespace SText.Editor
 
                     case Theme.Dark:
                         {
-                            ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                            ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.Mica);
                             ApplicationThemeManager.Apply(this);
-                            ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                            ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.Mica);
                             ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(25, 25, 25));
                             ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                             hyperlinkColor = System.Windows.Media.Color.FromRgb(139, 167, 249);

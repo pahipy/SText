@@ -10,6 +10,10 @@
         mc:Ignorable="d"
         Title="SText" Height="450" Width="800"
         MinHeight="300" MinWidth="520"
+        WindowBackdropType="Mica"
+        WindowStyle="None"
+        WindowCornerPreference="Round"
+        ExtendsContentIntoTitleBar="True"
         Loaded="MainWindow_Loaded"
         Closing="FluentWindow_Closing">
     <ui:FluentWindow.Resources>
@@ -43,6 +47,9 @@
                         BlurRadius="40"/>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#05000000"/>
         </Style>
         <RoutedUICommand x:Key="NewFileCommand" Text="NewFile" />
         <RoutedUICommand x:Key="OpenFileCommand" Text="OpenFile" />
