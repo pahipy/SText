@@ -1,4 +1,5 @@
-﻿using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Document;
 using Microsoft.Win32;
 using Newtonsoft.Json.Bson;
 using Newtonsoft.Json.Linq;
@@ -27,6 +28,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 using static System.Net.Mime.MediaTypeNames;
 using Font = System.Drawing.Font;
 using MenuItem = System.Windows.Controls.MenuItem;
@@ -108,7 +110,6 @@ namespace SText.Editor
                         ContentViewer.LineUp();
 
                     ContentViewer.FontSize = newsize;
-                    RefreshHyperlinkStyle();
                 }
                 LeftCtrlIsPressing = false;
             };
@@ -182,7 +183,6 @@ namespace SText.Editor
         private bool lockEncodingChange = true;
         private string ShortFileName = ProgramSets.UntitledFileName;
         private SDocument SDocumentText = new SDocument("");
-        private System.Windows.Media.Color hyperlinkColor = System.Windows.Media.Color.FromRgb(9, 40, 139);
 
 
         private Encoding fileEncoding;
@@ -304,7 +304,7 @@ namespace SText.Editor
                             ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.Mica);
                             ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                             ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
-                            hyperlinkColor = System.Windows.Media.Color.FromRgb(9, 40, 139);
+                            ContentViewer.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(9, 40, 139));
                             ThemeDark_MenuItem.IsChecked = false;
                             ThemeLight_MenuItem.IsChecked = true;
                             StatusBar_Theme.Content = "Theme: Light";
@@ -318,7 +318,7 @@ namespace SText.Editor
                             ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.Mica);
                             ContentViewer.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(25, 25, 25));
                             ContentViewer.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-                            hyperlinkColor = System.Windows.Media.Color.FromRgb(139, 167, 249);
+                            ContentViewer.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(139, 167, 249));
                             ThemeLight_MenuItem.IsChecked = false;
                             ThemeDark_MenuItem.IsChecked = true;
                             StatusBar_Theme.Content = "Theme: Dark";
@@ -326,15 +326,7 @@ namespace SText.Editor
                         }
                 }
 
-                RefreshHyperlinkStyle();
             }
-        }
-
-        private void RefreshHyperlinkStyle()
-        {
-            ContentViewer.TextArea.TextView.ElementGenerators.Clear();
-            ContentViewer.TextArea.TextView.ElementGenerators.Add(new CustomLinkElementGeneratorColor(hyperlinkColor, ContentViewer.FontFamily,
-                ContentViewer.FontSize));
         }
 
         private void LoadSettingsToStruct()
@@ -384,7 +376,7 @@ namespace SText.Editor
             this.Top = top;
             this.Width = Settings.WindowSize.Width;
             this.Height = Settings.WindowSize.Height;
-            ContentViewer.Options.EnableHyperlinks = false;
+            //ContentViewer.Options.EnableHyperlinks = false;
             CurrentTheme = Settings.CurrentTheme;
         }
 
@@ -993,8 +985,6 @@ namespace SText.Editor
                 if (fd.Font.Underline) tdc.Add(TextDecorations.Underline);
                 if (fd.Font.Strikeout) tdc.Add(TextDecorations.Strikethrough);
                 // ContentViewer.TextDecorations = tdc;
-
-                RefreshHyperlinkStyle();
             }
         }
 
