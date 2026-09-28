@@ -502,6 +502,7 @@ namespace SText.Editor
                 FileName = path;
                 lockEncodingChange = true;
                 FileEncoding = TextFile.FileEncoding;
+                isReadOnly = TextFile.IsReadOnly;
 
                 if (SDocumentText.EndOfLineType == EndOfLineType.CRLF)
                     EndOfLineSequence.SelectedIndex = 1;
