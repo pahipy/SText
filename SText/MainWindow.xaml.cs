@@ -89,32 +89,16 @@ namespace SText.Editor
                 }
             };
 
-            ContentViewer.TextArea.MouseWheel += (s, e) =>
+            ContentViewer.TextArea.PreviewMouseWheel += (s, e) =>
             {
                 double newsize = e.Delta / 100d + ContentViewer.TextArea.FontSize;
-                if (newsize > 5 && newsize < 75 && LeftCtrlIsPressing)
+                if (newsize > 5 && newsize < 75 && Keyboard.Modifiers == ModifierKeys.Control)
                 {
-                    /*if (ContentViewer.TextArea.FontSize < newsize)
-                        ContentViewer.LineDown();
-                    else
-                        ContentViewer.LineUp();*/
-
                     ContentViewer.TextArea.FontSize = newsize;
+
+                    e.Handled = true;
                 }
-                LeftCtrlIsPressing = false;
             };
-
-            ContentViewer.TextArea.KeyDown += (s, e) =>
-            {
-                LeftCtrlIsPressing = e.Key == System.Windows.Input.Key.LeftCtrl;
-            };
-
-            ContentViewer.TextArea.KeyUp += (s, e) =>
-            {
-                LeftCtrlIsPressing = false;
-            };
-
-            ContentViewer.TextArea.LostFocus += (s, e) => LeftCtrlIsPressing = false;
 
             ContentViewer.PreviewDragOver += (s, e) => e.Handled = true;
 
@@ -165,8 +149,6 @@ namespace SText.Editor
         private FontDialog fd = new FontDialog();
         private SettingsTemplate Settings;
         private GlobalSettingsManager SettingsManager;
-        private bool LeftCtrlIsPressing = false;
-        private bool isDebug = true;
         private Format TextFile;
         private PasswordDialog setPasswordDialog;
         private PasswordDialog openPasswordDialog;
