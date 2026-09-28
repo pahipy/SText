@@ -45,16 +45,6 @@ namespace SText.Editor
         public MainWindow()
         {
             InitializeComponent();
-            ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.Mica);
-
-            openFileDialog = new OpenFileDialog();
-            saveFileDialog = new SaveFileDialog();
-
-            openFileDialog.CheckFileExists = false;
-            openFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
-            openFileDialog.RestoreDirectory = true;
-            saveFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
-            saveFileDialog.RestoreDirectory = true;
 
             AppIcon.Source = Tools.BitmapConverter.BitmapToBitmapImage(SText.Resources.STextIcon_Big, ImageFormat.Png);
 
@@ -99,30 +89,32 @@ namespace SText.Editor
                 }
             };
 
-            ContentViewer.PreviewMouseWheel += (s, e) =>
+            ContentViewer.TextArea.MouseWheel += (s, e) =>
             {
-                double newsize = e.Delta / 100d + ContentViewer.FontSize;
+                double newsize = e.Delta / 100d + ContentViewer.TextArea.FontSize;
                 if (newsize > 5 && newsize < 75 && LeftCtrlIsPressing)
                 {
-                    if (ContentViewer.FontSize < newsize)
+                    /*if (ContentViewer.TextArea.FontSize < newsize)
                         ContentViewer.LineDown();
                     else
-                        ContentViewer.LineUp();
+                        ContentViewer.LineUp();*/
 
-                    ContentViewer.FontSize = newsize;
+                    ContentViewer.TextArea.FontSize = newsize;
                 }
                 LeftCtrlIsPressing = false;
             };
 
-            ContentViewer.KeyDown += (s, e) =>
+            ContentViewer.TextArea.KeyDown += (s, e) =>
             {
                 LeftCtrlIsPressing = e.Key == System.Windows.Input.Key.LeftCtrl;
             };
 
-            ContentViewer.KeyUp += (s, e) =>
+            ContentViewer.TextArea.KeyUp += (s, e) =>
             {
                 LeftCtrlIsPressing = false;
             };
+
+            ContentViewer.TextArea.LostFocus += (s, e) => LeftCtrlIsPressing = false;
 
             ContentViewer.PreviewDragOver += (s, e) => e.Handled = true;
 
@@ -225,8 +217,8 @@ namespace SText.Editor
         {
             get
             {
-                System.Drawing.Font font = new Font(ContentViewer.FontFamily.Source, 
-                    (float)(ContentViewer.FontSize / 96 * 72), FontStyleAsSystemDrawingFromContentViewer);
+                System.Drawing.Font font = new Font(ContentViewer.TextArea.FontFamily.Source, 
+                    (float)(ContentViewer.TextArea.FontSize / 96 * 72), FontStyleAsSystemDrawingFromContentViewer);
 
                 return font;
             }
@@ -357,14 +349,14 @@ namespace SText.Editor
             CurrentTheme = Settings.CurrentTheme;
             WordWrap = Settings.WordWrap;
             Topmost = Settings.OnTop; AlwaysOnTop_MenuItem.IsChecked = Settings.OnTop;
-            ContentViewer.FontFamily = new System.Windows.Media.FontFamily(Settings.FontFamily);
-            ContentViewer.FontSize = Settings.FontSize * 96 / 72;
+            ContentViewer.TextArea.FontFamily = new System.Windows.Media.FontFamily(Settings.FontFamily);
+            ContentViewer.TextArea.FontSize = Settings.FontSize * 96 / 72;
 
             switch (Settings.FontStyle)
             {
-                case 0: ContentViewer.FontStyle = FontStyles.Normal; break;
-                case 1: ContentViewer.FontStyle = FontStyles.Italic; break;
-                case 2: ContentViewer.FontWeight = FontWeights.Bold; break;
+                case 0: ContentViewer.TextArea.FontStyle = FontStyles.Normal; break;
+                case 1: ContentViewer.TextArea.FontStyle = FontStyles.Italic; break;
+                case 2: ContentViewer.TextArea.FontWeight = FontWeights.Bold; break;
             }
 
             this.WindowState = (WindowState)Settings.WindowState;
@@ -840,6 +832,15 @@ namespace SText.Editor
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            openFileDialog = new OpenFileDialog();
+            saveFileDialog = new SaveFileDialog();
+
+            openFileDialog.CheckFileExists = false;
+            openFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
+            openFileDialog.RestoreDirectory = true;
+            saveFileDialog.Filter = "Text Documents|*.txt|SText Documents|*.txts|All Files|*.*";
+            saveFileDialog.RestoreDirectory = true;
+
             try
             {
                 if (Environment.GetCommandLineArgs().Length > 1)
@@ -976,10 +977,10 @@ namespace SText.Editor
 
             if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ContentViewer.FontFamily = new System.Windows.Media.FontFamily(fd.Font.Name);
-                ContentViewer.FontSize = fd.Font.Size * 96.0 / 72.0;
-                ContentViewer.FontWeight = fd.Font.Bold ? FontWeights.Bold : FontWeights.Regular;
-                ContentViewer.FontStyle = fd.Font.Italic ? FontStyles.Italic : FontStyles.Normal;
+                ContentViewer.TextArea.FontFamily = new System.Windows.Media.FontFamily(fd.Font.Name);
+                ContentViewer.TextArea.FontSize = fd.Font.Size * 96.0 / 72.0;
+                ContentViewer.TextArea.FontWeight = fd.Font.Bold ? FontWeights.Bold : FontWeights.Regular;
+                ContentViewer.TextArea.FontStyle = fd.Font.Italic ? FontStyles.Italic : FontStyles.Normal;
 
                 TextDecorationCollection tdc = new TextDecorationCollection();
                 if (fd.Font.Underline) tdc.Add(TextDecorations.Underline);
